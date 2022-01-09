@@ -1,13 +1,21 @@
 package com.example.foodies;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
+import androidx.fragment.app.Fragment;
 
-public class HomePage extends AppCompatActivity {
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+public class HomePage extends Fragment {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_home_page, container, false);
+        // Inflate the layout for this fragment
+        return view;
     }
 }

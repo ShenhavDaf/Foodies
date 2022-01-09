@@ -9,27 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodies">
-        <activity
-            android:name=".EditPost"
-            android:exported="false" />
-        <activity
-            android:name=".PostPage"
-            android:exported="false" />
-        <activity
-            android:name=".NewPost"
-            android:exported="false" />
-        <activity
-            android:name=".EditProfile"
-            android:exported="false" />
-        <activity
-            android:name=".Profile"
-            android:exported="false" />
-        <activity
-            android:name=".SignIn"
-            android:exported="false" />
-        <activity
-            android:name=".HomePage"
-            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
