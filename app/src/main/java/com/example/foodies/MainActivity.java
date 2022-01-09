@@ -1,6 +1,10 @@
 package com.example.foodies;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.NavHost;
+import androidx.navigation.ui.NavigationUI;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,36 +13,17 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-//    Button loginBtn;
-//    TextView joinTv;
-//    Intent joinIntent, homePageIntent;
+    NavController navCtl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        joinIntent = new Intent(this, SignIn.class);
-//        homePageIntent = new Intent(this, HomePage.class);
+        NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.main_navhost);
+        navCtl = navHost.getNavController();
 
-//        joinTv = findViewById(R.id.main_joinbtn_tv);
-//        joinTv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) { JoinUs();  }
-//        });
-
-
-//        loginBtn = findViewById(R.id.main_login_btn);
-//        loginBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) { LogIn();  }
-//        });
+        NavigationUI.setupActionBarWithNavController(this,navCtl);
     }
-//    private void JoinUs() {
-//        startActivity(joinIntent);
-//    }
-//
-//    private void LogIn() {
-//        startActivity(homePageIntent);
-//    }
+
 }

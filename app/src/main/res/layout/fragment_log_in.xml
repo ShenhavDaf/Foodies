@@ -20,7 +20,7 @@
         />
 
     <TextView
-        android:id="@+id/main_email_tv"
+        android:id="@+id/login_email_tv"
         style="@style/TextAppearance.AppCompat.Headline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,12 +30,12 @@
         android:text="Email:"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/main_email_et"
+        app:layout_constraintEnd_toStartOf="@+id/login_email_et"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <EditText
-        android:id="@+id/main_email_et"
+        android:id="@+id/login_email_et"
         style="@style/TextAppearance.AppCompat.Headline"
         android:layout_width="237dp"
         android:layout_height="45dp"
@@ -45,13 +45,13 @@
         android:inputType="textEmailAddress"
         android:singleLine="false"
         android:textStyle="normal"
-        app:layout_constraintBaseline_toBaselineOf="@+id/main_email_tv"
+        app:layout_constraintBaseline_toBaselineOf="@+id/login_email_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/main_email_tv" />
+        app:layout_constraintStart_toEndOf="@+id/login_email_tv" />
 
     <EditText
-        android:id="@+id/main_password_et"
+        android:id="@+id/login_password_et"
         style="@style/TextAppearance.AppCompat.Headline"
         android:layout_width="237dp"
         android:layout_height="43dp"
@@ -60,13 +60,13 @@
         android:ems="10"
         android:inputType="textPassword"
         android:textStyle="normal"
-        app:layout_constraintBaseline_toBaselineOf="@+id/main_password_tv"
+        app:layout_constraintBaseline_toBaselineOf="@+id/login_password_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/main_password_tv" />
+        app:layout_constraintStart_toEndOf="@+id/login_password_tv" />
 
     <TextView
-        android:id="@+id/main_password_tv"
+        android:id="@+id/login_password_tv"
         style="@style/TextAppearance.AppCompat.Headline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -76,9 +76,9 @@
         android:text="Password:"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/main_password_et"
+        app:layout_constraintEnd_toStartOf="@+id/login_password_et"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_email_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/login_email_tv" />
 
 
     <Button
@@ -96,7 +96,7 @@
         app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_password_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/login_password_tv" />
 
     <ImageView
         android:id="@+id/imageView4"

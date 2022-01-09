@@ -8,13 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class PostPage extends Fragment {
+public class EditProfileFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_post_page, container, false);
+        View view =  inflater.inflate(R.layout.fragment_edit_profile, container, false);
         // Inflate the layout for this fragment
         return view;
     }
