@@ -82,13 +82,13 @@ public class HomePageFragment extends Fragment {
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView nameTv;
         TextView idTv;
-        CheckBox cb;
+//        CheckBox cb;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             nameTv = itemView.findViewById(R.id.listrow_name_tv);
             idTv = itemView.findViewById(R.id.listrow_id_tv);
-            cb = itemView.findViewById(R.id.listrow_cb);
+//            cb = itemView.findViewById(R.id.listrow_cb);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -120,19 +120,14 @@ public class HomePageFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 //            Student student = viewModel.getData().getValue().get(position);
-//            Student student = new Student("lilach", "999", true);
             Student student = data.get(position);
             holder.nameTv.setText(student.getName());
             holder.idTv.setText(student.getId());
-            holder.cb.setChecked(student.isFlag());
+//            holder.cb.setChecked(student.isFlag());
         }
 
         @Override
         public int getItemCount() {
-//            if(viewModel.getData().getValue() == null){
-//                return 0;
-//            }
-//            return viewModel.getData().getValue().size();
              return data.size();
         }
     }
