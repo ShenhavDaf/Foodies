@@ -15,7 +15,8 @@ public class NewPostFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_new_post, container, false);
-        // Inflate the layout for this fragment
+        System.out.println("new post");
         return view;
+
     }
 }
