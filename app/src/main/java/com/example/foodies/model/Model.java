@@ -8,26 +8,26 @@ public class Model {
 
     private Model(){
         for(int i=0;i<100;i++){
-            Student s = new Student("name",""+i,false);
+            Post s = new Post(""+i, "dishName","restaurant", "address", "category", "description", "review", null, 5);
             data.add(s);
         }
     }
 
-    List<Student> data = new LinkedList<Student>();
+    List<Post> data = new LinkedList<Post>();
 
-    public List<Student> getAllStudents(){
+    public List<Post> getAllPosts(){
         return data;
     }
 
-    public void addStudent(Student student){
-        data.add(student);
+    public void addPost(Post post){
+        data.add(post);
     }
 
-    public Student getStudentById(String studentId) {
-        for (Student s:data
+    public Post getPostById(String postId) {
+        for (Post p:data
         ) {
-            if (s.getId().equals(studentId)){
-                return s;
+            if (p.getId().equals(postId)){
+                return p;
             }
         }
         return null;

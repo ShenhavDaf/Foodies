@@ -8,19 +8,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.foodies.model.Model;
-import com.example.foodies.model.Student;
+import com.example.foodies.model.Post;
 
 import java.util.List;
 
@@ -37,13 +36,13 @@ public class HomePageFragment extends Fragment {
 //        viewModel = new ViewModelProvider(this).get(StudentListRvViewModel.class);
 //    }
 
-    List<Student> data;
+    List<Post> data;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
-        data = Model.instance.getAllStudents();
+        data = Model.instance.getAllPosts();
 
 //        swipeRefresh = view.findViewById(R.id.studentlist_swiperefresh);
 //        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshStudentList());
@@ -117,6 +116,8 @@ public class HomePageFragment extends Fragment {
         TextView nameTv;
         TextView idTv;
         RatingBar rate;
+        ImageView image;
+
 //        CheckBox cb;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
@@ -124,6 +125,7 @@ public class HomePageFragment extends Fragment {
             nameTv = itemView.findViewById(R.id.listrow_name_tv);
             idTv = itemView.findViewById(R.id.listrow_id_tv);
             rate = itemView.findViewById(R.id.ratingBar);
+            image = itemView.findViewById(R.id.listrow_post_img);
 //            cb = itemView.findViewById(R.id.listrow_cb);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -157,10 +159,11 @@ public class HomePageFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 //            Student student = viewModel.getData().getValue().get(position);
-            Student student = data.get(position);
-            holder.nameTv.setText(student.getName());
-            holder.idTv.setText(student.getId());
-            holder.rate.setRating(3);
+            Post post = data.get(position);
+            holder.nameTv.setText(post.getDishName());
+            holder.idTv.setText(post.getId());
+            holder.rate.setRating(post.getRate());
+//            holder.image.set
 //            holder.cb.setChecked(student.isFlag());
         }
 

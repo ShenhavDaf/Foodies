@@ -59,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/listrow_name_tv" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/listrow_post_img"
         android:layout_width="150dp"
         android:layout_height="115dp"
         android:layout_marginTop="10dp"
@@ -82,6 +82,6 @@
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView" />
+        app:layout_constraintStart_toEndOf="@+id/listrow_post_img" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
