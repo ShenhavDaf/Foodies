@@ -8,7 +8,14 @@
         android:id="@+id/homePage"
         android:name="com.example.foodies.HomePageFragment"
         android:label="Home Page"
-        tools:layout="@layout/fragment_home_page" />
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/action_homePage_to_newPostFragment"
+            app:destination="@id/newPostFragment" />
+        <action
+            android:id="@+id/action_homePage_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/logInFragment"
         android:name="com.example.foodies.LogInFragment"
@@ -26,4 +33,14 @@
         android:name="com.example.foodies.SignInFragment"
         android:label="Sign Up"
         tools:layout="@layout/fragment_sign_in" />
+    <fragment
+        android:id="@+id/newPostFragment"
+        android:name="com.example.foodies.NewPostFragment"
+        android:label="fragment_new_post"
+        tools:layout="@layout/fragment_new_post" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.foodies.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

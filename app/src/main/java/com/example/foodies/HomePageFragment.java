@@ -3,16 +3,19 @@ package com.example.foodies;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -26,6 +29,7 @@ public class HomePageFragment extends Fragment {
 //    StudentListRvViewModel viewModel;
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
+
 
 //    @Override
 //    public void onAttach(@NonNull Context context) {
@@ -62,6 +66,29 @@ public class HomePageFragment extends Fragment {
             }
         });
 
+        // buttons of the footer:
+
+        View footer = view.findViewById(R.id.home_footer);
+        ImageButton addPost = footer.findViewById(R.id.footer_add_post);
+        ImageButton homePage = footer.findViewById(R.id.footer_home_page);
+        ImageButton profile = footer.findViewById(R.id.footer_profile);
+
+        addPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("TAG", "add btn was clicked........");
+                Navigation.findNavController(view).navigate(R.id.action_homePage_to_newPostFragment);
+            }
+        });
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("TAG","profile btn was clicked");
+                Navigation.findNavController(view).navigate(R.id.action_homePage_to_profileFragment);
+            }
+        });
+
 //        setHasOptionsMenu(true);
 //        viewModel.getData().observe(getViewLifecycleOwner(), list1 -> refresh());
 //        swipeRefresh.setRefreshing(Model.instance.getStudentListLoadingState().getValue() == Model.StudentListLoadingState.loading);
@@ -77,6 +104,9 @@ public class HomePageFragment extends Fragment {
         return view;
 
     }
+
+
+
 
 //    private void refresh() {
 //        adapter.notifyDataSetChanged();
