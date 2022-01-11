@@ -7,11 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.foodies.model.Model;
@@ -71,7 +73,9 @@ public class HomePageFragment extends Fragment {
 //            }
 
 //        });
+
         return view;
+
     }
 
 //    private void refresh() {
@@ -82,13 +86,16 @@ public class HomePageFragment extends Fragment {
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView nameTv;
         TextView idTv;
+        RatingBar rate;
 //        CheckBox cb;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             nameTv = itemView.findViewById(R.id.listrow_name_tv);
             idTv = itemView.findViewById(R.id.listrow_id_tv);
+            rate = itemView.findViewById(R.id.ratingBar);
 //            cb = itemView.findViewById(R.id.listrow_cb);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -123,6 +130,7 @@ public class HomePageFragment extends Fragment {
             Student student = data.get(position);
             holder.nameTv.setText(student.getName());
             holder.idTv.setText(student.getId());
+            holder.rate.setRating(3);
 //            holder.cb.setChecked(student.isFlag());
         }
 
