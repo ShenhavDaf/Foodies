@@ -1,12 +1,20 @@
 package com.example.foodies.model;
 
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.HashMap;
+import java.util.Map;
+
+@Entity
 public class Post {
+
+    final public static String COLLECTION_NAME = "posts";
 
     @NonNull
     @PrimaryKey
@@ -14,27 +22,29 @@ public class Post {
 
     String dishName = "";
     String restaurant = "";
-    String address =  "";
+    String address = "";
     String category = "";
     String description = "";
     String review = "";
-    ImageView image;
-    Integer rate = 0;
+    String image = ""; // TODO...
+    String rate = "0";
+    String userId = "";
 
 
+    public Post() {
+    }
 
-
-    public Post(){}
-    public Post( String id, String dishName, String restaurant, String address, String category, String description, String review, ImageView image, Integer rate) {
+    public Post(String id, String dishName, String restaurant, String address, String category, String description, String review, String image, String rate, String userId) {
         this.id = id;
         this.dishName = dishName;
         this.restaurant = restaurant;
-        this.address =  address;
+        this.address = address;
         this.category = category;
         this.description = description;
         this.review = review;
         this.image = image;
         this.rate = rate;
+        this.userId = userId;
     }
 
     public String getDishName() {
@@ -85,19 +95,19 @@ public class Post {
         this.review = review;
     }
 
-    public ImageView getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(ImageView image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
-    public Integer getRate() {
+    public String getRate() {
         return rate;
     }
 
-    public void setRate(Integer rate) {
+    public void setRate(String rate) {
         this.rate = rate;
     }
 
@@ -109,4 +119,40 @@ public class Post {
     public void setId(@NonNull String id) {
         this.id = id;
     }
+
+
+    public static Post create(Map<String, Object> json) {
+        String id = (String) json.get("id");
+        String dishName = (String) json.get("dishName");
+        String restaurant = (String) json.get("restaurant");
+        String address = (String) json.get("address");
+        String category = (String) json.get("category");
+        String description = (String) json.get("description");
+        String review = (String) json.get("review");
+        System.out.println("the rate is: " + json.get("rate"));
+        String image = (String) json.get("image");
+        String rate = (String) json.get("rate");
+        String userId = (String) json.get("userId");
+
+
+        Post post = new Post(id, dishName, restaurant, address, category, description, review, image, rate, userId);
+        return post;
+    }
+
+    public Map<String, Object> toJson() {
+        Map<String, Object> json = new HashMap<String, Object>();
+        json.put("id",id);
+        json.put("dishName",dishName);
+        json.put("restaurant",restaurant);
+        json.put("category",category);
+        json.put("description",description);
+        json.put("review",review);
+        json.put("image",image);
+        json.put("rate",rate);
+        json.put("userId",userId);
+
+        return json;
+    }
+
+
 }

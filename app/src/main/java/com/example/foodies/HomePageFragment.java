@@ -26,8 +26,10 @@ import java.util.List;
 public class HomePageFragment extends Fragment {
 
 //    StudentListRvViewModel viewModel;
+    List<Post> data;
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
+
 
 
 //    @Override
@@ -36,16 +38,16 @@ public class HomePageFragment extends Fragment {
 //        viewModel = new ViewModelProvider(this).get(StudentListRvViewModel.class);
 //    }
 
-    List<Post> data;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
-        data = Model.instance.getAllPosts();
+//        data = Model.instance.getAllPosts();
 
-//        swipeRefresh = view.findViewById(R.id.studentlist_swiperefresh);
-//        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshStudentList());
+        swipeRefresh = view.findViewById(R.id.postlist_swiperefresh);
+        swipeRefresh.setOnRefreshListener(() -> refresh());
 
         RecyclerView list = view.findViewById(R.id.postlist_rv);
         list.setHasFixedSize(true);
@@ -100,23 +102,26 @@ public class HomePageFragment extends Fragment {
 
 //        });
 
+        refresh();
         return view;
 
     }
 
+    private void refresh() {
+        swipeRefresh.setRefreshing(true);
+        Model.instance.getAllPosts((list)->{
+            data = list;
+            adapter.notifyDataSetChanged();
+            swipeRefresh.setRefreshing(false);
+        });
+    }
 
-
-
-//    private void refresh() {
-//        adapter.notifyDataSetChanged();
-//        swipeRefresh.setRefreshing(false);
-//    }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView nameTv;
         TextView idTv;
         RatingBar rate;
-        ImageView image;
+//        ImageView image;
 
 //        CheckBox cb;
 
@@ -125,7 +130,7 @@ public class HomePageFragment extends Fragment {
             nameTv = itemView.findViewById(R.id.listrow_name_tv);
             idTv = itemView.findViewById(R.id.listrow_id_tv);
             rate = itemView.findViewById(R.id.ratingBar);
-            image = itemView.findViewById(R.id.listrow_post_img);
+//            image = itemView.findViewById(R.id.listrow_post_img);
 //            cb = itemView.findViewById(R.id.listrow_cb);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -162,14 +167,17 @@ public class HomePageFragment extends Fragment {
             Post post = data.get(position);
             holder.nameTv.setText(post.getDishName());
             holder.idTv.setText(post.getId());
-            holder.rate.setRating(post.getRate());
+            holder.rate.setRating(Integer.parseInt(post.getRate()));// TODO
 //            holder.image.set
 //            holder.cb.setChecked(student.isFlag());
         }
 
         @Override
         public int getItemCount() {
-             return data.size();
+            if(data == null){
+                return 0;
+            }
+            return data.size();
         }
     }
 
