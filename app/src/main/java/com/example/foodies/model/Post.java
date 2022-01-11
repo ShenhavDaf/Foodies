@@ -34,7 +34,8 @@ public class Post {
     public Post() {
     }
 
-    public Post(String id, String dishName, String restaurant, String address, String category, String description, String review, String image, String rate, String userId) {
+    public Post(String id, String dishName, String restaurant, String address, String category, String description,
+                String review, String image, String rate, String userId) {
         this.id = id;
         this.dishName = dishName;
         this.restaurant = restaurant;

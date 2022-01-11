@@ -36,6 +36,8 @@ public class Model {
 //        return null;
 //    }
 
+    /* ----------------------------------------------------- */
+
     public interface GetAllPostsListener {
         void onComplete(List<Post> list);
     }
@@ -44,6 +46,8 @@ public class Model {
         modelFirebase.getAllPosts(listener);
     }
 
+    /* ----------------------------------------------------- */
+
     public interface AddPostListener {
         void onComplete();
     }
@@ -51,6 +55,8 @@ public class Model {
     public void addPost(Post post, AddPostListener listener){
         modelFirebase.addPost( post,  listener);
     }
+
+    /* ----------------------------------------------------- */
 
     public interface GetPostById {
         void onComplete(Post post);

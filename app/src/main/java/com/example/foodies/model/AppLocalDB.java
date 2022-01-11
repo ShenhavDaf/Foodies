@@ -13,7 +13,6 @@ abstract class AppLocalDbRepository extends RoomDatabase {
 }
 
 public class AppLocalDB {
-
     static public AppLocalDbRepository db =
             Room.databaseBuilder(MyApplication.getContext(),
                     AppLocalDbRepository.class,

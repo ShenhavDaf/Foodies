@@ -37,6 +37,7 @@ public class ModelFirebase {
 
     public void addPost(Post post, Model.AddPostListener listener) {
         Map<String, Object> json = post.toJson();
+
         db.collection(Post.COLLECTION_NAME)
                 .document(post.getId())
                 .set(json)
