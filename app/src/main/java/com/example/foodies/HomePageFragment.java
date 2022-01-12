@@ -63,6 +63,9 @@ public class HomePageFragment extends Fragment {
 //                String stId = viewModel.getData().getValue().get(position).getId();
 //                Navigation.findNavController(v).navigate(StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetailsFragment(stId));
 
+                Navigation.findNavController(view).navigate(R.id.action_homePage_to_postPageFragment);
+
+
                 System.out.println("to the post page");
             }
         });
