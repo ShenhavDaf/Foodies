@@ -10,12 +10,6 @@
         android:label="Home Page"
         tools:layout="@layout/fragment_home_page" >
         <action
-            android:id="@+id/action_homePage_to_newPostFragment"
-            app:destination="@id/newPostFragment" />
-        <action
-            android:id="@+id/action_homePage_to_profileFragment"
-            app:destination="@id/profileFragment" />
-        <action
             android:id="@+id/action_homePage_to_postPageFragment"
             app:destination="@id/postPageFragment" />
     </fragment>
@@ -24,9 +18,6 @@
         android:name="com.example.foodies.LogInFragment"
         android:label="Log In"
         tools:layout="@layout/fragment_log_in">
-        <action
-            android:id="@+id/action_logInFragment_to_homePage"
-            app:destination="@id/homePage" />
         <action
             android:id="@+id/action_logInFragment_to_signIn"
             app:destination="@id/signIn" />
@@ -63,14 +54,13 @@
         android:id="@+id/postPageFragment"
         android:name="com.example.foodies.PostPageFragment"
         android:label="Post Page"
-        tools:layout="@layout/fragment_post_page">
-        <action
-            android:id="@+id/action_postPageFragment_to_editPostFragment"
-            app:destination="@id/editPostFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_post_page"/>
     <fragment
         android:id="@+id/editPostFragment"
         android:name="com.example.foodies.EditPostFragment"
         android:label="Edit Post"
         tools:layout="@layout/fragment_edit_post" />
+    <action android:id="@+id/action_global_editPostFragment" app:destination="@id/editPostFragment" />
+    <action android:id="@+id/action_global_homePage" app:destination="@id/homePage" />
+    <action android:id="@+id/action_global_newPostFragment" app:destination="@id/newPostFragment" /><action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment"/>
 </navigation>

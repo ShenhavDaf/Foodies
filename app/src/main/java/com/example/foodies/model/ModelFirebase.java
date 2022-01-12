@@ -79,5 +79,27 @@ public class ModelFirebase {
                 });
     }
 
+
+    public void getNextPostId(Model.GetNextPostIdListener listener) {
+        db.collection(Post.COLLECTION_NAME)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        String lastId = "";
+                        if(task.isSuccessful()){
+                            int size = task.getResult().getDocuments().size() - 1;
+                            lastId = task.getResult().getDocuments().get(size).getId();
+                            int i = Integer.parseInt(lastId);
+                            i++;
+                            StringBuilder builder = new StringBuilder();
+                            builder.append(i);
+                            lastId = builder.toString();
+                        }
+                        listener.onComplete(lastId);
+                    }
+                });
+    }
+
 }
 

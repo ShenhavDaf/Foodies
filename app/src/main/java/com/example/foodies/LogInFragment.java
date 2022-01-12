@@ -59,7 +59,7 @@ public class LogInFragment extends Fragment {
 
         if (email.getText().toString().equals("admin") || email.getText().toString().equals("Admin")) {
             if (password.getText().toString().equals("123")){
-                Navigation.findNavController(view).navigate(R.id.action_logInFragment_to_homePage);
+                Navigation.findNavController(view).navigate(R.id.action_global_homePage);
             }
         }
     }

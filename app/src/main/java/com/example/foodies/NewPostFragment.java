@@ -26,6 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class NewPostFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
+    List<Post> data;
     EditText dishName, restaurent, address, description, review;
     Spinner categoty, rate;
     Button postBtn;
@@ -99,19 +100,19 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         String rateing = "3";
 
 
-        String postID = "0";
 
-        Model.instance.getListSize(listSize -> {
-            System.out.println("listSize = " + listSize);
-//            postID = listSize;
+
+        Model.instance.getNextPostId(nextId -> {
+            Post newPost = new Post(nextId + "", name, res, addr, categor, desc, rev, img, rateing, userID);
+            Model.instance.addPost(newPost, () -> {
+                Navigation.findNavController(dishName).navigateUp();
+            });
         });
 
 
-        Post newPost = new Post(postID + "", name, res, addr, categor, desc, rev, img, rateing, userID);
 
-        Model.instance.addPost(newPost, () -> {
-            Navigation.findNavController(dishName).navigateUp();
-        });
+
+
 
     }
 

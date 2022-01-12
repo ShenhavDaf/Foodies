@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -25,26 +24,14 @@ import java.util.List;
 
 public class HomePageFragment extends Fragment {
 
-//    StudentListRvViewModel viewModel;
     List<Post> data;
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
-
-
-
-//    @Override
-//    public void onAttach(@NonNull Context context) {
-//        super.onAttach(context);
-//        viewModel = new ViewModelProvider(this).get(StudentListRvViewModel.class);
-//    }
-
-
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
-//        data = Model.instance.getAllPosts();
 
         swipeRefresh = view.findViewById(R.id.postlist_swiperefresh);
         swipeRefresh.setOnRefreshListener(() -> refresh());
@@ -70,18 +57,20 @@ public class HomePageFragment extends Fragment {
             }
         });
 
+
         // buttons of the footer:
 
         View footer = view.findViewById(R.id.home_footer);
-        ImageButton addPost = footer.findViewById(R.id.footer_add_post);
-        ImageButton homePage = footer.findViewById(R.id.footer_home_page);
-        ImageButton profile = footer.findViewById(R.id.footer_profile);
+
+        ImageButton addPost = footer.findViewById(R.id.NewPostFragment);
+        ImageButton homePage = footer.findViewById(R.id.HomePageFragment);
+        ImageButton profile = footer.findViewById(R.id.ProfileFragment);
 
         addPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("TAG", "add btn was clicked........");
-                Navigation.findNavController(view).navigate(R.id.action_homePage_to_newPostFragment);
+                Navigation.findNavController(view).navigate(R.id.action_global_newPostFragment);
             }
         });
 
@@ -89,9 +78,19 @@ public class HomePageFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("TAG","profile btn was clicked");
-                Navigation.findNavController(view).navigate(R.id.action_homePage_to_profileFragment);
+                Navigation.findNavController(view).navigate(R.id.action_global_profileFragment);
             }
         });
+
+        homePage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("TAG","homepage btn was clicked");
+                Navigation.findNavController(view).navigate(R.id.action_global_homePage);
+            }
+        });
+
+
 
 //        setHasOptionsMenu(true);
 //        viewModel.getData().observe(getViewLifecycleOwner(), list1 -> refresh());

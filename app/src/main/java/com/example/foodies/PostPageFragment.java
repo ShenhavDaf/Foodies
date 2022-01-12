@@ -40,7 +40,7 @@ public class PostPageFragment extends Fragment {
     private void editPost(View view){
 
         System.out.println("edit post button eas clicked");
-        Navigation.findNavController(view).navigate(R.id.action_postPageFragment_to_editPostFragment);
+        Navigation.findNavController(view).navigate(R.id.action_global_editPostFragment);
 
     }
 }

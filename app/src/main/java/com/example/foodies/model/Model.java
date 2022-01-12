@@ -77,4 +77,13 @@ public class Model {
         modelFirebase.getListSize(listener);
     }
 
+
+    public interface GetNextPostIdListener {
+        void onComplete(String lastId);
+    }
+
+    public void getNextPostId(GetNextPostIdListener listener) {
+        modelFirebase.getNextPostId(listener);
+    }
+
 }
