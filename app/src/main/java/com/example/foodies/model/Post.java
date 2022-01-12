@@ -130,7 +130,6 @@ public class Post {
         String category = (String) json.get("category");
         String description = (String) json.get("description");
         String review = (String) json.get("review");
-        System.out.println("the rate is: " + json.get("rate"));
         String image = (String) json.get("image");
         String rate = (String) json.get("rate");
         String userId = (String) json.get("userId");

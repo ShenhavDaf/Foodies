@@ -1,24 +1,33 @@
 package com.example.foodies;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Post;
 
-public class NewPostFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
+public class NewPostFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     EditText dishName, restaurent, address, description, review;
-    //TODO: categoty, rate
+    Spinner categoty, rate;
     Button postBtn;
     ImageView image;
 
@@ -31,8 +40,36 @@ public class NewPostFragment extends Fragment {
         dishName = view.findViewById(R.id.newpost_dishname_et);
         restaurent = view.findViewById(R.id.newpost_restaurant_et);
         address = view.findViewById(R.id.newpost_address_et);
+        categoty = view.findViewById(R.id.newpost_category_spinner);
+
+        ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter
+                //  היה כתוב רק this
+                .createFromResource(this.getContext(),R.array.postCategories,
+                        android.R.layout.simple_spinner_item);
+
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categoty.setAdapter(categoryAdapter);
+
+
+//        rate.setOnItemClickListener(this);
+
         description = view.findViewById(R.id.newpost_desc_et);
         review = view.findViewById(R.id.newpost_review_et);
+        image = view.findViewById(R.id.newpost_img);
+        rate = view.findViewById(R.id.newpost_rate_spinner);
+
+        ArrayAdapter<CharSequence> rateAdapter = ArrayAdapter
+                                  //  היה כתוב רק this
+                .createFromResource(this.getContext(),R.array.postRating,
+                        android.R.layout.simple_spinner_item);
+
+        rateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        rate.setAdapter(rateAdapter);
+
+
+//        rate.setOnItemClickListener(this);
+
+
 
         postBtn = view.findViewById(R.id.newpost_post_btn);
         postBtn.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +98,16 @@ public class NewPostFragment extends Fragment {
         String img = "myImg";
         String rateing = "3";
 
-        Post newPost = new Post("3", name, res, addr, categor, desc, rev, img, rateing, userID);
+
+        String postID = "0";
+
+        Model.instance.getListSize(listSize -> {
+            System.out.println("listSize = " + listSize);
+//            postID = listSize;
+        });
+
+
+        Post newPost = new Post(postID + "", name, res, addr, categor, desc, rev, img, rateing, userID);
 
         Model.instance.addPost(newPost, () -> {
             Navigation.findNavController(dishName).navigateUp();
@@ -70,4 +116,16 @@ public class NewPostFragment extends Fragment {
     }
 
 
+
+    // מתודות של הספינר
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String rate = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(), rate, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

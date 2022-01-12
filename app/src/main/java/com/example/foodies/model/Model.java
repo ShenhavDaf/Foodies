@@ -58,12 +58,23 @@ public class Model {
 
     /* ----------------------------------------------------- */
 
-    public interface GetPostById {
+    public interface GetPostByIdListener {
         void onComplete(Post post);
     }
 
-    public Post getPostById(String postId, GetPostById listener) {
+    public Post getPostById(String postId, GetPostByIdListener listener) {
         modelFirebase.getPostById(postId,listener);
         return null;
     }
+
+    /* ----------------------------------------------------- */
+
+    public interface GetListSizeListener {
+        void onComplete(int size);
+    }
+
+    public void getListSize(GetListSizeListener listener) {
+        modelFirebase.getListSize(listener);
+    }
+
 }
