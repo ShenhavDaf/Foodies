@@ -48,6 +48,16 @@ public class Post {
         this.userId = userId;
     }
 
+    @NonNull
+    public String getId() {
+        return id;
+    }
+
+    public void setId(@NonNull String id) {
+        this.id = id;
+    }
+
+
     public String getDishName() {
         return dishName;
     }
@@ -112,13 +122,8 @@ public class Post {
         this.rate = rate;
     }
 
-    @NonNull
-    public String getId() {
-        return id;
-    }
-
-    public void setId(@NonNull String id) {
-        this.id = id;
+    public String getUserId() {
+        return userId;
     }
 
 
@@ -141,15 +146,15 @@ public class Post {
 
     public Map<String, Object> toJson() {
         Map<String, Object> json = new HashMap<String, Object>();
-        json.put("id",id);
-        json.put("dishName",dishName);
-        json.put("restaurant",restaurant);
-        json.put("category",category);
-        json.put("description",description);
-        json.put("review",review);
-        json.put("image",image);
-        json.put("rate",rate);
-        json.put("userId",userId);
+        json.put("id", id);
+        json.put("dishName", dishName);
+        json.put("restaurant", restaurant);
+        json.put("category", category);
+        json.put("description", description);
+        json.put("review", review);
+        json.put("image", image);
+        json.put("rate", rate);
+        json.put("userId", userId);
 
         return json;
     }

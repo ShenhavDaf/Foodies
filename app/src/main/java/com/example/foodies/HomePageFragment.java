@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -27,6 +28,8 @@ public class HomePageFragment extends Fragment {
     List<Post> data;
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
+
+    ImageButton profile, homePage, addPost;
 
     @Nullable
     @Override
@@ -46,14 +49,9 @@ public class HomePageFragment extends Fragment {
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(View v,int position) {
-//                String stId = viewModel.getData().getValue().get(position).getId();
-//                Navigation.findNavController(v).navigate(StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetailsFragment(stId));
-
-                Navigation.findNavController(view).navigate(R.id.action_homePage_to_postPageFragment);
-
-
-                System.out.println("to the post page");
+            public void onItemClick(View v, int position) {
+                String postId = data.get(position).getId();
+                Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageToPostPageFragment(postId));
             }
         });
 
@@ -62,9 +60,9 @@ public class HomePageFragment extends Fragment {
 
         View footer = view.findViewById(R.id.home_footer);
 
-        ImageButton addPost = footer.findViewById(R.id.NewPostFragment);
-        ImageButton homePage = footer.findViewById(R.id.HomePageFragment);
-        ImageButton profile = footer.findViewById(R.id.ProfileFragment);
+        addPost = footer.findViewById(R.id.NewPostFragment);
+        homePage = footer.findViewById(R.id.HomePageFragment);
+        profile = footer.findViewById(R.id.ProfileFragment);
 
         addPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +75,7 @@ public class HomePageFragment extends Fragment {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("TAG","profile btn was clicked");
+                Log.d("TAG", "profile btn was clicked");
                 Navigation.findNavController(view).navigate(R.id.action_global_profileFragment);
             }
         });
@@ -85,11 +83,10 @@ public class HomePageFragment extends Fragment {
         homePage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("TAG","homepage btn was clicked");
+                Log.d("TAG", "homepage btn was clicked");
                 Navigation.findNavController(view).navigate(R.id.action_global_homePage);
             }
         });
-
 
 
 //        setHasOptionsMenu(true);
@@ -111,7 +108,7 @@ public class HomePageFragment extends Fragment {
 
     private void refresh() {
         swipeRefresh.setRefreshing(true);
-        Model.instance.getAllPosts((list)->{
+        Model.instance.getAllPosts((list) -> {
             data = list;
             adapter.notifyDataSetChanged();
             swipeRefresh.setRefreshing(false);
@@ -119,47 +116,48 @@ public class HomePageFragment extends Fragment {
     }
 
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView nameTv;
-        TextView idTv;
-        RatingBar rate;
-//        ImageView image;
-
-//        CheckBox cb;
+    class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView userName, description, rateNum;
+        RatingBar rateStar;
+        ImageView userImage, dishImage;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
-            nameTv = itemView.findViewById(R.id.listrow_name_tv);
-            idTv = itemView.findViewById(R.id.listrow_id_tv);
-            rate = itemView.findViewById(R.id.ratingBar);
-//            image = itemView.findViewById(R.id.listrow_post_img);
-//            cb = itemView.findViewById(R.id.listrow_cb);
+
+            userImage = itemView.findViewById(R.id.listrow_avatar_imv);
+            userName = itemView.findViewById(R.id.listrow_username_tv);
+            description = itemView.findViewById(R.id.listrow_description_tv);
+            dishImage = itemView.findViewById(R.id.listrow_post_img);
+            rateNum =  itemView.findViewById(R.id.listrow_rate_tv);
+            rateStar = itemView.findViewById(R.id.listrow_ratingBar);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
-                    listener.onItemClick(v,pos);
+                    listener.onItemClick(v, pos);
                 }
             });
         }
     }
 
-    interface OnItemClickListener{
-        void onItemClick(View v,int position);
+    interface OnItemClickListener {
+        void onItemClick(View v, int position);
     }
-    class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
+
+    class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         OnItemClickListener listener;
-        public void setOnItemClickListener(OnItemClickListener listener){
+
+        public void setOnItemClickListener(OnItemClickListener listener) {
             this.listener = listener;
         }
 
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.post_list_row,parent,false);
-            MyViewHolder holder = new MyViewHolder(view,listener);
+            View view = getLayoutInflater().inflate(R.layout.post_list_row, parent, false);
+            MyViewHolder holder = new MyViewHolder(view, listener);
             return holder;
         }
 
@@ -167,16 +165,25 @@ public class HomePageFragment extends Fragment {
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 //            Student student = viewModel.getData().getValue().get(position);
             Post post = data.get(position);
-            holder.nameTv.setText(post.getDishName());
-            holder.idTv.setText(post.getId());
-            holder.rate.setRating(Integer.parseInt(post.getRate()));// TODO
-//            holder.image.set
-//            holder.cb.setChecked(student.isFlag());
+
+            //TODO: after authentication find user name & img
+//            holder.userImage.setImageDrawable(post.getUserId().getImage);
+//            holder.userName.setText(post.getUserId());
+
+            //TODO: choose if description textview will be dish name or post description
+            holder.description.setText(post.getDishName());
+
+            //TODO: set at "Post" img to ImageView - now its String
+//            holder.dishImage.setImageDrawable(post.getImage());
+
+            holder.rateNum.setText(post.getRate());
+            holder.rateStar.setRating(Integer.parseInt(post.getRate()));
+
         }
 
         @Override
         public int getItemCount() {
-            if(data == null){
+            if (data == null) {
                 return 0;
             }
             return data.size();

@@ -24,13 +24,9 @@
     </fragment>
     <fragment
         android:id="@+id/signIn"
-        android:name="com.example.foodies.SignInFragment"
+        android:name="com.example.foodies.SignUpFragment"
         android:label="Sign Up"
-        tools:layout="@layout/fragment_sign_in" >
-        <action
-            android:id="@+id/action_signIn_to_homePage"
-            app:destination="@id/homePage" />
-    </fragment>
+        tools:layout="@layout/fragment_sign_up" />
     <fragment
         android:id="@+id/newPostFragment"
         android:name="com.example.foodies.NewPostFragment"
@@ -44,6 +40,9 @@
         <action
             android:id="@+id/action_profileFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_editPostFragment"
+            app:destination="@id/editPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
@@ -54,7 +53,11 @@
         android:id="@+id/postPageFragment"
         android:name="com.example.foodies.PostPageFragment"
         android:label="Post Page"
-        tools:layout="@layout/fragment_post_page"/>
+        tools:layout="@layout/fragment_post_page">
+        <argument
+            android:name="postId"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/editPostFragment"
         android:name="com.example.foodies.EditPostFragment"

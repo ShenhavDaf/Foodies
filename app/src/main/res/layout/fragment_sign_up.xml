@@ -4,7 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignInFragment">
+    tools:context=".SignUpFragment">
+
+    <EditText
+        android:id="@+id/signin_password_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintBaseline_toBaselineOf="@+id/signin_password_tv"
+        app:layout_constraintStart_toEndOf="@+id/signin_password_tv" />
+
+    <TextView
+        android:id="@+id/signin_verify_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="52dp"
+        android:text="Verify:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signin_password_tv" />
 
     <TextView
         android:id="@+id/signin_name_tv"
@@ -51,20 +71,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="23dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="52dp"
         android:text="Password:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signin_email_tv" />
-
-    <TextView
-        android:id="@+id/signin_image_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="56dp"
-        android:text="Image:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_password_tv" />
 
     <TextView
         android:id="@+id/signin_title_tv"
@@ -111,40 +121,64 @@
         android:id="@+id/signin_email_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="92dp"
         android:ems="10"
         android:inputType="textEmailAddress"
         app:layout_constraintBaseline_toBaselineOf="@+id/signin_email_tv"
         app:layout_constraintStart_toEndOf="@+id/signin_email_tv" />
 
     <EditText
-        android:id="@+id/signin_password_et"
+        android:id="@+id/signin_verify_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
+        android:layout_marginStart="92dp"
         android:ems="10"
         android:inputType="textPassword"
-        app:layout_constraintBaseline_toBaselineOf="@+id/signin_password_tv"
-        app:layout_constraintStart_toEndOf="@+id/signin_password_tv" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/signin_verify_tv"
+        app:layout_constraintStart_toEndOf="@+id/signin_verify_tv" />
 
     <Button
         android:id="@+id/signin_join_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
         android:layout_marginEnd="28dp"
         android:text="Join"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_image_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/signin_image_img" />
+
+    <TextView
+        android:id="@+id/signin_image_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="52dp"
+        android:text="Image:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signin_verify_tv" />
+
+
+<!--    <ImageView-->
+<!--        android:id="@+id/signin_image_img"-->
+<!--        android:layout_width="120dp"-->
+<!--        android:layout_height="89dp"-->
+<!--        android:layout_marginStart="84dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/signin_image_tv"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/signin_verify_et"-->
+<!--        tools:srcCompat="@drawable/avatar" />-->
+
 
     <ImageView
         android:id="@+id/signin_image_img"
         android:layout_width="120dp"
         android:layout_height="89dp"
+        android:src="@drawable/avatar"
         android:layout_marginStart="84dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/signin_image_tv"
-        app:layout_constraintTop_toBottomOf="@+id/signin_password_et"
-        tools:srcCompat="@drawable/avatar" />
+        app:layout_constraintTop_toBottomOf="@+id/signin_verify_et"
+        app:layout_constraintVertical_bias="0.168"
+        tools:layout_editor_absoluteX="60dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

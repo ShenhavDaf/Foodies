@@ -21,7 +21,7 @@
         app:srcCompat="@drawable/avatar" />
 
     <TextView
-        android:id="@+id/listrow_name_tv"
+        android:id="@+id/listrow_username_tv"
         android:layout_width="168dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
@@ -36,16 +36,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <RatingBar
-        android:id="@+id/ratingBar"
+        android:id="@+id/listrow_ratingBar"
         android:layout_width="48dp"
         android:layout_height="46dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:secondaryProgressTint="@color/black"
+        android:progressTint="@color/myYellow"
+        />
 
     <TextView
-        android:id="@+id/listrow_id_tv"
+        android:id="@+id/listrow_description_tv"
         android:layout_width="233dp"
         android:layout_height="29dp"
         android:layout_marginStart="8dp"
@@ -56,7 +59,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/listrow_avatar_imv"
-        app:layout_constraintTop_toBottomOf="@+id/listrow_name_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/listrow_username_tv" />
 
     <ImageView
         android:id="@+id/listrow_post_img"
@@ -67,12 +70,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.423"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listrow_id_tv"
+        app:layout_constraintTop_toBottomOf="@+id/listrow_description_tv"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/ic_menu_gallery" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/listrow_rate_tv"
         android:layout_width="0dp"
         android:layout_height="46dp"
         android:layout_marginStart="44dp"
