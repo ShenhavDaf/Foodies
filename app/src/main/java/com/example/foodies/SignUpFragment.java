@@ -1,6 +1,5 @@
 package com.example.foodies;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -14,7 +13,7 @@ import android.widget.EditText;
 
 
 
-public class SignInFragment extends Fragment {
+public class SignUpFragment extends Fragment {
 
     Button join;
     EditText fullNameEt, emailEt, passwordEt, verifyEt,  cityEt, birthdayEt;
@@ -25,21 +24,17 @@ public class SignInFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
+        View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
         // Inflate the layout for this fragment
         fullNameEt = view.findViewById(R.id.signin_name_et);
         emailEt = view.findViewById(R.id.signin_email_et);
         passwordEt = view.findViewById(R.id.signin_password_et);
+        verifyEt = view.findViewById(R.id.signin_verify_et);
         cityEt = view.findViewById(R.id.signin_city_et);
         birthdayEt = view.findViewById(R.id.signin_birthdate_et);
 
         join = view.findViewById(R.id.signin_join_btn);
-        join.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Join(view);
-            }
-        });
+        join.setOnClickListener(v -> Join(view));
         return view;
     }
 
@@ -49,7 +44,7 @@ public class SignInFragment extends Fragment {
         String fullname = fullNameEt.getText().toString();
         String email = emailEt.getText().toString();
         String password = passwordEt.getText().toString();
-//        String verify = verifyEt.getText().toString();
+        String verify = verifyEt.getText().toString();
         String city = cityEt.getText().toString();
         String birthday = birthdayEt.getText().toString();
 
@@ -58,39 +53,47 @@ public class SignInFragment extends Fragment {
             fullNameEt.requestFocus();
             return;
         }
-        if(email.isEmpty()){
-            emailEt.setError("Please enter your Email");
-            emailEt.requestFocus();
-            return;
-        }
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            emailEt.setError("Please provide valid email");
-            emailEt.requestFocus();
-            return;
-        }
-        if(password.isEmpty()){
-            passwordEt.setError("Please enter your password");
-            passwordEt.requestFocus();
-            return;
-        }
-        if(password.length() < 5){
-            passwordEt.setError("Password length should be at least 5 characters");
-            passwordEt.requestFocus();
-            return;
 
-        }
+
         if(city.isEmpty()){
             cityEt.setError("Please enter your city");
             cityEt.requestFocus();
             return;
         }
+
         if(birthday.isEmpty()){
             birthdayEt.setError("Please enter your birthday");
             birthdayEt.requestFocus();
             return;
         }
+//        if(!Patterns.DATE.matcher(birthday).matches()){
+//            birthday.setError("Please provide valid email");
+//            birthday.requestFocus();
+//            return;
+//        }
 
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            emailEt.setError("Please provide valid email");
+            emailEt.requestFocus();
+            return;
+        }
+        if(email.isEmpty()){
+            emailEt.setError("Please enter your Email");
+            emailEt.requestFocus();
+            return;
+        }
 
-        Navigation.findNavController(view).navigate(R.id.action_signIn_to_homePage);
+        if(password.length() < 5){
+            passwordEt.setError("Password length should be at least 5 characters");
+            passwordEt.requestFocus();
+            return;
+        }
+        if(!verify.equals(password)){
+            verifyEt.setError("Wrong password");
+            verifyEt.requestFocus();
+            return;
+        }
+
+        Navigation.findNavController(view).navigate(R.id.action_global_homePage);
     }
 }
