@@ -64,4 +64,11 @@ public class Model {
 
     /* ----------------------------------------------------- */
 
+    public interface GetAuthListener {
+        void onComplete();
+    }
+
+    public void addUser(User user, GetAuthListener listener) {
+        modelFirebase.getAuth( user, listener);
+    }
 }

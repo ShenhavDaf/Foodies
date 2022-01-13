@@ -25,7 +25,6 @@ public class LogInFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_log_in, container, false);
-
         email = view.findViewById(R.id.login_email_et);
         password = view.findViewById(R.id.login_password_et);
 
@@ -63,9 +62,5 @@ public class LogInFragment extends Fragment {
             }
         }
     }
-
-
-
-
 
 }

@@ -47,16 +47,6 @@
         app:layout_constraintTop_toBottomOf="@+id/signin_name_tv" />
 
     <TextView
-        android:id="@+id/signin_birthdate_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="52dp"
-        android:text="Birth Date:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_city_tv" />
-
-    <TextView
         android:id="@+id/signin_email_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -64,7 +54,7 @@
         android:layout_marginTop="52dp"
         android:text="EMail:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_birthdate_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/signin_city_tv" />
 
     <TextView
         android:id="@+id/signin_password_tv"
@@ -106,16 +96,6 @@
         android:inputType="textPersonName"
         app:layout_constraintBaseline_toBaselineOf="@+id/signin_city_tv"
         app:layout_constraintStart_toEndOf="@+id/signin_city_tv" />
-
-    <EditText
-        android:id="@+id/signin_birthdate_et"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:ems="10"
-        android:inputType="date"
-        app:layout_constraintBaseline_toBaselineOf="@+id/signin_birthdate_tv"
-        app:layout_constraintStart_toEndOf="@+id/signin_birthdate_tv" />
 
     <EditText
         android:id="@+id/signin_email_et"

@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.room.PrimaryKey;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -17,16 +18,18 @@ public class User {
     String password =  "";
     String fullName = "";
     String city = "";
-    ImageView image;
+    String image;
     List<Post> postList;
 
-    public User(String email, String password, String fullName, String city, ImageView image, List<Post> postList) {
+    // TODO: img
+
+    public User(String email, String password, String fullName, String city, String image) {
         this.email = email;
         this.password = password;
         this.fullName = fullName;
         this.city = city;
         this.image = image;
-        this.postList = postList;
+        postList = new ArrayList<>();
     }
 
     public User() {}
@@ -63,11 +66,11 @@ public class User {
         this.city = city;
     }
 
-    public ImageView getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(ImageView image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

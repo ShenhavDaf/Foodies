@@ -11,12 +11,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.foodies.model.Model;
+import com.example.foodies.model.Post;
+import com.example.foodies.model.User;
 
 
 public class SignUpFragment extends Fragment {
 
     Button join;
-    EditText fullNameEt, emailEt, passwordEt, verifyEt,  cityEt, birthdayEt;
+    EditText fullNameEt, emailEt, passwordEt, verifyEt,  cityEt, imageEt;
     // TODO: add image
 
 
@@ -31,7 +34,7 @@ public class SignUpFragment extends Fragment {
         passwordEt = view.findViewById(R.id.signin_password_et);
         verifyEt = view.findViewById(R.id.signin_verify_et);
         cityEt = view.findViewById(R.id.signin_city_et);
-        birthdayEt = view.findViewById(R.id.signin_birthdate_et);
+//        imageEt = view.findViewById(R.id.signin_image_img);
 
         join = view.findViewById(R.id.signin_join_btn);
         join.setOnClickListener(v -> Join(view));
@@ -46,7 +49,8 @@ public class SignUpFragment extends Fragment {
         String password = passwordEt.getText().toString();
         String verify = verifyEt.getText().toString();
         String city = cityEt.getText().toString();
-        String birthday = birthdayEt.getText().toString();
+//       TODO: String image = imageEt.getText().toString();
+        String image = "";
 
         if(fullname.isEmpty()){
             fullNameEt.setError("Please enter your full name");
@@ -54,21 +58,15 @@ public class SignUpFragment extends Fragment {
             return;
         }
 
-
         if(city.isEmpty()){
             cityEt.setError("Please enter your city");
             cityEt.requestFocus();
             return;
         }
 
-        if(birthday.isEmpty()){
-            birthdayEt.setError("Please enter your birthday");
-            birthdayEt.requestFocus();
-            return;
-        }
-//        if(!Patterns.DATE.matcher(birthday).matches()){
-//            birthday.setError("Please provide valid email");
-//            birthday.requestFocus();
+//        if(image.isEmpty()){
+//            imageEt.setError("Please enter your birthday");
+//            imageEt.requestFocus();
 //            return;
 //        }
 
@@ -83,8 +81,8 @@ public class SignUpFragment extends Fragment {
             return;
         }
 
-        if(password.length() < 5){
-            passwordEt.setError("Password length should be at least 5 characters");
+        if(password.length() < 6){
+            passwordEt.setError("Password length should be at least 6 characters");
             passwordEt.requestFocus();
             return;
         }
@@ -94,6 +92,11 @@ public class SignUpFragment extends Fragment {
             return;
         }
 
-        Navigation.findNavController(view).navigate(R.id.action_global_homePage);
+            User newUser = new User(email, password, fullname, city, image);
+            Model.instance.addUser(newUser, () -> {
+                Navigation.findNavController(view).navigate(R.id.action_global_homePage);
+
+            });
+
     }
 }
