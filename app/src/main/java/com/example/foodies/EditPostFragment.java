@@ -7,17 +7,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Post;
 
-public class EditPostFragment extends Fragment {
+public class EditPostFragment extends Fragment implements AdapterView.OnItemSelectedListener{
 
     TextView dishName, restaurent, address, description, review;
     ImageView dishImg;
@@ -38,10 +40,9 @@ public class EditPostFragment extends Fragment {
         dishImg = view.findViewById(R.id.editpost_dishimg_img);
         rate = view.findViewById(R.id.editpost_rate_spinner);
 
-
         String postId = EditPostFragmentArgs.fromBundle(getArguments()).getPostId();
 
-        Post post = Model.instance.getPostById(postId, post1 -> {
+        Model.instance.getPostById(postId, post1 -> {
 
             dishName.setText(post1.getDishName());
             restaurent.setText(post1.getRestaurant());
@@ -71,24 +72,47 @@ public class EditPostFragment extends Fragment {
         });
 
         Button saveBtn = view.findViewById(R.id.editpost_save_btn);
-        saveBtn.setOnClickListener(v -> save(post, v));
+        saveBtn.setOnClickListener(v -> save(postId, v));
 
         return view;
     }
 
-    private void save(Post post, View v) {
+    private void save(String postID, View v) {
 
-        //TODO
-//        post.setDishName(dishName.getText().toString());
-//        post.setRestaurant(restaurent.getText().toString());
-//        post.setAddress(address.getText().toString());
-////        post.setCategory(category.getText().toString());
-//        post.setDescription(description.getText().toString());
-//        post.setReview(review.getText().toString());
-////        post.setRate(rate.getText().toString());
 
-        Navigation.findNavController(v).navigate(EditPostFragmentDirections.actionEditPostFragmentToHomePage());
+        Model.instance.getPostById(postID, post1 -> {
+
+            String name = dishName.getText().toString();
+            String res = restaurent.getText().toString();
+            String addr = address.getText().toString();
+            String categor = category.getSelectedItem().toString();
+            String desc = description.getText().toString();
+            String rev = review.getText().toString();
+            String rateing = rate.getSelectedItem().toString();;
+
+
+            //TODO:userID, img
+            String img = "myImg";
+            String userID = "1";
+
+            Post newPost = new Post(postID, name, res, addr, categor, desc, rev, img, rateing, userID);
+
+            Model.instance.addPost(newPost, () -> {
+                Navigation.findNavController(v).navigate(EditPostFragmentDirections.actionEditPostFragmentToHomePage());
+            });
+
+        });
 
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String item = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(), item, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

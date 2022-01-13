@@ -28,7 +28,7 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
 
     List<Post> data;
     EditText dishName, restaurent, address, description, review;
-    Spinner categoty, rate;
+    Spinner category, rate;
     Button postBtn;
     ImageView image;
 
@@ -41,7 +41,7 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         dishName = view.findViewById(R.id.newpost_dishname_et);
         restaurent = view.findViewById(R.id.newpost_restaurant_et);
         address = view.findViewById(R.id.newpost_address_et);
-        categoty = view.findViewById(R.id.newpost_category_spinner);
+        category = view.findViewById(R.id.newpost_category_spinner);
 
         ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter
                 //  היה כתוב רק this
@@ -49,7 +49,7 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
                         android.R.layout.simple_spinner_item);
 
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categoty.setAdapter(categoryAdapter);
+        category.setAdapter(categoryAdapter);
 
 
 //        rate.setOnItemClickListener(this);
@@ -91,15 +91,16 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         String name = dishName.getText().toString();
         String res = restaurent.getText().toString();
         String addr = address.getText().toString();
+        String categor = category.getSelectedItem().toString();
         String desc = description.getText().toString();
         String rev = review.getText().toString();
+        String rateing = rate.getSelectedItem().toString();;
 
-        //TODO
-        String categor = "myCategory";
+
+        //TODO: img
         String img = "myImg";
-        String rateing = "3";
 
-
+        //TODO: userid
 
 
         Model.instance.getNextPostId(nextId -> {
@@ -109,20 +110,13 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
             });
         });
 
-
-
-
-
-
     }
-
-
 
     // מתודות של הספינר
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String rate = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), rate, Toast.LENGTH_SHORT).show();
+        String item = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(), item, Toast.LENGTH_SHORT).show();
     }
 
     @Override

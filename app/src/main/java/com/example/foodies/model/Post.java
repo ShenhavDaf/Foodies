@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -159,5 +160,16 @@ public class Post {
         return json;
     }
 
+    public String getCurrentDate(){
+        Calendar calendar = Calendar.getInstance();
+        int day =  calendar.get(Calendar.DATE);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        StringBuilder builder = new StringBuilder();
+        builder.append(day + "." + month + "." + year);
+        String date = builder.toString();
+
+        return date;
+    }
 
 }

@@ -130,6 +130,7 @@ public class HomePageFragment extends Fragment {
             dishImage = itemView.findViewById(R.id.listrow_post_img);
             rateNum =  itemView.findViewById(R.id.listrow_rate_tv);
             rateStar = itemView.findViewById(R.id.listrow_ratingBar);
+            rateStar.setEnabled(false);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -170,7 +171,6 @@ public class HomePageFragment extends Fragment {
 //            holder.userImage.setImageDrawable(post.getUserId().getImage);
 //            holder.userName.setText(post.getUserId());
 
-            //TODO: choose if description textview will be dish name or post description
             holder.description.setText(post.getDishName());
 
             //TODO: set at "Post" img to ImageView - now its String

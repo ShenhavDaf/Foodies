@@ -17,7 +17,7 @@ public class SignUpFragment extends Fragment {
 
     Button join;
     EditText fullNameEt, emailEt, passwordEt, verifyEt,  cityEt, birthdayEt;
-    // TODO: add image, add verify
+    // TODO: add image
 
 
     @Override

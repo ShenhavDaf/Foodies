@@ -36,6 +36,7 @@ public class PostPageFragment extends Fragment {
         description = view.findViewById(R.id.postpage_description_tv);
         review = view.findViewById(R.id.postpage_review_tv);
         rate = view.findViewById(R.id.postpage_rate_tv);
+        rate.setEnabled(false);
 
 
         Model.instance.getPostById(postId, new Model.GetPostByIdListener() {
@@ -54,7 +55,7 @@ public class PostPageFragment extends Fragment {
 
         editPostBtn = view.findViewById(R.id.postpage_editpost_btn);
 
-        // TODO:
+        // TODO: by userId
         // if the user is not the creator to the post, we need to set the visibility to GONE
         editPostBtn.setVisibility(View.VISIBLE); // GONE OR VISIBLE
 
