@@ -68,8 +68,8 @@ public class Model {
         void onComplete();
     }
 
-    public void addNewUser(User user, GetAuthListener listener) {
-        modelFirebase.addNewUser( user, listener);
+    public void addNewUser(String email, String password , GetAuthListener listener) {
+        modelFirebase.addNewUser( email, password, listener);
     }
 
     /* ----------------------------------------------------- */
@@ -82,4 +82,14 @@ public class Model {
         modelFirebase.getUserId(email, password,listener);
         return null;
     }
+
+    /* ----------------------------------------------------- */
+
+//    public interface AddUserListener {
+//        void onComplete();
+//    }
+//
+//    public void addUser(User user, AddUserListener listener){
+//        modelFirebase.addUser( user,  listener);
+//    }
 }

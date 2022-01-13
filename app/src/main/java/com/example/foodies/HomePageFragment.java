@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -28,7 +29,7 @@ public class HomePageFragment extends Fragment {
     List<Post> data;
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
-
+    TextView userName;
     ImageButton profile, homePage, addPost;
 
     @Nullable
@@ -100,6 +101,10 @@ public class HomePageFragment extends Fragment {
 //            }
 
 //        });
+
+
+        userName = view.findViewById(R.id.home_user_name);
+
 
         refresh();
         return view;

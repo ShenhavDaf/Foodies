@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -111,12 +112,16 @@ public class ModelFirebase {
 
     /* -------------------------------------------------------------------------- */
 
-    public void addNewUser(User user, Model.GetAuthListener listener) {
+//    public void addNewUser(User user, Model.GetAuthListener listener) {
+    public void addNewUser(String email, String password, Model.GetAuthListener listener) {
 
-        myAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
+
+    myAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
 
                     if (task.isSuccessful()) {
+                        AuthUser user = new AuthUser(email, password);
+
                         FirebaseDatabase.getInstance(URL).getReference("Users").
                                 child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                 .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -151,14 +156,25 @@ public class ModelFirebase {
                     if (task.isSuccessful()) {
 
                         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
                         listener.onComplete(userId);
                     } else {
                         //TODO: change the print
                         System.out.println("user not register from 'getUserId' ");
                     }
                 });
-
     }
 
     /* -------------------------------------------------------------------------- */
+
+
+//    public void addUser(User user, Model.AddUserListener listener) {
+//        Map<String, Object> json = user.toJson();
+//
+//        db.collection(User.COLLECTION_NAME)
+//                .document(user.getEmail())
+//                .set(json)
+//                .addOnSuccessListener(unused -> listener.onComplete())
+//                .addOnFailureListener(e -> listener.onComplete());
+//    }
 }

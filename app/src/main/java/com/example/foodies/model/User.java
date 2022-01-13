@@ -6,9 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class User {
+
+    final public static String COLLECTION_NAME = "Users";
 
 //    @NonNull
 //    @PrimaryKey
@@ -23,14 +27,15 @@ public class User {
 
     // TODO: img
 
-    public User(String email, String password, String fullName, String city, String image) {
+    public User(String email, String fullName, String city, String image) {
         this.email = email;
-        this.password = password;
+//        this.password = password;
         this.fullName = fullName;
         this.city = city;
         this.image = image;
-        postList = new ArrayList<>();
+        this.postList = new ArrayList<>();
     }
+
 
     public User() {}
 
@@ -41,14 +46,14 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+//
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
 
     public String getFullName() {
         return fullName;
@@ -80,6 +85,31 @@ public class User {
 
     public void setPostList(List<Post> postList) {
         this.postList = postList;
+    }
+
+
+    public static User create(Map<String, Object> json) {
+
+        String email = (String) json.get("email");
+//        String password = (String) json.get("password");
+        String fullName = (String) json.get("fullName");
+        String city = (String) json.get("city");
+        String image = (String) json.get("image");
+
+        User user = new User(email, fullName, city, image);
+
+        return user;
+    }
+
+    public Map<String, Object> toJson() {
+        Map<String, Object> json = new HashMap<String, Object>();
+
+        json.put("email", email);
+        json.put("fullName", fullName);
+        json.put("city", city);
+        json.put("image", image);
+
+        return json;
     }
 
 //    @NonNull
