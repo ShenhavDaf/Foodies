@@ -93,9 +93,8 @@ public class SignUpFragment extends Fragment {
         }
 
             User newUser = new User(email, password, fullname, city, image);
-            Model.instance.addUser(newUser, () -> {
+            Model.instance.addNewUser(newUser, () -> {
                 Navigation.findNavController(view).navigate(R.id.action_global_homePage);
-
             });
 
     }

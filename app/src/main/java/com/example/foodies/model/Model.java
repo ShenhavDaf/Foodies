@@ -68,7 +68,18 @@ public class Model {
         void onComplete();
     }
 
-    public void addUser(User user, GetAuthListener listener) {
-        modelFirebase.getAuth( user, listener);
+    public void addNewUser(User user, GetAuthListener listener) {
+        modelFirebase.addNewUser( user, listener);
+    }
+
+    /* ----------------------------------------------------- */
+
+    public interface GetUserIdListener {
+        void onComplete(String userID);
+    }
+
+    public Post getUserId(String email, String password, GetUserIdListener listener) {
+        modelFirebase.getUserId(email, password,listener);
+        return null;
     }
 }

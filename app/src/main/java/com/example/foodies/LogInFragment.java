@@ -6,27 +6,32 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.foodies.model.Model;
+import com.example.foodies.model.User;
 
 
 public class LogInFragment extends Fragment {
 
     Button loginBtn;
     TextView joinTv;
-    EditText email, password;
+    EditText emailEt, passwordEt;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_log_in, container, false);
-        email = view.findViewById(R.id.login_email_et);
-        password = view.findViewById(R.id.login_password_et);
+        emailEt = view.findViewById(R.id.login_email_et);
+        passwordEt = view.findViewById(R.id.login_password_et);
 
 
         joinTv = view.findViewById(R.id.main_joinbtn_tv);
@@ -56,11 +61,32 @@ public class LogInFragment extends Fragment {
 
     private void LogIn(View view) {
 
-        if (email.getText().toString().equals("admin") || email.getText().toString().equals("Admin")) {
-            if (password.getText().toString().equals("123")){
-                Navigation.findNavController(view).navigate(R.id.action_global_homePage);
-            }
+
+        String localMail = emailEt.getText().toString().trim();
+        String localPass = passwordEt.getText().toString().trim();
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(localMail).matches()){
+            emailEt.setError("Please provide valid email");
+            emailEt.requestFocus();
+            return;
         }
+        if(localMail.isEmpty()){
+            emailEt.setError("Please enter your Email");
+            emailEt.requestFocus();
+            return;
+        }
+
+        if(localPass.length() < 6){
+            passwordEt.setError("Password length should be at least 6 characters");
+            passwordEt.requestFocus();
+            return;
+        }
+
+
+        Model.instance.getUserId(localMail,localPass, userID -> {
+            Navigation.findNavController(view).navigate(R.id.action_global_homePage);
+        });
+
     }
 
 }

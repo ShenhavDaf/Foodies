@@ -10,9 +10,9 @@ import java.util.List;
 
 public class User {
 
-    @NonNull
-    @PrimaryKey
-    String id = "";
+//    @NonNull
+//    @PrimaryKey
+//    String id = "";
 
     String email= "";
     String password =  "";
@@ -82,12 +82,12 @@ public class User {
         this.postList = postList;
     }
 
-    @NonNull
-    public String getId() {
-        return id;
-    }
-
-    public void setId(@NonNull String id) {
-        this.id = id;
-    }
+//    @NonNull
+//    public String getId() {
+//        return id;
+//    }
+//
+//    public void setId(@NonNull String id) {
+//        this.id = id;
+//    }
 }
