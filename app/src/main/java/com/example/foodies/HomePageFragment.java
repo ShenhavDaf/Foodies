@@ -80,13 +80,13 @@ public class HomePageFragment extends Fragment {
             }
         });
 
-        homePage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("TAG", "homepage btn was clicked");
-                Navigation.findNavController(view).navigate(R.id.action_global_homePage);
-            }
-        });
+//        homePage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d("TAG", "homepage btn was clicked");
+//                Navigation.findNavController(view).navigate(R.id.action_global_homePage);
+//            }
+//        });
 
 
 //        setHasOptionsMenu(true);

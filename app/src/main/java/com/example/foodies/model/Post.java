@@ -129,7 +129,7 @@ public class Post {
 
 
     public static Post create(Map<String, Object> json) {
-        String id = (String) json.get("id");
+        String id = (String) json.get("id").toString();
         String dishName = (String) json.get("dishName");
         String restaurant = (String) json.get("restaurant");
         String address = (String) json.get("address");
