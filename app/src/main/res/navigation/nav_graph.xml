@@ -57,13 +57,23 @@
         <argument
             android:name="postId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_postPageFragment_to_editPostFragment"
+            app:destination="@id/editPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/editPostFragment"
         android:name="com.example.foodies.EditPostFragment"
         android:label="Edit Post"
-        tools:layout="@layout/fragment_edit_post" />
-    <action android:id="@+id/action_global_editPostFragment" app:destination="@id/editPostFragment" />
+        tools:layout="@layout/fragment_edit_post" >
+        <argument
+            android:name="postId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_editPostFragment_to_homePage"
+            app:destination="@id/homePage"
+            app:popUpTo="@id/homePage" />
+    </fragment>
     <action android:id="@+id/action_global_homePage" app:destination="@id/homePage" />
     <action android:id="@+id/action_global_newPostFragment" app:destination="@id/newPostFragment" /><action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment"/>
 </navigation>

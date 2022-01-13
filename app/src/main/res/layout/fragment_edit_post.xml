@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="15dp"
-        android:text="Review?"
+        android:text="Review:"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
@@ -85,6 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="hint" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -115,7 +116,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/editpost_dishimg_img"
         android:layout_width="143dp"
         android:layout_height="90dp"
         android:layout_marginStart="50dp"
@@ -133,7 +134,7 @@
         android:text="Rate:"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/editpost_dishimg_img" />
 
     <EditText
         android:id="@+id/editpost_restaurant_et"
@@ -176,24 +177,25 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/textView20"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <EditText
-        android:id="@+id/editpost_category_et"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
+    <Spinner
+        android:id="@+id/editpost_category_spinner"
+        android:layout_width="145dp"
+        android:layout_height="42dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:inputType="textPersonName"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView21"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteX="191dp"
+        tools:layout_editor_absoluteY="226dp" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/editpost_rate_spinner"
         android:layout_width="145dp"
         android:layout_height="42dp"
         android:layout_marginStart="55dp"
         android:layout_marginTop="12dp"
         app:layout_constraintStart_toEndOf="@+id/textView25"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/editpost_dishimg_img" />
 
     <Button
         android:id="@+id/editpost_save_btn"
@@ -204,5 +206,6 @@
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

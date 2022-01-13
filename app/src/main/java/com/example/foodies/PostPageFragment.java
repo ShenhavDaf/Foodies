@@ -35,7 +35,7 @@ public class PostPageFragment extends Fragment {
         category = view.findViewById(R.id.postpage_category_tv);
         description = view.findViewById(R.id.postpage_description_tv);
         review = view.findViewById(R.id.postpage_review_tv);
-        rate= view.findViewById(R.id.postpage_rate_tv);
+        rate = view.findViewById(R.id.postpage_rate_tv);
 
 
         Model.instance.getPostById(postId, new Model.GetPostByIdListener() {
@@ -61,17 +61,17 @@ public class PostPageFragment extends Fragment {
         editPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editPost(view);
+                editPost(view, postId);
             }
         });
         return view;
     }
 
 
-    private void editPost(View view) {
+    private void editPost(View view, String postId) {
 
-        System.out.println("edit post button eas clicked");
-        Navigation.findNavController(view).navigate(R.id.action_global_editPostFragment);
+        Navigation.findNavController(view)
+                .navigate(PostPageFragmentDirections.actionPostPageFragmentToEditPostFragment(postId));
 
     }
 }
