@@ -25,8 +25,11 @@ import java.util.Map;
 
 public class ModelFirebase {
 
+    final public static String URL = "https://foodies-14955-default-rtdb.europe-west1.firebasedatabase.app";
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth myAuth = FirebaseAuth.getInstance();
+
 
 
     public void getAllPosts(Model.GetAllPostsListener listener) {
@@ -45,7 +48,7 @@ public class ModelFirebase {
                     listener.onComplete(list);
                 });
     }
-
+    /* -------------------------------------------------------------------------- */
 
     public void addPost(Post post, Model.AddPostListener listener) {
         Map<String, Object> json = post.toJson();
@@ -57,124 +60,106 @@ public class ModelFirebase {
                 .addOnFailureListener(e -> listener.onComplete());
     }
 
+    /* -------------------------------------------------------------------------- */
 
     public void getPostById(String postId, Model.GetPostByIdListener listener) {
         db.collection(Post.COLLECTION_NAME)
                 .document(postId)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        Post post = null;
-                        if (task.isSuccessful() & task.getResult() != null) {
-                            post = Post.create(task.getResult().getData());
-                        }
-                        listener.onComplete(post);
+                .addOnCompleteListener(task -> {
+                    Post post = null;
+                    if (task.isSuccessful() & task.getResult() != null) {
+                        post = Post.create(task.getResult().getData());
                     }
+                    listener.onComplete(post);
                 });
     }
 
+    /* -------------------------------------------------------------------------- */
 
     public void getListSize(Model.GetListSizeListener listener) {
         db.collection(Post.COLLECTION_NAME)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        int size = 0;
-                        if (task.isSuccessful()) {
-                            size = task.getResult().getDocuments().size();
-                        }
-                        listener.onComplete(size);
+                .addOnCompleteListener(task -> {
+                    int size = 0;
+                    if (task.isSuccessful()) {
+                        size = task.getResult().getDocuments().size();
                     }
+                    listener.onComplete(size);
                 });
     }
 
+    /* -------------------------------------------------------------------------- */
 
     public void getNextPostId(Model.GetNextPostIdListener listener) {
         db.collection(Post.COLLECTION_NAME)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        String lastId = "";
-                        if (task.isSuccessful()) {
-                            int size = task.getResult().getDocuments().size() - 1;
-                            lastId = task.getResult().getDocuments().get(size).getId();
-                            int i = Integer.parseInt(lastId);
-                            i++;
-                            StringBuilder builder = new StringBuilder();
-                            builder.append(i);
-                            lastId = builder.toString();
-                        }
-                        listener.onComplete(lastId);
+                .addOnCompleteListener(task -> {
+                    String lastId = "";
+                    if (task.isSuccessful()) {
+                        int size = task.getResult().getDocuments().size() - 1;
+                        lastId = task.getResult().getDocuments().get(size).getId();
+                        int i = Integer.parseInt(lastId);
+                        i++;
+                        StringBuilder builder = new StringBuilder();
+                        builder.append(i);
+                        lastId = builder.toString();
                     }
+                    listener.onComplete(lastId);
                 });
     }
+
+    /* -------------------------------------------------------------------------- */
 
     public void addNewUser(User user, Model.GetAuthListener listener) {
 
         myAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                .addOnCompleteListener(task -> {
 
-                        if (task.isSuccessful()) {
+                    if (task.isSuccessful()) {
+                        FirebaseDatabase.getInstance(URL).getReference("Users").
+                                child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
 
-//                    user.setId(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                            FirebaseDatabase.getInstance("https://foodies-14955-default-rtdb.europe-west1.firebasedatabase.app").getReference("Users").
-                                    child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-
-                                    if (task.isSuccessful()) {
-                                        System.out.println("user registered");
-                                        listener.onComplete();
-                                    } else {
-                                        //TODO: change the print
-                                        System.out.println("user not register1");
-                                    }
-
+                                if (task.isSuccessful()) {
+                                    System.out.println("user registered");
+                                    listener.onComplete();
+                                } else {
+                                    //TODO: change the print
+                                    System.out.println("user not register1");
                                 }
-                            });
-                        } else {
-                            //TODO: change the print
-                            System.out.println("user not register2");
-                        }
+
+                            }
+                        });
+                    } else {
+                        //TODO: change the print
+                        System.out.println("user not register2");
                     }
                 });
 
     }
+
+    /* -------------------------------------------------------------------------- */
 
     public void getUserId(String email, String password, Model.GetUserIdListener listener) {
 
-        System.out.println("email1 = "+email);
-        System.out.println("password1 = "+password);
+        myAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task -> {
 
-        myAuth.signInWithEmailAndPassword(email,password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
 
-                        System.out.println("email2 = "+email);
-                        System.out.println("password2 = "+password);
-
-                        if(task.isSuccessful()){
-
-                            System.out.println("email3 = "+email);
-                            System.out.println("password3 = "+password);
-
-                            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                            listener.onComplete(userId);
-                        }
-                        else {
-                            //TODO: change the print
-                            System.out.println("user not register from 'getUserId' ");
-                        }
+                        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        listener.onComplete(userId);
+                    } else {
+                        //TODO: change the print
+                        System.out.println("user not register from 'getUserId' ");
                     }
                 });
 
     }
+
+    /* -------------------------------------------------------------------------- */
 }
 
