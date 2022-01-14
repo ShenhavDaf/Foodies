@@ -35,14 +35,36 @@ public class ModelFirebase {
 
     /* ****************************** Posts Functions ****************************** */
 
-    public void addPost(Post post, Model.AddPostListener listener) {
+    public void addPost(Post post, String userEmail, Model.AddPostListener listener) {
         Map<String, Object> json = post.toJson();
 
         db.collection(Post.COLLECTION_NAME)
                 .document(post.getId())
                 .set(json)
-                .addOnSuccessListener(unused -> listener.onComplete())
+                .addOnSuccessListener(unused -> {
+                    db.collection(User.COLLECTION_NAME)
+                            .document(userEmail)
+                            .get()
+                            .addOnCompleteListener(task -> {
+                                User user = null;
+                                if (task.isSuccessful() & task.getResult() != null) {
+
+                                    user = User.create(task.getResult().getData());
+                                   // user.getPostList().add(post.getId());
+                                    user.getPostList().add(post.id);
+                                    task.getResult().getData().put("postList", user.getPostList());
+//                                    ds.put("postList", user.getPostList());
+
+                                }
+                                listener.onComplete();
+                            });
+
+                })
                 .addOnFailureListener(e -> listener.onComplete());
+
+
+
+
     }
 
     /* -------------------------------------------------------------------------- */

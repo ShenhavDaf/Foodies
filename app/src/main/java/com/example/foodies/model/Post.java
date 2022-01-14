@@ -30,7 +30,7 @@ public class Post {
     String review = "";
     String image = ""; // TODO...
     String rate = "0";
-    String userId = "";
+    String userEmail = "";
 
     /* ****************************** Constructors ****************************** */
 
@@ -38,7 +38,7 @@ public class Post {
     }
 
     public Post(String id, String dishName, String restaurant, String address, String category, String description,
-                String review, String image, String rate, String userId) {
+                String review, String image, String rate, String userEmail) {
         this.id = id;
         this.dishName = dishName;
         this.restaurant = restaurant;
@@ -48,7 +48,7 @@ public class Post {
         this.review = review;
         this.image = image;
         this.rate = rate;
-        this.userId = userId;
+        this.userEmail = userEmail;
     }
 
     /* ****************************** Getters & Setters ****************************** */
@@ -143,8 +143,8 @@ public class Post {
 
     /*------------------------------------------------------*/
 
-    public String getUserId() {
-        return userId;
+    public String getUserEmail() {
+        return userEmail;
     }
 
 
@@ -160,9 +160,9 @@ public class Post {
         String review = (String) json.get("review");
         String image = (String) json.get("image");
         String rate = (String) json.get("rate");
-        String userId = (String) json.get("userId");
+        String userEmail = (String) json.get("userEmail");
 
-        Post post = new Post(id, dishName, restaurant, address, category, description, review, image, rate, userId);
+        Post post = new Post(id, dishName, restaurant, address, category, description, review, image, rate, userEmail);
         return post;
     }
 
@@ -178,7 +178,7 @@ public class Post {
         json.put("review", review);
         json.put("image", image);
         json.put("rate", rate);
-        json.put("userId", userId);
+        json.put("userEmail", userEmail);
 
         return json;
     }

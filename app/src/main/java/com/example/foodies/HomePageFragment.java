@@ -32,7 +32,7 @@ public class HomePageFragment extends Fragment {
     SwipeRefreshLayout swipeRefresh;
     TextView userName;
     ImageButton profile, homePage, addPost;
-    User currentUserDetails;
+//    User currentUserDetails;
 
     @Nullable
     @Override
@@ -49,10 +49,8 @@ public class HomePageFragment extends Fragment {
         userName = view.findViewById(R.id.home_user_name);
 
         Model.instance.getUserByEmail(currUserEmail, user -> {
-            currentUserDetails = user;
-            userName.setText(currentUserDetails.getFullName());
+            userName.setText(user.getFullName());
         });
-
 
         /* ***************************** Post List - Recycler View ***************************** */
 
@@ -88,7 +86,7 @@ public class HomePageFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("TAG", "add btn was clicked........");
-                Navigation.findNavController(view).navigate(R.id.action_global_newPostFragment);
+                Navigation.findNavController(view).navigate(HomePageFragmentDirections.actionGlobalNewPostFragment(currUserEmail));
             }
         });
 
@@ -96,7 +94,7 @@ public class HomePageFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("TAG", "profile btn was clicked");
-                Navigation.findNavController(view).navigate(R.id.action_global_profileFragment);
+                Navigation.findNavController(view).navigate(HomePageFragmentDirections.actionGlobalProfileFragment(currUserEmail));
             }
         });
 

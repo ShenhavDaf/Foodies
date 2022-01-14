@@ -103,9 +103,9 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
 
             /* ------------------------------------ Navigation ------------------------------------ */
 
-            Model.instance.addPost(newPost, () -> {
-                Navigation.findNavController(v).navigate(EditPostFragmentDirections.actionEditPostFragmentToHomePage(userID));
-            });
+//            Model.instance.addPost(newPost, () -> {
+//                Navigation.findNavController(v).navigate(EditPostFragmentDirections.actionEditPostFragmentToHomePage(userID));
+//            });
 
         });
 

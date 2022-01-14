@@ -31,12 +31,16 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
     Spinner category, rate;
     Button postBtn;
     ImageView image;
+    String currUserEmail;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         /* *************************************** View Items *************************************** */
+
+        currUserEmail = NewPostFragmentArgs.fromBundle(getArguments()).getUserEmail();
 
         View view = inflater.inflate(R.layout.fragment_new_post, container, false);
 
@@ -72,7 +76,7 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         postBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                save("1"); //TODO: userID
+                save(); //TODO: userID
             }
         });
 
@@ -81,7 +85,7 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
 
     /* *************************************** Functions *************************************** */
 
-    private void save(String userID) {
+    private void save() {
         // save on firebase
         postBtn.setEnabled(false);
 
@@ -99,8 +103,8 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         /* ------------------------------------ Navigation ------------------------------------ */
 
         Model.instance.getNextPostId(nextId -> {
-            Post newPost = new Post(nextId + "", name, res, addr, categor, desc, rev, img, rateing, userID);
-            Model.instance.addPost(newPost, () -> {
+            Post newPost = new Post(nextId + "", name, res, addr, categor, desc, rev, img, rateing, currUserEmail);
+            Model.instance.addPost(newPost,currUserEmail, () -> {
                 Navigation.findNavController(dishName).navigateUp();
             });
         });

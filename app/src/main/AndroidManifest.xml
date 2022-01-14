@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodies">
         <activity
-            android:name=".EmailPasswordActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

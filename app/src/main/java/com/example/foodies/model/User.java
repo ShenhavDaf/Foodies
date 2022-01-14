@@ -23,19 +23,35 @@ public class User {
     String fullName = "";
     String city = "";
     String image;
-    List<Post> postList;
+    List<String> postList;
     // TODO: img
 
     /* ****************************** Constructors ****************************** */
     public User() {
     }
 
+    public User(String email, String fullName, String city, String image, List<String> postList) {
+        this.email = email;
+        this.fullName = fullName;
+        this.city = city;
+        this.image = image;
+//        this.postList = new ArrayList<>();
+        this.postList = postList;
+    }
     public User(String email, String fullName, String city, String image) {
         this.email = email;
         this.fullName = fullName;
         this.city = city;
         this.image = image;
         this.postList = new ArrayList<>();
+    }
+
+    public User(User user){
+        this.email = user.getEmail();
+        this.fullName = user.getFullName();
+        this.city = user.getCity();
+        this.image = user.getImage();
+        this.postList = user.getPostList();
     }
 
     /* ****************************** Getters & Setters ****************************** */
@@ -80,11 +96,11 @@ public class User {
 
     /*------------------------------------------------------*/
 
-    public List<Post> getPostList() {
+    public List<String> getPostList() {
         return postList;
     }
 
-    public void setPostList(List<Post> postList) {
+    public void setPostList(List<String> postList) {
         this.postList = postList;
     }
 
@@ -106,8 +122,9 @@ public class User {
         String fullName = (String) json.get("fullName");
         String city = (String) json.get("city");
         String image = (String) json.get("image");
+        List<String> postList = (List<String>) json.get("postList");
 
-        User user = new User(email, fullName, city, image);
+        User user = new User(email, fullName, city, image, postList);
         return user;
     }
 
@@ -120,6 +137,7 @@ public class User {
         json.put("fullName", fullName);
         json.put("city", city);
         json.put("image", image);
+        json.put("postList", postList);
 
         return json;
     }

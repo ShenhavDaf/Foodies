@@ -29,8 +29,8 @@ public class Model {
         void onComplete();
     }
 
-    public void addPost(Post post, AddPostListener listener){
-        modelFirebase.addPost( post,  listener);
+    public void addPost(Post post, String userEmail, AddPostListener listener){
+        modelFirebase.addPost( post, userEmail,  listener);
     }
 
     /* ----------------------------------------------------- */
