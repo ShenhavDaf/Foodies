@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.foodies.MainActivity;
 import com.example.foodies.SignUpFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -153,7 +154,7 @@ public class ModelFirebase {
                         listener.onComplete(userId);
                     } else {
                         //TODO: change the print
-                        System.out.println("user not register from 'getUserId' ");
+                        System.out.println("User name or password wrong!!");
                     }
                 });
     }
@@ -180,7 +181,7 @@ public class ModelFirebase {
                     .addOnCompleteListener(task -> {
                         User user = null;
                         if (task.isSuccessful() & task.getResult() != null) {
-                            user = user.create(task.getResult().getData());
+                            user = User.create(task.getResult().getData());
                         }
                         listener.onComplete(user);
                     });
