@@ -17,17 +17,19 @@ import com.example.foodies.model.Post;
 
 public class PostPageFragment extends Fragment {
 
-    Button editPostBtn;
     TextView dishName, restaurent, address, category, description, review;
     RatingBar rate;
+    Button editPostBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_post_page, container, false);
-
         String postId = PostPageFragmentArgs.fromBundle(getArguments()).getPostId();
+
+        /* ********************************* View Items ********************************* */
+
+        View view = inflater.inflate(R.layout.fragment_post_page, container, false);
 
         dishName = view.findViewById(R.id.postpage_dishname_tv);
         restaurent = view.findViewById(R.id.postpage_restaurent_tv);
@@ -39,17 +41,14 @@ public class PostPageFragment extends Fragment {
         rate.setEnabled(false);
 
 
-        Model.instance.getPostById(postId, new Model.GetPostByIdListener() {
-            @Override
-            public void onComplete(Post post) {
-                dishName.setText(post.getDishName());
-                restaurent.setText(post.getRestaurant());
-                address.setText(post.getAddress());
-                category.setText(post.getCategory());
-                description.setText(post.getDescription());
-                review.setText(post.getReview());
-                rate.setRating(Integer.parseInt(post.getRate()));
-            }
+        Model.instance.getPostById(postId, post -> {
+            dishName.setText(post.getDishName());
+            restaurent.setText(post.getRestaurant());
+            address.setText(post.getAddress());
+            category.setText(post.getCategory());
+            description.setText(post.getDescription());
+            review.setText(post.getReview());
+            rate.setRating(Integer.parseInt(post.getRate()));
         });
 
 
@@ -58,19 +57,14 @@ public class PostPageFragment extends Fragment {
         // TODO: by userId
         // if the user is not the creator to the post, we need to set the visibility to GONE
         editPostBtn.setVisibility(View.VISIBLE); // GONE OR VISIBLE
+        editPostBtn.setOnClickListener(v -> editPost(view, postId));
 
-        editPostBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editPost(view, postId);
-            }
-        });
         return view;
     }
 
+    /* ********************************* Function/ Navigation ********************************* */
 
     private void editPost(View view, String postId) {
-
         Navigation.findNavController(view)
                 .navigate(PostPageFragmentDirections.actionPostPageFragmentToEditPostFragment(postId));
 

@@ -15,6 +15,7 @@ import java.util.Map;
 @Entity
 public class Post {
 
+    /* ****************************** Data Members ****************************** */
     final public static String COLLECTION_NAME = "posts";
 
     @NonNull
@@ -31,6 +32,7 @@ public class Post {
     String rate = "0";
     String userId = "";
 
+    /* ****************************** Constructors ****************************** */
 
     public Post() {
     }
@@ -49,6 +51,7 @@ public class Post {
         this.userId = userId;
     }
 
+    /* ****************************** Getters & Setters ****************************** */
     @NonNull
     public String getId() {
         return id;
@@ -58,6 +61,7 @@ public class Post {
         this.id = id;
     }
 
+    /*------------------------------------------------------*/
 
     public String getDishName() {
         return dishName;
@@ -67,6 +71,8 @@ public class Post {
         this.dishName = dishName;
     }
 
+    /*------------------------------------------------------*/
+
     public String getRestaurant() {
         return restaurant;
     }
@@ -74,6 +80,8 @@ public class Post {
     public void setRestaurant(String restaurant) {
         this.restaurant = restaurant;
     }
+
+    /*------------------------------------------------------*/
 
     public String getAddress() {
         return address;
@@ -83,6 +91,8 @@ public class Post {
         this.address = address;
     }
 
+    /*------------------------------------------------------*/
+
     public String getCategory() {
         return category;
     }
@@ -90,6 +100,8 @@ public class Post {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    /*------------------------------------------------------*/
 
     public String getDescription() {
         return description;
@@ -99,6 +111,8 @@ public class Post {
         this.description = description;
     }
 
+    /*------------------------------------------------------*/
+
     public String getReview() {
         return review;
     }
@@ -106,6 +120,8 @@ public class Post {
     public void setReview(String review) {
         this.review = review;
     }
+
+    /*------------------------------------------------------*/
 
     public String getImage() {
         return image;
@@ -115,6 +131,8 @@ public class Post {
         this.image = image;
     }
 
+    /*------------------------------------------------------*/
+
     public String getRate() {
         return rate;
     }
@@ -123,10 +141,14 @@ public class Post {
         this.rate = rate;
     }
 
+    /*------------------------------------------------------*/
+
     public String getUserId() {
         return userId;
     }
 
+
+    /* ****************************** Functions ****************************** */
 
     public static Post create(Map<String, Object> json) {
         String id = (String) json.get("id").toString();
@@ -140,10 +162,11 @@ public class Post {
         String rate = (String) json.get("rate");
         String userId = (String) json.get("userId");
 
-
         Post post = new Post(id, dishName, restaurant, address, category, description, review, image, rate, userId);
         return post;
     }
+
+    /*------------------------------------------------------*/
 
     public Map<String, Object> toJson() {
         Map<String, Object> json = new HashMap<String, Object>();
@@ -160,9 +183,11 @@ public class Post {
         return json;
     }
 
-    public String getCurrentDate(){
+    /*------------------------------------------------------*/
+
+    public String getCurrentDate() {
         Calendar calendar = Calendar.getInstance();
-        int day =  calendar.get(Calendar.DATE);
+        int day = calendar.get(Calendar.DATE);
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
         StringBuilder builder = new StringBuilder();

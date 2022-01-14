@@ -25,8 +25,8 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        /* ********************************** View Items ********************************** */
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        // Inflate the layout for this fragment
 
         fullNameTv = view.findViewById(R.id.profile_fullname_tv);
 
@@ -38,11 +38,12 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+
+        /* ***************************** Post List - Recycler View ***************************** */
+
         RecyclerView list = view.findViewById(R.id.profile_postslist_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
 //
 //        list.setAdapter(adapter);
 //
@@ -50,17 +51,19 @@ public class ProfileFragment extends Fragment {
 //            @Override
 //            public void onItemClick(View v,int position) {
 ////                String stId = viewModel.getData().getValue().get(position).getId();
-////                Navigation.findNavController(v).navigate(StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetailsFragment(stId));
+//                  Navigation.findNavController(v).navigate(
+//                        StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetailsFragment(stId));
 //
 //                System.out.println("to the post page");
 //            }
 //        });
 
 
-
         return view;
     }
 
+
+    /* ********************************* Function/ Navigation ********************************* */
 
     private void editProfile(View view) {
         System.out.println("edit profile was clicked");

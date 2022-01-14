@@ -29,6 +29,8 @@ public class LogInFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        /* ********************************** View Items ********************************** */
+
         View view = inflater.inflate(R.layout.fragment_log_in, container, false);
         emailEt = view.findViewById(R.id.login_email_et);
         passwordEt = view.findViewById(R.id.login_password_et);
@@ -55,15 +57,18 @@ public class LogInFragment extends Fragment {
         return view;
     }
 
+    /* *************************************** Functions *************************************** */
+
     private void JoinUs(View view) {
         Navigation.findNavController(view).navigate(R.id.action_logInFragment_to_signIn);
     }
 
     private void LogIn(View view) {
 
-
         String localMail = emailEt.getText().toString().trim();
         String localPass = passwordEt.getText().toString().trim();
+
+        /* *************************************** Validations *************************************** */
 
         if(!Patterns.EMAIL_ADDRESS.matcher(localMail).matches()){
             emailEt.setError("Please provide valid email");
@@ -82,9 +87,10 @@ public class LogInFragment extends Fragment {
             return;
         }
 
+        /* ------------------------------------ Navigation ------------------------------------ */
 
-        Model.instance.getUserId(localMail,localPass, userID -> {
-            Navigation.findNavController(view).navigate(R.id.action_global_homePage);
+        Model.instance.UserLogin(localMail,localPass, userID -> {
+            Navigation.findNavController(view).navigate(LogInFragmentDirections.actionGlobalHomePage(localMail));
         });
 
     }

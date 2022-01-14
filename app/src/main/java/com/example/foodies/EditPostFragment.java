@@ -31,6 +31,7 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
 
         View view = inflater.inflate(R.layout.fragment_edit_post, container, false);
 
+        /* *************************************** View Items *************************************** */
         dishName = view.findViewById(R.id.editpost_dishname_et);
         restaurent = view.findViewById(R.id.editpost_restaurant_et);
         address = view.findViewById(R.id.editpost_address_et);
@@ -40,6 +41,7 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
         dishImg = view.findViewById(R.id.editpost_dishimg_img);
         rate = view.findViewById(R.id.editpost_rate_spinner);
 
+        /* *************************************** Current Post *************************************** */
         String postId = EditPostFragmentArgs.fromBundle(getArguments()).getPostId();
 
         Model.instance.getPostById(postId, post1 -> {
@@ -71,15 +73,17 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
 
         });
 
+        /*---------------------------------- Button --------------------------------------*/
+
         Button saveBtn = view.findViewById(R.id.editpost_save_btn);
         saveBtn.setOnClickListener(v -> save(postId, v));
 
         return view;
     }
 
+    /* *************************************** Functions *************************************** */
+
     private void save(String postID, View v) {
-
-
         Model.instance.getPostById(postID, post1 -> {
 
             String name = dishName.getText().toString();
@@ -90,21 +94,25 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
             String rev = review.getText().toString();
             String rateing = rate.getSelectedItem().toString();;
 
-
             //TODO:userID, img
             String img = "myImg";
             String userID = "1";
 
             Post newPost = new Post(postID, name, res, addr, categor, desc, rev, img, rateing, userID);
 
+
+            /* ------------------------------------ Navigation ------------------------------------ */
+
             Model.instance.addPost(newPost, () -> {
-                Navigation.findNavController(v).navigate(EditPostFragmentDirections.actionEditPostFragmentToHomePage());
+                Navigation.findNavController(v).navigate(EditPostFragmentDirections.actionEditPostFragmentToHomePage(userID));
             });
 
         });
 
     }
 
+
+    /* *************************************** Spinner Functions *************************************** */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String item = parent.getItemAtPosition(position).toString();

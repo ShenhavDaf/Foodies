@@ -36,6 +36,8 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        /* *************************************** View Items *************************************** */
+
         View view = inflater.inflate(R.layout.fragment_new_post, container, false);
 
         dishName = view.findViewById(R.id.newpost_dishname_et);
@@ -43,34 +45,28 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         address = view.findViewById(R.id.newpost_address_et);
         category = view.findViewById(R.id.newpost_category_spinner);
 
+        // Category spinner
         ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter
-                //  היה כתוב רק this
                 .createFromResource(this.getContext(),R.array.postCategories,
                         android.R.layout.simple_spinner_item);
-
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         category.setAdapter(categoryAdapter);
 
-
-//        rate.setOnItemClickListener(this);
 
         description = view.findViewById(R.id.newpost_desc_et);
         review = view.findViewById(R.id.newpost_review_et);
         image = view.findViewById(R.id.newpost_img);
         rate = view.findViewById(R.id.newpost_rate_spinner);
 
+        // Rate spinner
         ArrayAdapter<CharSequence> rateAdapter = ArrayAdapter
-                                  //  היה כתוב רק this
                 .createFromResource(this.getContext(),R.array.postRating,
                         android.R.layout.simple_spinner_item);
-
         rateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         rate.setAdapter(rateAdapter);
 
 
-//        rate.setOnItemClickListener(this);
-
-
+        /* ------------------------------------ Button ------------------------------------ */
 
         postBtn = view.findViewById(R.id.newpost_post_btn);
         postBtn.setOnClickListener(new View.OnClickListener() {
@@ -80,9 +76,10 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
             }
         });
 
-
         return view;
     }
+
+    /* *************************************** Functions *************************************** */
 
     private void save(String userID) {
         // save on firebase
@@ -96,12 +93,10 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         String rev = review.getText().toString();
         String rateing = rate.getSelectedItem().toString();;
 
-
-        //TODO: img
+        //TODO: img, userid
         String img = "myImg";
 
-        //TODO: userid
-
+        /* ------------------------------------ Navigation ------------------------------------ */
 
         Model.instance.getNextPostId(nextId -> {
             Post newPost = new Post(nextId + "", name, res, addr, categor, desc, rev, img, rateing, userID);
@@ -112,7 +107,8 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
 
     }
 
-    // מתודות של הספינר
+    /* *************************************** Spinner Functions *************************************** */
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String item = parent.getItemAtPosition(position).toString();

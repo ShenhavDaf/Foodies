@@ -4,15 +4,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Model {
-    public static final Model instance = new Model();
 
+    /* ****************************** Data Members ****************************** */
+    public static final Model instance = new Model();
     ModelFirebase modelFirebase = new ModelFirebase();
 
-
+    /* ****************************** Default Constructor ****************************** */
     private Model(){
     }
 
-    /* ----------------------------------------------------- */
+    /* ******************** Listeners & calling to ModelFirebase ******************** */
 
     public interface GetAllPostsListener {
         void onComplete(List<Post> list);
@@ -45,12 +46,12 @@ public class Model {
 
     /* ----------------------------------------------------- */
 
-    public interface GetListSizeListener {
+    public interface GetPostsListSizeListener {
         void onComplete(int size);
     }
 
-    public void getListSize(GetListSizeListener listener) {
-        modelFirebase.getListSize(listener);
+    public void getPostsListSize(GetPostsListSizeListener listener) {
+        modelFirebase.getPostsListSize(listener);
     }
 
     /* ----------------------------------------------------- */
@@ -74,22 +75,35 @@ public class Model {
 
     /* ----------------------------------------------------- */
 
-    public interface GetUserIdListener {
+    public interface UserLoginListener {
         void onComplete(String userID);
     }
 
-    public Post getUserId(String email, String password, GetUserIdListener listener) {
-        modelFirebase.getUserId(email, password,listener);
+    public Post UserLogin(String email, String password, UserLoginListener listener) {
+        modelFirebase.UserLogin(email, password,listener);
         return null;
     }
 
     /* ----------------------------------------------------- */
 
-//    public interface AddUserListener {
-//        void onComplete();
-//    }
-//
-//    public void addUser(User user, AddUserListener listener){
-//        modelFirebase.addUser( user,  listener);
-//    }
+    public interface AddUserDetailsListener {
+        void onComplete();
+    }
+
+    public void addUserDetails(User user, AddUserDetailsListener listener){
+        modelFirebase.addUserDetails( user,  listener);
+    }
+
+    /* ----------------------------------------------------- */
+
+    public interface GetUserByEmailListener {
+        void onComplete(User user);
+    }
+
+    public void getUserByEmail(String email, GetUserByEmailListener listener){
+        modelFirebase.getUserByEmail( email,  listener);
+    }
+
+    /* ----------------------------------------------------- */
+
 }

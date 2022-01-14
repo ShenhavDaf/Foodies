@@ -19,7 +19,7 @@ import com.example.foodies.model.User;
 public class SignUpFragment extends Fragment {
 
     Button join;
-    EditText fullNameEt, emailEt, passwordEt, verifyEt,  cityEt, imageEt;
+    EditText fullNameEt, emailEt, passwordEt, verifyEt, cityEt, imageEt;
     // TODO: add image
 
 
@@ -27,8 +27,9 @@ public class SignUpFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        /* ********************************** View Items ********************************** */
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
-        // Inflate the layout for this fragment
+
         fullNameEt = view.findViewById(R.id.signin_name_et);
         emailEt = view.findViewById(R.id.signin_email_et);
         passwordEt = view.findViewById(R.id.signin_password_et);
@@ -41,7 +42,8 @@ public class SignUpFragment extends Fragment {
         return view;
     }
 
-    private void Join(View view){
+    /* ************************************** Function ************************************** */
+    private void Join(View view) {
         System.out.println("join button was clicked");
 
         String fullname = fullNameEt.getText().toString();
@@ -52,13 +54,15 @@ public class SignUpFragment extends Fragment {
 //       TODO: String image = imageEt.getText().toString();
         String image = "";
 
-        if(fullname.isEmpty()){
+        /* ********************************** Validations ********************************** */
+
+        if (fullname.isEmpty()) {
             fullNameEt.setError("Please enter your full name");
             fullNameEt.requestFocus();
             return;
         }
 
-        if(city.isEmpty()){
+        if (city.isEmpty()) {
             cityEt.setError("Please enter your city");
             cityEt.requestFocus();
             return;
@@ -70,36 +74,37 @@ public class SignUpFragment extends Fragment {
 //            return;
 //        }
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailEt.setError("Please provide valid email");
             emailEt.requestFocus();
             return;
         }
-        if(email.isEmpty()){
+        if (email.isEmpty()) {
             emailEt.setError("Please enter your Email");
             emailEt.requestFocus();
             return;
         }
 
-        if(password.length() < 6){
+        if (password.length() < 6) {
             passwordEt.setError("Password length should be at least 6 characters");
             passwordEt.requestFocus();
             return;
         }
-        if(!verify.equals(password)){
+        if (!verify.equals(password)) {
             verifyEt.setError("Wrong password");
             verifyEt.requestFocus();
             return;
         }
 
-            User newUser = new User(email, fullname, city, image);
 
-            Model.instance.addNewUser(email, password, () -> {
-                Navigation.findNavController(view).navigate(R.id.action_global_homePage);
+        /* ------------------------------------ Navigation ------------------------------------ */
+
+        Model.instance.addNewUser(email, password, () -> {
+            User newUserDetails = new User(email, fullname, city, image);
+            Model.instance.addUserDetails(newUserDetails, () -> {
+                Navigation.findNavController(view).navigate(SignUpFragmentDirections.actionGlobalHomePage(email));
             });
-//            Model.instance.addNewUser(newUser, () -> {
-//                Navigation.findNavController(view).navigate(R.id.action_global_homePage);
-//            });
+        });
 
     }
 }

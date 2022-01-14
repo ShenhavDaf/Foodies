@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Post;
+import com.example.foodies.model.User;
 
 import java.util.List;
 
@@ -31,11 +32,29 @@ public class HomePageFragment extends Fragment {
     SwipeRefreshLayout swipeRefresh;
     TextView userName;
     ImageButton profile, homePage, addPost;
+    User currentUserDetails;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+
+        // Current login user
+        String currUserEmail = HomePageFragmentArgs.fromBundle(getArguments()).getUserEmail();
+
+
+        /* *********************************** Current user *********************************** */
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
+
+        userName = view.findViewById(R.id.home_user_name);
+
+        Model.instance.getUserByEmail(currUserEmail, user -> {
+            currentUserDetails = user;
+            userName.setText(currentUserDetails.getFullName());
+        });
+
+
+        /* ***************************** Post List - Recycler View ***************************** */
 
         swipeRefresh = view.findViewById(R.id.postlist_swiperefresh);
         swipeRefresh.setOnRefreshListener(() -> refresh());
@@ -57,7 +76,7 @@ public class HomePageFragment extends Fragment {
         });
 
 
-        // buttons of the footer:
+        /* ************************************ Footer menu ************************************ */
 
         View footer = view.findViewById(R.id.home_footer);
 
@@ -90,6 +109,8 @@ public class HomePageFragment extends Fragment {
 //        });
 
 
+        /* ************************************ menu ************************************ */
+
 //        setHasOptionsMenu(true);
 //        viewModel.getData().observe(getViewLifecycleOwner(), list1 -> refresh());
 //        swipeRefresh.setRefreshing(Model.instance.getStudentListLoadingState().getValue() == Model.StudentListLoadingState.loading);
@@ -101,9 +122,6 @@ public class HomePageFragment extends Fragment {
 //            }
 
 //        });
-
-
-        userName = view.findViewById(R.id.home_user_name);
 
 
         refresh();
@@ -120,6 +138,7 @@ public class HomePageFragment extends Fragment {
         });
     }
 
+    /* *************************************** Holder *************************************** */
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView userName, description, rateNum;
@@ -146,6 +165,9 @@ public class HomePageFragment extends Fragment {
             });
         }
     }
+
+
+    /* *************************************** Adapter *************************************** */
 
     interface OnItemClickListener {
         void onItemClick(View v, int position);
@@ -194,6 +216,8 @@ public class HomePageFragment extends Fragment {
             return data.size();
         }
     }
+
+    /* *************************************** Menu Functions *************************************** */
 
 //    @Override
 //    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
