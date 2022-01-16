@@ -24,12 +24,18 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
     TextView dishName, restaurent, address, description, review;
     ImageView dishImg;
     Spinner category, rate;
+    String postId, sourcePage, currUserEmail;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_edit_post, container, false);
+
+        postId = EditPostFragmentArgs.fromBundle(getArguments()).getPostId();
+        sourcePage = PostPageFragmentArgs.fromBundle(getArguments()).getSourcePage();
+        currUserEmail = PostPageFragmentArgs.fromBundle(getArguments()).getUserEmail();
+
 
         /* *************************************** View Items *************************************** */
         dishName = view.findViewById(R.id.editpost_dishname_et);
@@ -42,7 +48,6 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
         rate = view.findViewById(R.id.editpost_rate_spinner);
 
         /* *************************************** Current Post *************************************** */
-        String postId = EditPostFragmentArgs.fromBundle(getArguments()).getPostId();
 
         Model.instance.getPostById(postId, post1 -> {
 
@@ -103,10 +108,19 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
 
             /* ------------------------------------ Navigation ------------------------------------ */
 
-//            Model.instance.addPost(newPost, () -> {
-//                Navigation.findNavController(v).navigate(EditPostFragmentDirections.actionEditPostFragmentToHomePage(userID));
-//            });
+            //TODO: make a function in modelFirebase of updateData (change the addPost to updatePost)
 
+            if(sourcePage.equals("homepage")){
+                Model.instance.addPost(newPost, currUserEmail, () -> {
+                    Navigation.findNavController(v).navigate(EditPostFragmentDirections.actionEditPostFragmentToHomePage(userID));
+                });
+            }
+            if(sourcePage.equals("profilepage")){
+                Model.instance.addPost(newPost, currUserEmail, () -> {
+                    Navigation.findNavController(v).navigate(EditPostFragmentDirections.actionGlobalProfileFragment(userID));
+
+                });
+            }
         });
 
     }

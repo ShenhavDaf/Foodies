@@ -69,6 +69,12 @@
         <action
             android:id="@+id/action_postPageFragment_to_editPostFragment"
             app:destination="@id/editPostFragment" />
+        <argument
+            android:name="sourcePage"
+            app:argType="string" />
+        <argument
+            android:name="userEmail"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/editPostFragment"
@@ -82,6 +88,12 @@
             android:id="@+id/action_editPostFragment_to_homePage"
             app:destination="@id/homePage"
             app:popUpTo="@id/homePage" />
+        <argument
+            android:name="sourcePage"
+            app:argType="string" />
+        <argument
+            android:name="userEmail"
+            app:argType="string" />
     </fragment>
     <action android:id="@+id/action_global_homePage" app:destination="@id/homePage" />
     <action android:id="@+id/action_global_newPostFragment" app:destination="@id/newPostFragment" />

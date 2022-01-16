@@ -225,19 +225,25 @@ public class ModelFirebase {
     /* -------------------------------------------------------------------------- */
 
     public void getUserPosts(User user, Model.GetUserPostsListener listener) {
-        db.collection(Post.COLLECTION_NAME).whereIn(FieldPath.documentId(), user.getPostList())
-                .get()
-                .addOnCompleteListener(task -> {
-                    List<Post> list = new LinkedList<Post>();
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot doc : task.getResult()) {
-                            Post post = Post.create(doc.getData());
-                            if (post != null) {
-                                list.add(post);
+        List<Post> list = new LinkedList<Post>();
+        if(user.getPostList().size() > 0 ) {
+            db.collection(Post.COLLECTION_NAME)
+                    .whereIn(FieldPath.documentId(), user.getPostList())
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot doc : task.getResult()) {
+                                Post post = Post.create(doc.getData());
+                                if (post != null) {
+                                    list.add(post);
+                                }
                             }
                         }
-                    }
-                    listener.onComplete(list);
-                });
+                        listener.onComplete(list);
+                    });
+        }
+        else{
+            listener.onComplete(list);
+        }
     }
 }

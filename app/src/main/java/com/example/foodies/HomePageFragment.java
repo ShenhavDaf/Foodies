@@ -32,7 +32,10 @@ public class HomePageFragment extends Fragment {
     SwipeRefreshLayout swipeRefresh;
     TextView userName;
     ImageButton profile, homePage, addPost;
+    private final static String SOURCE_PAGE = "homepage";
+    String currUserEmail;
 //    User currentUserDetails;
+
 
     @Nullable
     @Override
@@ -40,7 +43,7 @@ public class HomePageFragment extends Fragment {
 
 
         // Current login user
-        String currUserEmail = HomePageFragmentArgs.fromBundle(getArguments()).getUserEmail();
+        currUserEmail = HomePageFragmentArgs.fromBundle(getArguments()).getUserEmail();
 
 
         /* *********************************** Current user *********************************** */
@@ -69,7 +72,8 @@ public class HomePageFragment extends Fragment {
             @Override
             public void onItemClick(View v, int position) {
                 String postId = data.get(position).getId();
-                Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageToPostPageFragment(postId));
+                Navigation.findNavController(v)
+                        .navigate(HomePageFragmentDirections.actionHomePageToPostPageFragment(postId, SOURCE_PAGE, currUserEmail));
             }
         });
 
