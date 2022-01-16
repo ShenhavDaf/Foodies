@@ -102,7 +102,7 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
 
         /* ------------------------------------ Navigation ------------------------------------ */
 
-        Model.instance.getNextPostId(nextId -> {
+        Model.instance.getNextPostId(currUserEmail, nextId -> {
             Post newPost = new Post(nextId + "", name, res, addr, categor, desc, rev, img, rateing, currUserEmail);
             Model.instance.addPost(newPost,currUserEmail, () -> {
                 Navigation.findNavController(dishName).navigateUp();

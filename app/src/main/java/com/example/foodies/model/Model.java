@@ -59,8 +59,8 @@ public class Model {
         void onComplete(String lastId);
     }
 
-    public void getNextPostId(GetNextPostIdListener listener) {
-        modelFirebase.getNextPostId(listener);
+    public void getNextPostId(String userEmail, GetNextPostIdListener listener) {
+        modelFirebase.getNextPostId(userEmail, listener);
     }
 
     /* ----------------------------------------------------- */

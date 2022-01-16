@@ -23,6 +23,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -130,22 +131,43 @@ public class ModelFirebase {
 
     /* -------------------------------------------------------------------------- */
 
-    public void getNextPostId(Model.GetNextPostIdListener listener) {
-        db.collection(Post.COLLECTION_NAME)
+    public void getNextPostId(String userEmail, Model.GetNextPostIdListener listener) {
+
+
+        db.collection(User.COLLECTION_NAME)
+                .document(userEmail)
                 .get()
                 .addOnCompleteListener(task -> {
-                    String lastId = "";
-                    if (task.isSuccessful()) {
-                        int size = task.getResult().getDocuments().size() - 1;
-                        lastId = task.getResult().getDocuments().get(size).getId();
-                        int i = Integer.parseInt(lastId);
-                        i++;
-                        StringBuilder builder = new StringBuilder();
-                        builder.append(i);
-                        lastId = builder.toString();
-                    }
-                    listener.onComplete(lastId);
-                });
+                            if (task.isSuccessful() & task.getResult() != null) {
+
+                                User myUser = User.create(task.getResult().getData());
+                                int size = myUser.getPostList().size();
+                                String lastLetters = null;
+
+                                if(size == 0) {
+                                    lastLetters = "0";
+                                }
+                                else if(size > 0){
+
+                                    String lastPost = myUser.getPostList().get(size-1);
+                                    StringBuilder email = new StringBuilder();
+                                    email.append(userEmail).append('_');
+                                    String[] array = lastPost.split(email.toString());
+                                    for (String s: array) {
+                                        lastLetters = s;
+                                    }
+                                }
+
+                                int nextNumber =  Integer.parseInt(lastLetters);
+                                nextNumber++;
+
+                                StringBuilder idToSend = new StringBuilder();
+                                idToSend.append(userEmail).append("_").append(nextNumber);
+
+                                listener.onComplete(idToSend.toString());
+
+                            }
+                        });
     }
 
     /* ****************************** Users Functions ****************************** */
