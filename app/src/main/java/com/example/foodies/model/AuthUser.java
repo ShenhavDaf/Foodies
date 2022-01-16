@@ -4,14 +4,15 @@ public class AuthUser {
 
     /* ****************************** Data Members ****************************** */
 
-    String email= "";
-    String password =  "";
+    String email = "";
+    String password = "";
 
     /* ****************************** Constructors ****************************** */
 
-    public AuthUser(){}
+    public AuthUser() {
+    }
 
-    public AuthUser(String email, String password){
+    public AuthUser(String email, String password) {
         this.email = email;
         this.password = password;
     }

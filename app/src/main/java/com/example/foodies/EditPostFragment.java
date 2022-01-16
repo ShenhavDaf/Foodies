@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Post;
 
-public class EditPostFragment extends Fragment implements AdapterView.OnItemSelectedListener{
+public class EditPostFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     TextView dishName, restaurent, address, description, review;
     ImageView dishImg;
@@ -97,7 +97,8 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
             String categor = category.getSelectedItem().toString();
             String desc = description.getText().toString();
             String rev = review.getText().toString();
-            String rateing = rate.getSelectedItem().toString();;
+            String rateing = rate.getSelectedItem().toString();
+            ;
 
             //TODO:userID, img
             String img = "myImg";
@@ -110,14 +111,18 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
 
             //TODO: make a function in modelFirebase of updateData (change the addPost to updatePost)
 
-            if(sourcePage.equals("homepage")){
+            if (sourcePage.equals("homepage")) {
                 Model.instance.addPost(newPost, currUserEmail, () -> {
-                    Navigation.findNavController(v).navigate(EditPostFragmentDirections.actionEditPostFragmentToHomePage(userID));
+                    Navigation.findNavController(v)
+                            .navigate(EditPostFragmentDirections
+                                    .actionEditPostFragmentToHomePage(userID));
                 });
             }
-            if(sourcePage.equals("profilepage")){
+            if (sourcePage.equals("profilepage")) {
                 Model.instance.addPost(newPost, currUserEmail, () -> {
-                    Navigation.findNavController(v).navigate(EditPostFragmentDirections.actionGlobalProfileFragment(userID));
+                    Navigation.findNavController(v)
+                            .navigate(EditPostFragmentDirections
+                                    .actionGlobalProfileFragment(userID));
 
                 });
             }

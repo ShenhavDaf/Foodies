@@ -72,8 +72,9 @@ public class HomePageFragment extends Fragment {
             @Override
             public void onItemClick(View v, int position) {
                 String postId = data.get(position).getId();
-                Navigation.findNavController(v)
-                        .navigate(HomePageFragmentDirections.actionHomePageToPostPageFragment(postId, SOURCE_PAGE, currUserEmail));
+                Navigation.findNavController(v).navigate(
+                        HomePageFragmentDirections
+                                .actionHomePageToPostPageFragment(postId, SOURCE_PAGE, currUserEmail));
             }
         });
 
@@ -90,7 +91,9 @@ public class HomePageFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("TAG", "add btn was clicked........");
-                Navigation.findNavController(view).navigate(HomePageFragmentDirections.actionGlobalNewPostFragment(currUserEmail));
+                Navigation.findNavController(view)
+                        .navigate(HomePageFragmentDirections
+                                .actionGlobalNewPostFragment(currUserEmail));
             }
         });
 
@@ -98,7 +101,9 @@ public class HomePageFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("TAG", "profile btn was clicked");
-                Navigation.findNavController(view).navigate(HomePageFragmentDirections.actionGlobalProfileFragment(currUserEmail));
+                Navigation.findNavController(view)
+                        .navigate(HomePageFragmentDirections
+                                .actionGlobalProfileFragment(currUserEmail));
             }
         });
 
@@ -154,7 +159,7 @@ public class HomePageFragment extends Fragment {
             userName = itemView.findViewById(R.id.listrow_username_tv);
             description = itemView.findViewById(R.id.listrow_description_tv);
             dishImage = itemView.findViewById(R.id.listrow_post_img);
-            rateNum =  itemView.findViewById(R.id.listrow_rate_tv);
+            rateNum = itemView.findViewById(R.id.listrow_rate_tv);
             rateStar = itemView.findViewById(R.id.listrow_ratingBar);
             rateStar.setEnabled(false);
 
@@ -193,12 +198,19 @@ public class HomePageFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+
+
+//            Model.instance.getUserByEmail(currUserEmail, user -> {
+//                holder.userName.setText(user.getFullName());
+//            });
 //            Student student = viewModel.getData().getValue().get(position);
             Post post = data.get(position);
 
             //TODO: after authentication find user name & img
-//            holder.userImage.setImageDrawable(post.getUserId().getImage);
-//            holder.userName.setText(post.getUserId());
+            Model.instance.getUserByEmail(post.getUserEmail(), user -> {
+                holder.userName.setText(user.getFullName());
+//                holder.userImage.setImageDrawable(user.getImage());
+            });
 
             holder.description.setText(post.getDishName());
 

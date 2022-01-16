@@ -32,7 +32,6 @@ public class ProfileFragment extends Fragment {
     private final static String SOURCE_PAGE = "profilepage";
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,7 +70,9 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onItemClick(View v, int position) {
                 String postId = data.get(position).getId();
-                Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionProfileFragmentToEditPostFragment(postId, SOURCE_PAGE, currUserEmail));
+                Navigation.findNavController(v)
+                        .navigate(ProfileFragmentDirections
+                                .actionProfileFragmentToEditPostFragment(postId, SOURCE_PAGE, currUserEmail));
 
                 System.out.println("to the post page");
             }
@@ -93,7 +94,7 @@ public class ProfileFragment extends Fragment {
 //        swipeRefresh.setRefreshing(true);
         Model.instance.getUserByEmail(currUserEmail, user -> {
             Model.instance.getUserPosts(user, (list) -> {
-                if(list != null){
+                if (list != null) {
                     data = list;
                     adapter.notifyDataSetChanged();
                     //            swipeRefresh.setRefreshing(false);

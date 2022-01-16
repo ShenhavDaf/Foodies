@@ -28,9 +28,9 @@ public class PostPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-         postId = PostPageFragmentArgs.fromBundle(getArguments()).getPostId();
-         sourcePage = PostPageFragmentArgs.fromBundle(getArguments()).getSourcePage();
-         currUserEmail =  PostPageFragmentArgs.fromBundle(getArguments()).getUserEmail();
+        postId = PostPageFragmentArgs.fromBundle(getArguments()).getPostId();
+        sourcePage = PostPageFragmentArgs.fromBundle(getArguments()).getSourcePage();
+        currUserEmail = PostPageFragmentArgs.fromBundle(getArguments()).getUserEmail();
         /* ********************************* View Items ********************************* */
 
         View view = inflater.inflate(R.layout.fragment_post_page, container, false);
@@ -59,21 +59,17 @@ public class PostPageFragment extends Fragment {
             review.setText(post.getReview());
             rate.setRating(Integer.parseInt(post.getRate()));
             postEmail = post.getUserEmail();
-            if(postEmail.equals(currUserEmail)){
+            if (postEmail.equals(currUserEmail)) {
                 editPostBtn.setVisibility(View.VISIBLE);
                 editPostBtn.setOnClickListener(v -> editPost(view, postId));
             }// GONE OR VISIBLE
         });
 
 
-
         // TODO: by userId
         // if the user is not the creator to the post, we need to set the visibility to GONE
         System.out.println(currUserEmail);
         System.out.println(postEmail);
-
-
-
 
 
         return view;

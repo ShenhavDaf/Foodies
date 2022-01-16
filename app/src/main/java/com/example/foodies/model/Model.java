@@ -10,7 +10,7 @@ public class Model {
     ModelFirebase modelFirebase = new ModelFirebase();
 
     /* ****************************** Default Constructor ****************************** */
-    private Model(){
+    private Model() {
     }
 
     /* ******************** Listeners & calling to ModelFirebase ******************** */
@@ -19,7 +19,7 @@ public class Model {
         void onComplete(List<Post> list);
     }
 
-    public void getAllPosts(GetAllPostsListener listener){
+    public void getAllPosts(GetAllPostsListener listener) {
         modelFirebase.getAllPosts(listener);
     }
 
@@ -29,8 +29,8 @@ public class Model {
         void onComplete();
     }
 
-    public void addPost(Post post, String userEmail, AddPostListener listener){
-        modelFirebase.addPost( post, userEmail,  listener);
+    public void addPost(Post post, String userEmail, AddPostListener listener) {
+        modelFirebase.addPost(post, userEmail, listener);
     }
 
     /* ----------------------------------------------------- */
@@ -40,7 +40,7 @@ public class Model {
     }
 
     public Post getPostById(String postId, GetPostByIdListener listener) {
-        modelFirebase.getPostById(postId,listener);
+        modelFirebase.getPostById(postId, listener);
         return null;
     }
 
@@ -69,8 +69,8 @@ public class Model {
         void onComplete();
     }
 
-    public void addNewUser(String email, String password , GetAuthListener listener) {
-        modelFirebase.addNewUser( email, password, listener);
+    public void addNewUser(String email, String password, GetAuthListener listener) {
+        modelFirebase.addNewUser(email, password, listener);
     }
 
     /* ----------------------------------------------------- */
@@ -80,7 +80,7 @@ public class Model {
     }
 
     public Post UserLogin(String email, String password, UserLoginListener listener) {
-        modelFirebase.UserLogin(email, password,listener);
+        modelFirebase.UserLogin(email, password, listener);
         return null;
     }
 
@@ -90,8 +90,8 @@ public class Model {
         void onComplete();
     }
 
-    public void addUserDetails(User user, AddUserDetailsListener listener){
-        modelFirebase.addUserDetails( user,  listener);
+    public void addUserDetails(User user, AddUserDetailsListener listener) {
+        modelFirebase.addUserDetails(user, listener);
     }
 
     /* ----------------------------------------------------- */
@@ -100,8 +100,8 @@ public class Model {
         void onComplete(User user);
     }
 
-    public void getUserByEmail(String email, GetUserByEmailListener listener){
-        modelFirebase.getUserByEmail( email,  listener);
+    public void getUserByEmail(String email, GetUserByEmailListener listener) {
+        modelFirebase.getUserByEmail(email, listener);
     }
 
     /* ----------------------------------------------------- */
@@ -110,7 +110,7 @@ public class Model {
         void onComplete(List<Post> list);
     }
 
-    public void getUserPosts(User user, GetUserPostsListener listener){
+    public void getUserPosts(User user, GetUserPostsListener listener) {
         modelFirebase.getUserPosts(user, listener);
     }
 

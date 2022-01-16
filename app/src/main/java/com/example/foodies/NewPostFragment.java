@@ -51,7 +51,7 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
 
         // Category spinner
         ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter
-                .createFromResource(this.getContext(),R.array.postCategories,
+                .createFromResource(this.getContext(), R.array.postCategories,
                         android.R.layout.simple_spinner_item);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         category.setAdapter(categoryAdapter);
@@ -64,7 +64,7 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
 
         // Rate spinner
         ArrayAdapter<CharSequence> rateAdapter = ArrayAdapter
-                .createFromResource(this.getContext(),R.array.postRating,
+                .createFromResource(this.getContext(), R.array.postRating,
                         android.R.layout.simple_spinner_item);
         rateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         rate.setAdapter(rateAdapter);
@@ -95,7 +95,8 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         String categor = category.getSelectedItem().toString();
         String desc = description.getText().toString();
         String rev = review.getText().toString();
-        String rateing = rate.getSelectedItem().toString();;
+        String rateing = rate.getSelectedItem().toString();
+        ;
 
         //TODO: img, userid
         String img = "myImg";
@@ -103,8 +104,9 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         /* ------------------------------------ Navigation ------------------------------------ */
 
         Model.instance.getNextPostId(currUserEmail, nextId -> {
-            Post newPost = new Post(nextId + "", name, res, addr, categor, desc, rev, img, rateing, currUserEmail);
-            Model.instance.addPost(newPost,currUserEmail, () -> {
+            Post newPost =
+                    new Post(nextId + "", name, res, addr, categor, desc, rev, img, rateing, currUserEmail);
+            Model.instance.addPost(newPost, currUserEmail, () -> {
                 Navigation.findNavController(dishName).navigateUp();
             });
         });

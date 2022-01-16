@@ -70,18 +70,18 @@ public class LogInFragment extends Fragment {
 
         /* *************************************** Validations *************************************** */
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(localMail).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(localMail).matches()) {
             emailEt.setError("Please provide valid email");
             emailEt.requestFocus();
             return;
         }
-        if(localMail.isEmpty()){
+        if (localMail.isEmpty()) {
             emailEt.setError("Please enter your Email");
             emailEt.requestFocus();
             return;
         }
 
-        if(localPass.length() < 6){
+        if (localPass.length() < 6) {
             passwordEt.setError("Password length should be at least 6 characters");
             passwordEt.requestFocus();
             return;
@@ -89,8 +89,9 @@ public class LogInFragment extends Fragment {
 
         /* ------------------------------------ Navigation ------------------------------------ */
 
-        Model.instance.UserLogin(localMail,localPass, userID -> {
-            Navigation.findNavController(view).navigate(LogInFragmentDirections.actionGlobalHomePage(localMail));
+        Model.instance.UserLogin(localMail, localPass, userID -> {
+            Navigation.findNavController(view)
+                    .navigate(LogInFragmentDirections.actionGlobalHomePage(localMail));
         });
 
     }

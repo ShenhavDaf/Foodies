@@ -38,6 +38,7 @@ public class User {
 //        this.postList = new ArrayList<>();
         this.postList = postList;
     }
+
     public User(String email, String fullName, String city, String image) {
         this.email = email;
         this.fullName = fullName;
@@ -46,7 +47,7 @@ public class User {
         this.postList = new ArrayList<>();
     }
 
-    public User(User user){
+    public User(User user) {
         this.email = user.getEmail();
         this.fullName = user.getFullName();
         this.city = user.getCity();
