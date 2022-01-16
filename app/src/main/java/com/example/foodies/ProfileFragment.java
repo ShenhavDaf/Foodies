@@ -28,6 +28,7 @@ public class ProfileFragment extends Fragment {
     Button editProfileBtn;
     TextView fullNameTv;
     MyAdapter adapter;
+    String currUserEmail;
 
 
     @Override
@@ -36,8 +37,7 @@ public class ProfileFragment extends Fragment {
 
         /* ********************************** View Items ********************************** */
 
-        String currUserEmail = ProfileFragmentArgs.fromBundle(getArguments()).getUserEmail();
-
+        currUserEmail = ProfileFragmentArgs.fromBundle(getArguments()).getUserEmail();
 
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -67,10 +67,9 @@ public class ProfileFragment extends Fragment {
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(View v,int position) {
+            public void onItemClick(View v, int position) {
                 String postId = data.get(position).getId();
-//                  Navigation.findNavController(v).navigate(
-//                        ProfiletoPostPageDirections.action...(postId));
+                Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionProfileFragmentToEditPostFragment(postId));
 
                 System.out.println("to the post page");
             }
@@ -90,10 +89,12 @@ public class ProfileFragment extends Fragment {
 
     private void refresh() {
 //        swipeRefresh.setRefreshing(true);
-        Model.instance.getAllPosts((list) -> {
-            data = list;
-            adapter.notifyDataSetChanged();
+        Model.instance.getUserByEmail(currUserEmail, user -> {
+            Model.instance.getUserPosts(user, (list) -> {
+                data = list;
+                adapter.notifyDataSetChanged();
 //            swipeRefresh.setRefreshing(false);
+            });
         });
     }
 
@@ -111,7 +112,7 @@ public class ProfileFragment extends Fragment {
             userName = itemView.findViewById(R.id.listrow_username_tv);
             description = itemView.findViewById(R.id.listrow_description_tv);
             dishImage = itemView.findViewById(R.id.listrow_post_img);
-            rateNum =  itemView.findViewById(R.id.listrow_rate_tv);
+            rateNum = itemView.findViewById(R.id.listrow_rate_tv);
             rateStar = itemView.findViewById(R.id.listrow_ratingBar);
             rateStar.setEnabled(false);
 

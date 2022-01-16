@@ -48,7 +48,7 @@
             app:destination="@id/editProfileFragment" />
         <action
             android:id="@+id/action_profileFragment_to_editPostFragment"
-            app:destination="@id/editPostFragment" />
+            app:destination="@id/postPageFragment" />
         <argument
             android:name="userEmail"
             app:argType="string" />

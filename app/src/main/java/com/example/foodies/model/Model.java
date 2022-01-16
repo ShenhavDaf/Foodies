@@ -106,4 +106,13 @@ public class Model {
 
     /* ----------------------------------------------------- */
 
+    public interface GetUserPostsListener {
+        void onComplete(List<Post> list);
+    }
+
+    public void getUserPosts(User user, GetUserPostsListener listener){
+        modelFirebase.getUserPosts(user, listener);
+    }
+
+
 }

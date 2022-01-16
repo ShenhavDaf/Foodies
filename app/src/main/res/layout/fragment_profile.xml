@@ -39,11 +39,15 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/profile_postslist_rv"
-        android:layout_width="409dp"
-        android:layout_height="523dp"
+        android:layout_width="398dp"
+        android:layout_height="401dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        tools:layout_editor_absoluteX="1dp" />
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_fullname_tv"
+        app:layout_constraintVertical_bias="0.266" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

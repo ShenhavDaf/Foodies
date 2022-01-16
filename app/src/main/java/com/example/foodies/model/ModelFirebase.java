@@ -17,9 +17,11 @@ import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -42,29 +44,41 @@ public class ModelFirebase {
                 .document(post.getId())
                 .set(json)
                 .addOnSuccessListener(unused -> {
+
+                    System.out.println("Addition new post to firebase was success");
+
                     db.collection(User.COLLECTION_NAME)
                             .document(userEmail)
                             .get()
                             .addOnCompleteListener(task -> {
-                                User user = null;
+
                                 if (task.isSuccessful() & task.getResult() != null) {
 
-                                    user = User.create(task.getResult().getData());
-                                   // user.getPostList().add(post.getId());
-                                    user.getPostList().add(post.id);
-                                    task.getResult().getData().put("postList", user.getPostList());
-//                                    ds.put("postList", user.getPostList());
+                                    User myUser = User.create(task.getResult().getData());
+                                    myUser.getPostList().add(post.getId());
 
+                                    Map<String, Object> updateJson = myUser.toJson();
+
+                                    db.collection(User.COLLECTION_NAME)
+                                            .document(userEmail).set(updateJson, SetOptions.merge())
+                                            .addOnSuccessListener(command -> {
+
+                                                System.out.println("Addition new post to firebase into user post list was success");
+                                                listener.onComplete();
+
+                                            }).addOnFailureListener(command -> {
+
+                                        System.out.println("Addition new post to firebase into user post list was failed");
+                                        listener.onComplete();
+                                    });
                                 }
-                                listener.onComplete();
                             });
-
                 })
-                .addOnFailureListener(e -> listener.onComplete());
 
-
-
-
+                .addOnFailureListener(e -> {
+                    System.out.println("Addition new post to firebase was failed");
+                    listener.onComplete();
+                });
     }
 
     /* -------------------------------------------------------------------------- */
@@ -170,7 +184,6 @@ public class ModelFirebase {
     public void UserLogin(String email, String password, Model.UserLoginListener listener) {
         myAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
-
                     if (task.isSuccessful()) {
                         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                         listener.onComplete(userId);
@@ -196,18 +209,35 @@ public class ModelFirebase {
 
     /* -------------------------------------------------------------------------- */
 
-        public void getUserByEmail(String email, Model.GetUserByEmailListener listener) {
-            db.collection(User.COLLECTION_NAME)
-                    .document(email)
-                    .get()
-                    .addOnCompleteListener(task -> {
-                        User user = null;
-                        if (task.isSuccessful() & task.getResult() != null) {
-                            user = User.create(task.getResult().getData());
-                        }
-                        listener.onComplete(user);
-                    });
-        }
+    public void getUserByEmail(String email, Model.GetUserByEmailListener listener) {
+        db.collection(User.COLLECTION_NAME)
+                .document(email)
+                .get()
+                .addOnCompleteListener(task -> {
+                    User user = null;
+                    if (task.isSuccessful() & task.getResult() != null) {
+                        user = User.create(task.getResult().getData());
+                    }
+                    listener.onComplete(user);
+                });
+    }
 
     /* -------------------------------------------------------------------------- */
+
+    public void getUserPosts(User user, Model.GetUserPostsListener listener) {
+        db.collection(Post.COLLECTION_NAME).whereIn(FieldPath.documentId(), user.getPostList())
+                .get()
+                .addOnCompleteListener(task -> {
+                    List<Post> list = new LinkedList<Post>();
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                            Post post = Post.create(doc.getData());
+                            if (post != null) {
+                                list.add(post);
+                            }
+                        }
+                    }
+                    listener.onComplete(list);
+                });
+    }
 }
