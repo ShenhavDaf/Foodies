@@ -62,7 +62,7 @@ public class Model {
         System.out.println("allPostsList ====== " + allPostsList.getValue());
         postsListLoadingState.setValue(LoadingState.loading);
 
-        System.out.println("Context.MODE_PRIVATE ========= " +MyApplication.getContext());
+        System.out.println("Context.MODE_PRIVATE ========= " + MyApplication.getContext());
 
         /*---------- get last local update date ----------*/
         Long lastUpdateDate = MyApplication.getContext()
@@ -82,16 +82,29 @@ public class Model {
                         /*---------- add all records to local db ----------*/
                         Long lud = new Long(0);
 
-                        Log.d("TAG", "firebase returned "+ list.size());
+                        Log.d("TAG", "firebase returned " + list.size());
+
+                        System.out.println("local before ======= ");
+                        for (Post p : AppLocalDB.db.PostDao().getAll()) {
+                            System.out.println(p.dishName);
+                        }
 
 //                        System.out.println(AppLocalDB);
                         for (Post post : list) {
                             AppLocalDB.db.PostDao().insertAll(post);
 
-                            if(lud < post.getUpdateDate()) {
+                            if (lud < post.getUpdateDate()) {
                                 lud = post.getUpdateDate();
                             }
                         }
+
+
+                        System.out.println("local after ======= ");
+                        for (Post p : AppLocalDB.db.PostDao().getAll()) {
+                            System.out.println(p.dishName);
+                        }
+
+
 
                         /*---------- update last local update date ----------*/
                         MyApplication.getContext()

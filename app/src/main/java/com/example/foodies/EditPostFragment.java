@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.foodies.model.AppLocalDB;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Post;
 
@@ -99,33 +100,44 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
             String rev = review.getText().toString();
             String rateing = rate.getSelectedItem().toString();
 
-
             //TODO:userID, img
             String img = "myImg";
-            String userID = "1";
 
-            Post newPost = new Post(postID, name, res, addr, categor, desc, rev, img, rateing, userID);
-
+            Post newPost = new Post(postID, name, res, addr, categor, desc, rev, img, rateing, currUserEmail);
 
             /* ------------------------------------ Navigation ------------------------------------ */
 
             //TODO: make a function in modelFirebase of updateData (change the addPost to updatePost)
 
-            if (sourcePage.equals("homepage")) {
-                Model.instance.addPost(newPost, currUserEmail, () -> {
-                    Navigation.findNavController(v)
-                            .navigate(EditPostFragmentDirections
-                                    .actionEditPostFragmentToHomePage(userID));
-                });
-            }
-            if (sourcePage.equals("profilepage")) {
-                Model.instance.addPost(newPost, currUserEmail, () -> {
-                    Navigation.findNavController(v)
-                            .navigate(EditPostFragmentDirections
-                                    .actionGlobalProfileFragment(userID));
 
-                });
-            }
+            Model.instance.addPost(newPost, currUserEmail, () -> {
+
+                if (sourcePage.equals("homepage")) {
+                    Navigation.findNavController(v)
+                            .navigate(EditPostFragmentDirections.actionGlobalHomePage(currUserEmail));
+                } else if (sourcePage.equals("profilepage")) {
+                    Navigation.findNavController(v)
+                            .navigate(EditPostFragmentDirections.actionGlobalProfileFragment(currUserEmail));
+                }
+
+            });
+
+
+//            if (sourcePage.equals("homepage")) {
+//                Model.instance.addPost(newPost, currUserEmail, () -> {
+//                    Navigation.findNavController(v)
+//                            .navigate(EditPostFragmentDirections.actionGlobalHomePage(currUserEmail));
+//
+//                });
+//            }
+//            if (sourcePage.equals("profilepage")) {
+//                Model.instance.addPost(newPost, currUserEmail, () -> {
+//                    Navigation.findNavController(v)
+//                            .navigate(EditPostFragmentDirections
+//                                    .actionGlobalProfileFragment(currUserEmail));
+//
+//                });
+//            }
         });
 
     }
