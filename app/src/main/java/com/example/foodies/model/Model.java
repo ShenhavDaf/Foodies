@@ -1,7 +1,20 @@
 package com.example.foodies.model;
 
-import java.util.LinkedList;
+import android.app.Application;
+import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
+
+import androidx.core.os.HandlerCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
+import com.example.foodies.MyApplication;
+
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class Model {
 
@@ -9,18 +22,102 @@ public class Model {
     public static final Model instance = new Model();
     ModelFirebase modelFirebase = new ModelFirebase();
 
+    Executor executor = Executors.newFixedThreadPool(1);
+    Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
+
+    /* ****************************** Loading State ****************************** */
+
+    public enum LoadingState {
+        loading, loaded
+    }
+
+    // מאפשר לנו לעשות את ה observable
+    MutableLiveData<LoadingState> postsListLoadingState = new MutableLiveData<LoadingState>();
+
+    public MutableLiveData<LoadingState> getPostsListLoadingState() {
+        return postsListLoadingState;
+    }
+
     /* ****************************** Default Constructor ****************************** */
     private Model() {
+        postsListLoadingState.setValue(LoadingState.loaded);
     }
 
     /* ******************** Listeners & calling to ModelFirebase ******************** */
 
-    public interface GetAllPostsListener {
-        void onComplete(List<Post> list);
+
+    //singleton
+    MutableLiveData<List<Post>> allPostsList = new MutableLiveData<List<Post>>();
+
+    // replace getAllPosts
+    public LiveData<List<Post>> getAllPosts() {
+        if (allPostsList.getValue() == null) {
+            refreshPostsList();
+        }
+        return allPostsList;
     }
 
-    public void getAllPosts(GetAllPostsListener listener) {
-        modelFirebase.getAllPosts(listener);
+    public void refreshPostsList() {
+
+        postsListLoadingState.setValue(LoadingState.loading);
+
+        System.out.println("Context.MODE_PRIVATE ========= " +MyApplication.getContext());
+
+        /*---------- get last local update date ----------*/
+        Long lastUpdateDate = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getLong(Post.LAST_UPDATE, 0);
+
+        /*---------- firebase - get all updates since localUpdateDate ----------*/
+        modelFirebase.getAllPosts(lastUpdateDate, new ModelFirebase.GetAllPostsListener() {
+            @Override
+            public void onComplete(List<Post> list) {
+
+                // כדי לעבוד על ת'רד אחר, משני, ולא על הראשי נצטרך להשתמש ב executor
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        /*---------- add all records to local db ----------*/
+                        Long lud = new Long(0);
+
+                        Log.d("TAG", "firebase returned "+ list.size());
+
+                        for (Post post : list) {
+                            AppLocalDB.db.PostDao().insertAll(post);
+
+                            if(lud < post.getUpdateDate()) {
+                                lud = post.getUpdateDate();
+                            }
+                        }
+
+                        /*---------- update last local update date ----------*/
+                        MyApplication.getContext()
+                                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                                .edit().putLong(Post.LAST_UPDATE, lud).commit();
+
+                        /*---------- return all data to caller ----------*/
+                        List<Post> poList = AppLocalDB.db.PostDao().getAll();
+                        allPostsList.postValue(poList);
+                        postsListLoadingState.postValue(LoadingState.loaded);
+
+
+                        /* בתוך stList יהיה את כל התוכן שיש בdb המקומי */
+
+                    }
+                });
+
+            }
+        });
+
+//        modelFirebase.getAllPosts(lastUpdateDate, new ModelFirebase.GetAllPostsListener() {
+//            @Override
+//            public void onComplete(List<Post> list) {
+//                // מעדכן את כל הלינסנרים שמאזינים לת'רד הראשי
+//                allPostsList.setValue(list);
+//                postsListLoadingState.setValue(LoadingState.loaded);
+//            }
+//        });
     }
 
     /* ----------------------------------------------------- */

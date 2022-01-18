@@ -3,11 +3,14 @@ package com.example.foodies;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,15 +30,23 @@ import java.util.List;
 
 public class HomePageFragment extends Fragment {
 
-    List<Post> data;
+    private final static String SOURCE_PAGE = "homepage";
+    HomePageViewModel viewModel;
+
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
     TextView userName;
     ImageButton profile, homePage, addPost;
-    private final static String SOURCE_PAGE = "homepage";
+
     String currUserEmail;
 //    User currentUserDetails;
 
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        viewModel = new ViewModelProvider(this).get(HomePageViewModel.class);
+    }
 
     @Nullable
     @Override
@@ -58,7 +69,7 @@ public class HomePageFragment extends Fragment {
         /* ***************************** Post List - Recycler View ***************************** */
 
         swipeRefresh = view.findViewById(R.id.postlist_swiperefresh);
-        swipeRefresh.setOnRefreshListener(() -> refresh());
+        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshPostsList());
 
         RecyclerView list = view.findViewById(R.id.postlist_rv);
         list.setHasFixedSize(true);
@@ -71,7 +82,7 @@ public class HomePageFragment extends Fragment {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                String postId = data.get(position).getId();
+                String postId = viewModel.getData().getValue().get(position).getId();
                 Navigation.findNavController(v).navigate(
                         HomePageFragmentDirections
                                 .actionHomePageToPostPageFragment(postId, SOURCE_PAGE, currUserEmail));
@@ -130,19 +141,33 @@ public class HomePageFragment extends Fragment {
 
 //        });
 
+        viewModel.getData().observe(getViewLifecycleOwner(), posts -> refresh());
 
-        refresh();
+        swipeRefresh.setRefreshing(
+                Model.instance.getPostsListLoadingState().getValue() == Model.LoadingState.loading);
+
+        Model.instance.getPostsListLoadingState()
+                .observe(getViewLifecycleOwner(), loadingState -> {
+
+                    if (loadingState == Model.LoadingState.loading) {
+                        swipeRefresh.setRefreshing(true);
+                    } else {
+                        swipeRefresh.setRefreshing(false);
+                    }
+                });
+
         return view;
 
     }
 
     private void refresh() {
-        swipeRefresh.setRefreshing(true);
-        Model.instance.getAllPosts((list) -> {
-            data = list;
-            adapter.notifyDataSetChanged();
-            swipeRefresh.setRefreshing(false);
-        });
+//        swipeRefresh.setRefreshing(true);
+//        Model.instance.getAllPosts((list) -> {
+//            viewModel.setData(list);
+////            data = list;
+        adapter.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
+//        });
     }
 
     /* *************************************** Holder *************************************** */
@@ -204,7 +229,7 @@ public class HomePageFragment extends Fragment {
 //                holder.userName.setText(user.getFullName());
 //            });
 //            Student student = viewModel.getData().getValue().get(position);
-            Post post = data.get(position);
+            Post post = viewModel.getData().getValue().get(position);
 
             //TODO: after authentication find user name & img
             Model.instance.getUserByEmail(post.getUserEmail(), user -> {
@@ -224,10 +249,10 @@ public class HomePageFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            if (data == null) {
+            if (viewModel.getData().getValue() == null) {
                 return 0;
             }
-            return data.size();
+            return viewModel.getData().getValue().size();
         }
     }
 

@@ -1,29 +1,14 @@
 package com.example.foodies.model;
 
-import android.content.Context;
-import android.net.wifi.hotspot2.pps.Credential;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-
-import com.example.foodies.MainActivity;
-import com.example.foodies.SignUpFragment;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +20,19 @@ public class ModelFirebase {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth myAuth = FirebaseAuth.getInstance();
 
+    public ModelFirebase() {
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings
+                .Builder()
+                .setPersistenceEnabled(false)
+                .build();
+        db.setFirestoreSettings(settings);
+    }
+
+    /* ****************************** interfaces ****************************** */
+
+    public interface GetAllPostsListener {
+        void onComplete(List<Post> list);
+    }
 
     /* ****************************** Posts Functions ****************************** */
 
@@ -99,8 +97,9 @@ public class ModelFirebase {
 
     /* -------------------------------------------------------------------------- */
 
-    public void getAllPosts(Model.GetAllPostsListener listener) {
+    public void getAllPosts(Long lastUpdateDate, GetAllPostsListener listener) {
         db.collection(Post.COLLECTION_NAME)
+                .whereGreaterThanOrEqualTo("updateDate", new Timestamp(lastUpdateDate, 0))
                 .get()
                 .addOnCompleteListener(task -> {
                     List<Post> list = new LinkedList<Post>();

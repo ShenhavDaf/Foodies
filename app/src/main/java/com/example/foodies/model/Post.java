@@ -8,6 +8,9 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FieldValue;
+
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +20,7 @@ public class Post {
 
     /* ****************************** Data Members ****************************** */
     final public static String COLLECTION_NAME = "posts";
+    final public static String LAST_UPDATE = "PostsLastUpdateDate";
 
     @NonNull
     @PrimaryKey
@@ -31,6 +35,9 @@ public class Post {
     String image = ""; // TODO...
     String rate = "0";
     String userEmail = "";
+    String userFullName = "";// TODO: for post author in home page
+
+    Long updateDate = new Long(0);
 
     /* ****************************** Constructors ****************************** */
 
@@ -147,6 +154,20 @@ public class Post {
         return userEmail;
     }
 
+    public String getUserFullName() {
+        return userFullName;
+    }
+
+    /*------------------------------------------------------*/
+
+    public Long getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Long updateDate) {
+        this.updateDate = updateDate;
+    }
+
 
     /* ****************************** Functions ****************************** */
 
@@ -162,7 +183,12 @@ public class Post {
         String rate = (String) json.get("rate");
         String userEmail = (String) json.get("userEmail");
 
+        Timestamp ts = (Timestamp) json.get("updateDate");
+        Long updateDate = ts.getSeconds();
+
         Post post = new Post(id, dishName, restaurant, address, category, description, review, image, rate, userEmail);
+        post.setUpdateDate(updateDate);
+
         return post;
     }
 
@@ -173,12 +199,16 @@ public class Post {
         json.put("id", id);
         json.put("dishName", dishName);
         json.put("restaurant", restaurant);
+        json.put("address", address);
         json.put("category", category);
         json.put("description", description);
         json.put("review", review);
         json.put("image", image);
         json.put("rate", rate);
         json.put("userEmail", userEmail);
+
+        json.put("updateDate", FieldValue.serverTimestamp());
+
 
         return json;
     }
@@ -196,5 +226,6 @@ public class Post {
 
         return date;
     }
+
 
 }

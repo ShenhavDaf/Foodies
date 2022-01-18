@@ -10,11 +10,28 @@
     </string-array>
 
     <string-array name="postCategories">
-        <item>x</item>
-        <item>y</item>
-        <item>z</item>
-        <item>w</item>
-        <item>t</item>
+
+        <item>Asian</item>
+        <item>Breakfast</item>
+        <item>Brunch</item>
+        <item>Burger</item>
+        <item>Children</item>
+        <item>Dessert</item>
+        <item>Fish</item>
+        <item>Meat</item>
+        <item>Pasta</item>
+        <item>Pie</item>
+        <item>Pizza</item>
+        <item>Salad</item>
+        <item>Sandwich</item>
+        <item>Soup</item>
+        <item>Sushi</item>
+        <item>Vegan</item>
+        <item>Vegetarian</item>
+
+
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

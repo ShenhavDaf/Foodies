@@ -3,10 +3,12 @@ package com.example.foodies;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,13 +26,21 @@ import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
-    List<Post> data;
+    private final static String SOURCE_PAGE = "profilepage";
+    ProfileViewModel viewModel;
+
     Button editProfileBtn;
     TextView fullNameTv;
     MyAdapter adapter;
-    String currUserEmail;
-    private final static String SOURCE_PAGE = "profilepage";
 
+    String currUserEmail;
+
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,7 +79,7 @@ public class ProfileFragment extends Fragment {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                String postId = data.get(position).getId();
+                String postId = viewModel.getData().get(position).getId();
                 Navigation.findNavController(v)
                         .navigate(ProfileFragmentDirections
                                 .actionProfileFragmentToEditPostFragment(postId, SOURCE_PAGE, currUserEmail));
@@ -95,7 +105,8 @@ public class ProfileFragment extends Fragment {
         Model.instance.getUserByEmail(currUserEmail, user -> {
             Model.instance.getUserPosts(user, (list) -> {
                 if (list != null) {
-                    data = list;
+                    viewModel.setData(list);
+//                    data = list;
                     adapter.notifyDataSetChanged();
                     //            swipeRefresh.setRefreshing(false);
                 }
@@ -156,7 +167,7 @@ public class ProfileFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            Post post = data.get(position);
+            Post post = viewModel.getData().get(position);
 
             //TODO: after authentication find user name & img
 //            holder.userImage.setImageDrawable(post.getUserId().getImage);
@@ -174,10 +185,10 @@ public class ProfileFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            if (data == null) {
+            if (viewModel.getData() == null) {
                 return 0;
             }
-            return data.size();
+            return viewModel.getData().size();
         }
     }
 
