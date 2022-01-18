@@ -59,6 +59,7 @@ public class Model {
 
     public void refreshPostsList() {
 
+        System.out.println("allPostsList ====== " + allPostsList.getValue());
         postsListLoadingState.setValue(LoadingState.loading);
 
         System.out.println("Context.MODE_PRIVATE ========= " +MyApplication.getContext());
@@ -83,6 +84,7 @@ public class Model {
 
                         Log.d("TAG", "firebase returned "+ list.size());
 
+//                        System.out.println(AppLocalDB);
                         for (Post post : list) {
                             AppLocalDB.db.PostDao().insertAll(post);
 

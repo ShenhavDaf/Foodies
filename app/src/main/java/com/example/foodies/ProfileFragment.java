@@ -30,7 +30,7 @@ public class ProfileFragment extends Fragment {
     ProfileViewModel viewModel;
 
     Button editProfileBtn;
-    TextView fullNameTv;
+    TextView fullNameTv, cityTv;
     MyAdapter adapter;
 
     String currUserEmail;
@@ -54,6 +54,7 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         fullNameTv = view.findViewById(R.id.profile_fullname_tv);
+        cityTv = view.findViewById(R.id.profile_city_tv);
 
         editProfileBtn = view.findViewById(R.id.profile_editprofile_btn);
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +66,7 @@ public class ProfileFragment extends Fragment {
 
         Model.instance.getUserByEmail(currUserEmail, user -> {
             fullNameTv.setText(user.getFullName());
+            cityTv.setText(user.getCity());
         });
 
 
@@ -97,7 +99,7 @@ public class ProfileFragment extends Fragment {
 
     private void editProfile(View view) {
         System.out.println("edit profile was clicked");
-        Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_editProfileFragment);
+        Navigation.findNavController(view).navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment(currUserEmail));
     }
 
     private void refresh() {

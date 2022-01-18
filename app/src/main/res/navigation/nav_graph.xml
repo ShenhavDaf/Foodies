@@ -57,7 +57,11 @@
         android:id="@+id/editProfileFragment"
         android:name="com.example.foodies.EditProfileFragment"
         android:label="Edit My Profile"
-        tools:layout="@layout/fragment_edit_profile" />
+        tools:layout="@layout/fragment_edit_profile" >
+        <argument
+            android:name="userEmail"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/postPageFragment"
         android:name="com.example.foodies.PostPageFragment"

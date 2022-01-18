@@ -107,14 +107,6 @@ public class User {
 
     /*------------------------------------------------------*/
 
-    //    @NonNull
-//    public String getId() {
-//        return id;
-//    }
-//
-//    public void setId(@NonNull String id) {
-//        this.id = id;
-//    }
 
     /* ****************************** Functions ****************************** */
 

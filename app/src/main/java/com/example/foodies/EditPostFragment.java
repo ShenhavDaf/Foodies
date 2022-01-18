@@ -98,7 +98,7 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
             String desc = description.getText().toString();
             String rev = review.getText().toString();
             String rateing = rate.getSelectedItem().toString();
-            ;
+
 
             //TODO:userID, img
             String img = "myImg";

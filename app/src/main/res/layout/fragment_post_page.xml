@@ -136,7 +136,7 @@
         android:layout_width="361dp"
         android:layout_height="113dp"
         android:layout_marginTop="25dp"
-        android:src="@drawable/avatar"
+        android:src="@drawable/ratatoi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
