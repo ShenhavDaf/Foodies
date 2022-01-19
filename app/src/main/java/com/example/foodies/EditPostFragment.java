@@ -118,9 +118,7 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
 
             //TODO: make a function in modelFirebase of updateData (change the addPost to updatePost)
 
-
-            Model.instance.addPost(newPost, currUserEmail, () -> {
-
+            Model.instance.editPost(newPost, () -> {
                 Model.instance.refreshPostsList();
 
                 if (sourcePage.equals("homepage")) {
@@ -130,8 +128,22 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
                     Navigation.findNavController(v)
                             .navigate(EditPostFragmentDirections.actionGlobalProfileFragment(currUserEmail));
                 }
-
             });
+
+//
+//            Model.instance.addPost(newPost, currUserEmail, () -> {
+//
+//                Model.instance.refreshPostsList();
+//
+//                if (sourcePage.equals("homepage")) {
+//                    Navigation.findNavController(v)
+//                            .navigate(EditPostFragmentDirections.actionGlobalHomePage(currUserEmail));
+//                } else if (sourcePage.equals("profilepage")) {
+//                    Navigation.findNavController(v)
+//                            .navigate(EditPostFragmentDirections.actionGlobalProfileFragment(currUserEmail));
+//                }
+//
+//            });
 
 
 //            if (sourcePage.equals("homepage")) {

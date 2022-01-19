@@ -83,6 +83,27 @@ public class ModelFirebase {
 
     /* -------------------------------------------------------------------------- */
 
+    public void editPost(Post post, Model.EditPostListener listener) {
+        Map<String, Object> json = post.toJson();
+
+        db.collection(Post.COLLECTION_NAME)
+                .document(post.getId())
+                .set(json)
+                .addOnSuccessListener(unused -> {
+                    System.out.println("Addition new post to firebase was success");
+                    listener.onComplete();
+
+                })
+
+                .addOnFailureListener(e -> {
+                    System.out.println("Addition new post to firebase was failed");
+                    listener.onComplete();
+                });
+    }
+
+    /* -------------------------------------------------------------------------- */
+
+
     public void getPostById(String postId, Model.GetPostByIdListener listener) {
         db.collection(Post.COLLECTION_NAME)
                 .document(postId)
@@ -171,21 +192,21 @@ public class ModelFirebase {
     }
 
     /* -------------------------------------------------------------------------- */
-
-    public void deletePostById(String postId, Model.DeleltPostByIdListener listener) {
-        db.collection(Post.COLLECTION_NAME)
-                .document(postId)
-                .delete().addOnSuccessListener(unused -> listener.onComplete());
-
-//                .get()
-//                .addOnCompleteListener(task -> {
-//                    Post post = null;
-//                    if (task.isSuccessful() & task.getResult() != null) {
-//                        post = Post.create(task.getResult().getData());
-//                    }
-//                    listener.onComplete(post);
-//                });
-    }
+//
+//    public void deletePostById(String postId, Model.DeleltPostByIdListener listener) {
+//        db.collection(Post.COLLECTION_NAME)
+//                .document(postId)
+//                .delete().addOnSuccessListener(unused -> listener.onComplete());
+//
+////                .get()
+////                .addOnCompleteListener(task -> {
+////                    Post post = null;
+////                    if (task.isSuccessful() & task.getResult() != null) {
+////                        post = Post.create(task.getResult().getData());
+////                    }
+////                    listener.onComplete(post);
+////                });
+//    }
 
 
 

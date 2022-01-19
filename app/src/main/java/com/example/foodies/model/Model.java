@@ -96,6 +96,7 @@ public class Model {
 
                             if (post.getDisplay() == false) {
                                 AppLocalDB.db.PostDao().delete(post);
+
                             } else {
                                 AppLocalDB.db.PostDao().insertAll(post);
 
@@ -151,6 +152,16 @@ public class Model {
 
     public void addPost(Post post, String userEmail, AddPostListener listener) {
         modelFirebase.addPost(post, userEmail, listener);
+    }
+
+    /* ----------------------------------------------------- */
+
+    public interface EditPostListener {
+        void onComplete();
+    }
+
+    public void editPost(Post post, EditPostListener listener) {
+        modelFirebase.editPost(post, listener);
     }
 
     /* ----------------------------------------------------- */
@@ -236,14 +247,14 @@ public class Model {
 
     /* ----------------------------------------------------- */
 
-    public interface DeleltPostByIdListener {
-        void onComplete();
-    }
-
-    public Post deletePostById(String postId, DeleltPostByIdListener listener) {
-        modelFirebase.deletePostById(postId, listener);
-        return null;
-    }
-
+//    public interface DeleltPostByIdListener {
+//        void onComplete();
+//    }
+//
+//    public Post deletePostById(String postId, DeleltPostByIdListener listener) {
+//        modelFirebase.deletePostById(postId, listener);
+//        return null;
+//    }
+    /* ----------------------------------------------------- */
 
 }
