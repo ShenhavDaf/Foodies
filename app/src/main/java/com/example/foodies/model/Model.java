@@ -166,6 +166,17 @@ public class Model {
 
     /* ----------------------------------------------------- */
 
+    public interface DeletePostListener {
+        void onComplete();
+    }
+
+    public void deletePost(Post post, DeletePostListener listener) {
+        modelFirebase.deletePost(post, listener);
+    }
+
+    /* ----------------------------------------------------- */
+
+
     public interface GetPostByIdListener {
         void onComplete(Post post);
     }

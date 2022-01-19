@@ -185,7 +185,7 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
 
                     Post newPost = new Post(postID, name, res, addr, categor, desc, rev, img, rateing, currUserEmail, false);
 
-                    Model.instance.addPost(newPost, currUserEmail, () -> {
+                    Model.instance.deletePost(newPost, () -> {
 
                         Model.instance.refreshPostsList();
 

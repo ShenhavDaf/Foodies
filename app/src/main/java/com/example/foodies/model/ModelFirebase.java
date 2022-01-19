@@ -104,6 +104,72 @@ public class ModelFirebase {
     /* -------------------------------------------------------------------------- */
 
 
+    public void deletePost(Post post, Model.DeletePostListener listener) {
+
+
+//        Map<String, Object> json = post.toJson();
+//
+//        // First Step: change display to false in PostCollection
+//
+//        db.collection(Post.COLLECTION_NAME)
+//                .document(post.getId())
+//                .set(json)// update display false in PostCollection
+//                .addOnSuccessListener(unused -> {
+//
+//                    // Step Two: delete the relevant index from the postList in UserCollection
+//
+//                    db.collection(User.COLLECTION_NAME)
+//                            .document(post.getUserEmail())
+//                            .get()
+//                            .addOnCompleteListener(task -> {
+//
+//                                if (task.isSuccessful() & task.getResult() != null) {
+//
+//                                    User myUser = User.create(task.getResult().getData());
+//
+//
+//                                    int index = myUser.getPostList().indexOf(post.getId());
+//                                    if(index != (-1)){
+//                                        System.out.println("index ======== " + index);
+//                                        myUser.getPostList().remove(index);
+//                                    }
+//
+//                                    Map<String, Object> updateJson = myUser.toJson();
+//
+//                                    System.out.println("Documents Name ======== " + task.getResult().getData().keySet());
+//
+//
+////                                    db.collection(User.COLLECTION_NAME)
+////                                            .document(post.getUserEmail()).set(updateJson, SetOptions.merge())
+////                                            .addOnSuccessListener(command -> {
+////
+////                                                System.out.println("Addition new post to firebase into user post list was success");
+////                                                StringBuilder newName = new StringBuilder();
+////                                                newName.append("delete_").append(post.getId());
+////
+////                                                db.collection(Post.COLLECTION_NAME)
+////                                                        .document(post.getId())
+////                                                        .update(updateJson)
+////                                                        .addOnCompleteListener(l -> listener.onComplete());
+////
+////                                            }).addOnFailureListener(command -> {
+////
+////                                                System.out.println("Addition new post to firebase into user post list was failed");
+////                                                listener.onComplete();
+////                                    });
+//                                }
+//                            });
+//                })
+//
+//                .addOnFailureListener(e -> {
+//                    System.out.println("Addition new post to firebase was failed");
+//                    listener.onComplete();
+//                });
+    }
+
+    /* -------------------------------------------------------------------------- */
+
+
     public void getPostById(String postId, Model.GetPostByIdListener listener) {
         db.collection(Post.COLLECTION_NAME)
                 .document(postId)
@@ -122,7 +188,7 @@ public class ModelFirebase {
     public void getAllPosts(Long lastUpdateDate, GetAllPostsListener listener) {
 
         db.collection(Post.COLLECTION_NAME)
-//                .whereGreaterThanOrEqualTo("updateDate", new Timestamp(lastUpdateDate, 0))
+                .whereGreaterThanOrEqualTo("updateDate", new Timestamp(lastUpdateDate, 0))
                 .get()
                 .addOnCompleteListener(task -> {
                     List<Post> list = new LinkedList<Post>();
