@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase;
 
 import com.example.foodies.MyApplication;
 
-@Database(entities = {Post.class}, version = 4)
+@Database(entities = {Post.class}, version = 7)
 abstract class AppLocalDbRepository extends RoomDatabase {
     public abstract PostDao PostDao();
 }

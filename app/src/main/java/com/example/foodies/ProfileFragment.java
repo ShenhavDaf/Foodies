@@ -99,7 +99,8 @@ public class ProfileFragment extends Fragment {
 
     private void editProfile(View view) {
         System.out.println("edit profile was clicked");
-        Navigation.findNavController(view).navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment(currUserEmail));
+        Navigation.findNavController(view)
+                .navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment(currUserEmail));
     }
 
     private void refresh() {
@@ -171,7 +172,7 @@ public class ProfileFragment extends Fragment {
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             Post post = viewModel.getData().get(position);
 
-            //TODO: after authentication find user name & img
+            //TODO: find user name & img
 //            holder.userImage.setImageDrawable(post.getUserId().getImage);
 //            holder.userName.setText(post.getUserId());
 

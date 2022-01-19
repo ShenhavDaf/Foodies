@@ -23,8 +23,9 @@ public class EditProfileFragment extends Fragment {
 
     EditText fullName,email, password, verify, city;
     ImageView img;
-    String currentUserEmail;
     Button saveBtn;
+
+    String currentUserEmail;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

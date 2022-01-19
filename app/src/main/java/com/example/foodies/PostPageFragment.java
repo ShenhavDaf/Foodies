@@ -20,8 +20,9 @@ public class PostPageFragment extends Fragment {
     TextView dishName, restaurant, address, category, description, review;
     RatingBar rate;
     Button editPostBtn;
-    String postId, sourcePage, currUserEmail;
-    String postEmail;
+
+    String postId, sourcePage, currUserEmail, authorEmail;
+
     Post currentPost;
 
     @Override
@@ -48,7 +49,7 @@ public class PostPageFragment extends Fragment {
         rate.setEnabled(false);
 
         editPostBtn = view.findViewById(R.id.postpage_editpost_btn);
-        editPostBtn.setVisibility(View.GONE); // GONE OR VISIBLE
+        editPostBtn.setVisibility(View.GONE);
 
         Model.instance.getPostById(postId, post -> {
             dishName.setText(post.getDishName());
@@ -58,19 +59,13 @@ public class PostPageFragment extends Fragment {
             description.setText(post.getDescription());
             review.setText(post.getReview());
             rate.setRating(Integer.parseInt(post.getRate()));
-            postEmail = post.getUserEmail();
-            if (postEmail.equals(currUserEmail)) {
+
+            authorEmail = post.getUserEmail();
+            if (authorEmail.equals(currUserEmail)) {
                 editPostBtn.setVisibility(View.VISIBLE);
                 editPostBtn.setOnClickListener(v -> editPost(view, postId));
-            }// GONE OR VISIBLE
+            }
         });
-
-
-        // TODO: by userId
-        // if the user is not the creator to the post, we need to set the visibility to GONE
-        System.out.println(currUserEmail);
-        System.out.println(postEmail);
-
 
         return view;
     }
@@ -79,7 +74,7 @@ public class PostPageFragment extends Fragment {
 
     private void editPost(View view, String postId) {
         Navigation.findNavController(view)
-                .navigate(PostPageFragmentDirections.actionPostPageFragmentToEditPostFragment(postId, sourcePage, currUserEmail));
-
+                .navigate(PostPageFragmentDirections
+                        .actionPostPageFragmentToEditPostFragment(postId, sourcePage, currUserEmail));
     }
 }

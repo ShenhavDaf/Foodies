@@ -36,8 +36,9 @@ public class Post {
     String rate = "0";
     String userEmail = "";
     String userFullName = "";// TODO: for post author in home page
-
     Long updateDate = new Long(0);
+
+    Boolean display = true;
 
     /* ****************************** Constructors ****************************** */
 
@@ -45,7 +46,7 @@ public class Post {
     }
 
     public Post(String id, String dishName, String restaurant, String address, String category, String description,
-                String review, String image, String rate, String userEmail) {
+                String review, String image, String rate, String userEmail, Boolean display) {
         this.id = id;
         this.dishName = dishName;
         this.restaurant = restaurant;
@@ -56,6 +57,7 @@ public class Post {
         this.image = image;
         this.rate = rate;
         this.userEmail = userEmail;
+        this.display = display;
     }
 
     /* ****************************** Getters & Setters ****************************** */
@@ -168,6 +170,16 @@ public class Post {
         this.updateDate = updateDate;
     }
 
+    /*------------------------------------------------------*/
+
+    public Boolean getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(Boolean display) {
+        this.display = display;
+    }
+
 
     /* ****************************** Functions ****************************** */
 
@@ -182,11 +194,13 @@ public class Post {
         String image = (String) json.get("image");
         String rate = (String) json.get("rate");
         String userEmail = (String) json.get("userEmail");
+        Boolean display = (Boolean) json.get("display");
 
         Timestamp ts = (Timestamp) json.get("updateDate");
         Long updateDate = ts.getSeconds();
 
-        Post post = new Post(id, dishName, restaurant, address, category, description, review, image, rate, userEmail);
+        Post post = new Post(id, dishName, restaurant, address, category, description,
+                review, image, rate, userEmail, display);
         post.setUpdateDate(updateDate);
 
         return post;
@@ -206,6 +220,7 @@ public class Post {
         json.put("image", image);
         json.put("rate", rate);
         json.put("userEmail", userEmail);
+        json.put("display", display);
 
         json.put("updateDate", FieldValue.serverTimestamp());
 

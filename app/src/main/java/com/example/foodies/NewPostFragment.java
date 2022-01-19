@@ -26,11 +26,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class NewPostFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    List<Post> data;
     EditText dishName, restaurent, address, description, review;
     Spinner category, rate;
     Button postBtn;
     ImageView image;
+
     String currUserEmail;
 
 
@@ -96,7 +96,6 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         String desc = description.getText().toString();
         String rev = review.getText().toString();
         String rateing = rate.getSelectedItem().toString();
-        ;
 
         //TODO: img, userid
         String img = "myImg";
@@ -105,8 +104,10 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
 
         Model.instance.getNextPostId(currUserEmail, nextId -> {
             Post newPost =
-                    new Post(nextId + "", name, res, addr, categor, desc, rev, img, rateing, currUserEmail);
+                    new Post(nextId + "", name, res, addr, categor, desc, rev, img, rateing, currUserEmail, true);
             Model.instance.addPost(newPost, currUserEmail, () -> {
+                Model.instance.refreshPostsList();
+                //TODO: return to footer caller
                 Navigation.findNavController(dishName).navigateUp();
             });
         });

@@ -1,5 +1,6 @@
 package com.example.foodies.model;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
@@ -169,6 +170,25 @@ public class ModelFirebase {
                 });
     }
 
+    /* -------------------------------------------------------------------------- */
+
+    public void deletePostById(String postId, Model.DeleltPostByIdListener listener) {
+        db.collection(Post.COLLECTION_NAME)
+                .document(postId)
+                .delete().addOnSuccessListener(unused -> listener.onComplete());
+
+//                .get()
+//                .addOnCompleteListener(task -> {
+//                    Post post = null;
+//                    if (task.isSuccessful() & task.getResult() != null) {
+//                        post = Post.create(task.getResult().getData());
+//                    }
+//                    listener.onComplete(post);
+//                });
+    }
+
+
+
     /* ****************************** Users Functions ****************************** */
 
     // SignUp
@@ -245,18 +265,22 @@ public class ModelFirebase {
 
     /* -------------------------------------------------------------------------- */
 
+    //TODO: lastUpdateDate, whereGreaterThanOrEqualTo
     public void getUserPosts(User user, Model.GetUserPostsListener listener) {
         List<Post> list = new LinkedList<Post>();
         if (user.getPostList().size() > 0) {
             db.collection(Post.COLLECTION_NAME)
-                    .whereIn(FieldPath.documentId(), user.getPostList())
+//                    .whereArrayContainsAny(FieldPath.documentId(), user.getPostList())
+//                    .whereIn(FieldPath.documentId(), user.getPostList())
                     .get()
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot doc : task.getResult()) {
                                 Post post = Post.create(doc.getData());
                                 if (post != null) {
-                                    list.add(post);
+                                    if (user.getPostList().contains(post.getId())) {
+                                        list.add(post);
+                                    }
                                 }
                             }
                         }
@@ -266,4 +290,6 @@ public class ModelFirebase {
             listener.onComplete(list);
         }
     }
+
+
 }

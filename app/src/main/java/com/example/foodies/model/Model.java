@@ -12,6 +12,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.foodies.MyApplication;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -84,25 +85,32 @@ public class Model {
 
                         Log.d("TAG", "firebase returned " + list.size());
 
-                        System.out.println("local before ======= ");
+                        List<String> myList = new ArrayList<>();
                         for (Post p : AppLocalDB.db.PostDao().getAll()) {
-                            System.out.println(p.dishName);
+                            myList.add(p.getDishName());
                         }
+                        System.out.println("local before ======= " + myList);
 
 //                        System.out.println(AppLocalDB);
                         for (Post post : list) {
-                            AppLocalDB.db.PostDao().insertAll(post);
 
-                            if (lud < post.getUpdateDate()) {
-                                lud = post.getUpdateDate();
+                            if (post.getDisplay() == false) {
+                                AppLocalDB.db.PostDao().delete(post);
+                            } else {
+                                AppLocalDB.db.PostDao().insertAll(post);
+
+                                if (lud < post.getUpdateDate()) {
+                                    lud = post.getUpdateDate();
+                                }
                             }
                         }
 
+                        myList = new ArrayList<>();
 
-                        System.out.println("local after ======= ");
                         for (Post p : AppLocalDB.db.PostDao().getAll()) {
-                            System.out.println(p.dishName);
+                            myList.add(p.getDishName());
                         }
+                        System.out.println("local after ======= " + myList);
 
 
 
@@ -224,6 +232,17 @@ public class Model {
 
     public void getUserPosts(User user, GetUserPostsListener listener) {
         modelFirebase.getUserPosts(user, listener);
+    }
+
+    /* ----------------------------------------------------- */
+
+    public interface DeleltPostByIdListener {
+        void onComplete();
+    }
+
+    public Post deletePostById(String postId, DeleltPostByIdListener listener) {
+        modelFirebase.deletePostById(postId, listener);
+        return null;
     }
 
 

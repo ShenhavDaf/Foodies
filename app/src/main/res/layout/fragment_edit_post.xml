@@ -207,5 +207,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <Button
+        android:id="@+id/editpost_delete_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#D63535"
+        android:text="DELETE POST"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editpost_save_btn"
+        app:layout_constraintEnd_toStartOf="@+id/editpost_save_btn"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

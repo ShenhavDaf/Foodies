@@ -56,7 +56,6 @@ public class HomePageFragment extends Fragment {
         // Current login user
         currUserEmail = HomePageFragmentArgs.fromBundle(getArguments()).getUserEmail();
 
-
         /* *********************************** Current user *********************************** */
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
 
@@ -70,6 +69,7 @@ public class HomePageFragment extends Fragment {
 
         swipeRefresh = view.findViewById(R.id.postlist_swiperefresh);
         swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshPostsList());
+
 
         RecyclerView list = view.findViewById(R.id.postlist_rv);
         list.setHasFixedSize(true);

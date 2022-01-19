@@ -25,6 +25,8 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
     TextView dishName, restaurent, address, description, review;
     ImageView dishImg;
     Spinner category, rate;
+    Button saveBtn, deleteBtn;
+
     String postId, sourcePage, currUserEmail;
 
     @Override
@@ -56,7 +58,8 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
             restaurent.setText(post1.getRestaurant());
             address.setText(post1.getAddress());
 
-            ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(this.getContext(), R.array.postCategories, android.R.layout.simple_spinner_item);
+            ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter
+                    .createFromResource(this.getContext(), R.array.postCategories, android.R.layout.simple_spinner_item);
             categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             category.setAdapter(categoryAdapter);
             if (post1.getCategory() != null) {
@@ -69,7 +72,8 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
 
 //TODO            dishImg.setText(post1.getImage());
 
-            ArrayAdapter<CharSequence> rateAdapter = ArrayAdapter.createFromResource(this.getContext(), R.array.postRating, android.R.layout.simple_spinner_item);
+            ArrayAdapter<CharSequence> rateAdapter = ArrayAdapter
+                    .createFromResource(this.getContext(), R.array.postRating, android.R.layout.simple_spinner_item);
             rateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             rate.setAdapter(rateAdapter);
             if (post1.getCategory() != null) {
@@ -81,11 +85,16 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
 
         /*---------------------------------- Button --------------------------------------*/
 
-        Button saveBtn = view.findViewById(R.id.editpost_save_btn);
+        saveBtn = view.findViewById(R.id.editpost_save_btn);
         saveBtn.setOnClickListener(v -> save(postId, v));
+
+
+        deleteBtn = view.findViewById(R.id.editpost_delete_btn);
+        deleteBtn.setOnClickListener(v -> delete(postId, v));
 
         return view;
     }
+
 
     /* *************************************** Functions *************************************** */
 
@@ -103,7 +112,7 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
             //TODO:userID, img
             String img = "myImg";
 
-            Post newPost = new Post(postID, name, res, addr, categor, desc, rev, img, rateing, currUserEmail);
+            Post newPost = new Post(postID, name, res, addr, categor, desc, rev, img, rateing, currUserEmail, true);
 
             /* ------------------------------------ Navigation ------------------------------------ */
 
@@ -111,6 +120,8 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
 
 
             Model.instance.addPost(newPost, currUserEmail, () -> {
+
+                Model.instance.refreshPostsList();
 
                 if (sourcePage.equals("homepage")) {
                     Navigation.findNavController(v)
@@ -142,16 +153,52 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
 
     }
 
+    /*-------------------------------------------*/
 
-    /* *************************************** Spinner Functions *************************************** */
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String item = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), item, Toast.LENGTH_SHORT).show();
+    private void delete(String postID, View v) {
+        System.out.println("********** Delete btn was clicked in editPage");
+
+        Model.instance.getPostById(postID, post1 -> {
+
+                    String name = dishName.getText().toString();
+                    String res = restaurent.getText().toString();
+                    String addr = address.getText().toString();
+                    String categor = category.getSelectedItem().toString();
+                    String desc = description.getText().toString();
+                    String rev = review.getText().toString();
+                    String rateing = rate.getSelectedItem().toString();
+
+                    //TODO:userID, img
+                    String img = "myImg";
+
+                    Post newPost = new Post(postID, name, res, addr, categor, desc, rev, img, rateing, currUserEmail, false);
+
+                    Model.instance.addPost(newPost, currUserEmail, () -> {
+
+                        Model.instance.refreshPostsList();
+
+                        Navigation.findNavController(v)
+                                .navigate(EditPostFragmentDirections.actionGlobalHomePage(currUserEmail));
+                    });
+
+
+//        Model.instance.deletePostById(postId, () -> {
+//            Navigation.findNavController(v)
+//                    .navigate(EditPostFragmentDirections.actionGlobalHomePage(currUserEmail));
+//        });
+
+                });
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+                /* *************************************** Spinner Functions *************************************** */
+        @Override
+        public void onItemSelected (AdapterView < ? > parent, View view,int position, long id){
+            String item = parent.getItemAtPosition(position).toString();
+            Toast.makeText(parent.getContext(), item, Toast.LENGTH_SHORT).show();
+        }
 
+        @Override
+        public void onNothingSelected (AdapterView < ? > parent){
+
+        }
     }
-}
