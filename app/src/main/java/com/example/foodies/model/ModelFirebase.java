@@ -1,6 +1,10 @@
 package com.example.foodies.model;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
@@ -40,6 +44,7 @@ public class ModelFirebase {
     public void addPost(Post post, String userEmail, Model.AddPostListener listener) {
         Map<String, Object> json = post.toJson();
 
+
         db.collection(Post.COLLECTION_NAME)
                 .document(post.getId())
                 .set(json)
@@ -57,7 +62,11 @@ public class ModelFirebase {
                                     User myUser = User.create(task.getResult().getData());
                                     myUser.getPostList().add(post.getId());
 
+                                    int counter = Integer.parseInt(task.getResult().getData().get("counter").toString()) + 1;
+
                                     Map<String, Object> updateJson = myUser.toJson();
+
+                                    updateJson.put("counter", counter);
 
                                     db.collection(User.COLLECTION_NAME)
                                             .document(userEmail).set(updateJson, SetOptions.merge())
@@ -106,66 +115,37 @@ public class ModelFirebase {
 
     public void deletePost(Post post, Model.DeletePostListener listener) {
 
+            post.setDisplay(false);
 
-//        Map<String, Object> json = post.toJson();
-//
-//        // First Step: change display to false in PostCollection
-//
-//        db.collection(Post.COLLECTION_NAME)
-//                .document(post.getId())
-//                .set(json)// update display false in PostCollection
-//                .addOnSuccessListener(unused -> {
-//
-//                    // Step Two: delete the relevant index from the postList in UserCollection
-//
-//                    db.collection(User.COLLECTION_NAME)
-//                            .document(post.getUserEmail())
-//                            .get()
-//                            .addOnCompleteListener(task -> {
-//
-//                                if (task.isSuccessful() & task.getResult() != null) {
-//
-//                                    User myUser = User.create(task.getResult().getData());
-//
-//
-//                                    int index = myUser.getPostList().indexOf(post.getId());
-//                                    if(index != (-1)){
-//                                        System.out.println("index ======== " + index);
-//                                        myUser.getPostList().remove(index);
-//                                    }
-//
-//                                    Map<String, Object> updateJson = myUser.toJson();
-//
-//                                    System.out.println("Documents Name ======== " + task.getResult().getData().keySet());
-//
-//
-////                                    db.collection(User.COLLECTION_NAME)
-////                                            .document(post.getUserEmail()).set(updateJson, SetOptions.merge())
-////                                            .addOnSuccessListener(command -> {
-////
-////                                                System.out.println("Addition new post to firebase into user post list was success");
-////                                                StringBuilder newName = new StringBuilder();
-////                                                newName.append("delete_").append(post.getId());
-////
-////                                                db.collection(Post.COLLECTION_NAME)
-////                                                        .document(post.getId())
-////                                                        .update(updateJson)
-////                                                        .addOnCompleteListener(l -> listener.onComplete());
-////
-////                                            }).addOnFailureListener(command -> {
-////
-////                                                System.out.println("Addition new post to firebase into user post list was failed");
-////                                                listener.onComplete();
-////                                    });
-//                                }
-//                            });
-//                })
-//
-//                .addOnFailureListener(e -> {
-//                    System.out.println("Addition new post to firebase was failed");
-//                    listener.onComplete();
-//                });
+            Map<String, Object> json = post.toJson();
+
+            db.collection(Post.COLLECTION_NAME)
+                    .document(post.getId())
+                    .set(json)
+                    .addOnCompleteListener(command -> {
+
+
+                db.collection(User.COLLECTION_NAME)
+                        .document(post.getUserEmail())
+                        .get().addOnCompleteListener(command1 -> {
+
+                    User myUser = User.create(command1.getResult().getData());
+                    myUser.getPostList().remove(post.getId());
+
+                    Map<String, Object> userJson = myUser.toJson();
+
+                    userJson.put("counter", command1.getResult().getData().get("counter"));
+
+                    db.collection(User.COLLECTION_NAME)
+                            .document(post.getUserEmail())
+                            .set(userJson).addOnCompleteListener(command2 -> {
+                        listener.onComplete();
+                    });
+
+                });
+            });
     }
+
 
     /* -------------------------------------------------------------------------- */
 
@@ -221,7 +201,6 @@ public class ModelFirebase {
 
     public void getNextPostId(String userEmail, Model.GetNextPostIdListener listener) {
 
-
         db.collection(User.COLLECTION_NAME)
                 .document(userEmail)
                 .get()
@@ -229,52 +208,17 @@ public class ModelFirebase {
                     if (task.isSuccessful() & task.getResult() != null) {
 
                         User myUser = User.create(task.getResult().getData());
-                        int size = myUser.getPostList().size();
-                        String lastLetters = null;
 
-                        if (size == 0) {
-                            lastLetters = "0";
-                        } else if (size > 0) {
+                       int counter = Integer.parseInt(task.getResult().getData().get("counter").toString()) + 1;
 
-                            String lastPost = myUser.getPostList().get(size - 1);
-                            StringBuilder email = new StringBuilder();
-                            email.append(userEmail).append('_');
-                            String[] array = lastPost.split(email.toString());
-                            for (String s : array) {
-                                lastLetters = s;
-                            }
-                        }
-
-                        int nextNumber = Integer.parseInt(lastLetters);
-                        nextNumber++;
-
-                        StringBuilder idToSend = new StringBuilder();
-                        idToSend.append(userEmail).append("_").append(nextNumber);
+                            StringBuilder idToSend = new StringBuilder();
+                            idToSend.append(userEmail).append('_').append(counter);
 
                         listener.onComplete(idToSend.toString());
 
                     }
                 });
     }
-
-    /* -------------------------------------------------------------------------- */
-//
-//    public void deletePostById(String postId, Model.DeleltPostByIdListener listener) {
-//        db.collection(Post.COLLECTION_NAME)
-//                .document(postId)
-//                .delete().addOnSuccessListener(unused -> listener.onComplete());
-//
-////                .get()
-////                .addOnCompleteListener(task -> {
-////                    Post post = null;
-////                    if (task.isSuccessful() & task.getResult() != null) {
-////                        post = Post.create(task.getResult().getData());
-////                    }
-////                    listener.onComplete(post);
-////                });
-//    }
-
-
 
     /* ****************************** Users Functions ****************************** */
 
@@ -327,6 +271,8 @@ public class ModelFirebase {
     // User Collection
     public void addUserDetails(User user, Model.AddUserDetailsListener listener) {
         Map<String, Object> json = user.toJson();
+
+        json.put("counter", 0);
 
         db.collection(User.COLLECTION_NAME)
                 .document(user.getEmail())

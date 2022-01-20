@@ -15,27 +15,24 @@ public class User {
     /* ****************************** Data Members ****************************** */
     final public static String COLLECTION_NAME = "Users";
 
-//    @NonNull
-//    @PrimaryKey
-//    String id = "";
-
     String email = "";
     String fullName = "";
     String city = "";
     String image;
     List<String> postList;
+
     // TODO: img
 
     /* ****************************** Constructors ****************************** */
     public User() {
     }
 
+
     public User(String email, String fullName, String city, String image, List<String> postList) {
         this.email = email;
         this.fullName = fullName;
         this.city = city;
         this.image = image;
-//        this.postList = new ArrayList<>();
         this.postList = postList;
     }
 
@@ -45,6 +42,7 @@ public class User {
         this.city = city;
         this.image = image;
         this.postList = new ArrayList<>();
+
     }
 
     public User(User user) {

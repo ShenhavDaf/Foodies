@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.os.Bundle;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -170,8 +171,6 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
     private void delete(String postID, View v) {
         System.out.println("********** Delete btn was clicked in editPage");
 
-        Model.instance.getPostById(postID, post1 -> {
-
                     String name = dishName.getText().toString();
                     String res = restaurent.getText().toString();
                     String addr = address.getText().toString();
@@ -184,6 +183,7 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
                     String img = "myImg";
 
                     Post newPost = new Post(postID, name, res, addr, categor, desc, rev, img, rateing, currUserEmail, false);
+
 
                     Model.instance.deletePost(newPost, () -> {
 
@@ -199,7 +199,7 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
 //                    .navigate(EditPostFragmentDirections.actionGlobalHomePage(currUserEmail));
 //        });
 
-                });
+
     }
 
                 /* *************************************** Spinner Functions *************************************** */

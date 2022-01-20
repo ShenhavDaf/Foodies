@@ -94,15 +94,23 @@ public class Model {
 //                        System.out.println(AppLocalDB);
                         for (Post post : list) {
 
-                            if (post.getDisplay() == false) {
-                                AppLocalDB.db.PostDao().delete(post);
+                            if (post.getDisplay().booleanValue() == false) {
 
-                            } else {
+                                System.out.println("post deleted ======= " + post.getDishName());
+                                AppLocalDB.db.PostDao().delete(post);
+                                if(AppLocalDB.db.PostDao().getAll().contains(post)){
+//                                    AppLocalDB.db.PostDao().getAll().remove(post);
+                                }
+                                System.out.println("after the delete == " + AppLocalDB.db.PostDao().getAll().size());
+
+                            }
+                            else if(post.getDisplay().booleanValue() == true) {
+                                System.out.println("post inserted ======== " + post.getDishName());
                                 AppLocalDB.db.PostDao().insertAll(post);
 
-                                if (lud < post.getUpdateDate()) {
-                                    lud = post.getUpdateDate();
-                                }
+                            }
+                            if (lud < post.getUpdateDate()) {
+                                lud = post.getUpdateDate();
                             }
                         }
 
