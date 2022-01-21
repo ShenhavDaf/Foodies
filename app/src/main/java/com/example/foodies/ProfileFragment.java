@@ -33,8 +33,6 @@ public class ProfileFragment extends Fragment {
     TextView fullNameTv, cityTv;
     MyAdapter adapter;
 
-    String currUserEmail;
-
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -47,9 +45,6 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         /* ********************************** View Items ********************************** */
-
-        currUserEmail = ProfileFragmentArgs.fromBundle(getArguments()).getUserEmail();
-
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
@@ -64,11 +59,8 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        Model.instance.getUserByEmail(currUserEmail, user -> {
-            fullNameTv.setText(user.getFullName());
-            cityTv.setText(user.getCity());
-        });
 
+        fullNameTv.setText(Model.instance.getCurrentUserModel().getFullName());
 
         /* ***************************** Post List - Recycler View ***************************** */
 
@@ -84,7 +76,7 @@ public class ProfileFragment extends Fragment {
                 String postId = viewModel.getData().get(position).getId();
                 Navigation.findNavController(v)
                         .navigate(ProfileFragmentDirections
-                                .actionProfileFragmentToEditPostFragment(postId, SOURCE_PAGE, currUserEmail));
+                                .actionProfileFragmentToEditPostFragment(postId, SOURCE_PAGE));
 
                 System.out.println("to the post page");
             }
@@ -100,21 +92,21 @@ public class ProfileFragment extends Fragment {
     private void editProfile(View view) {
         System.out.println("edit profile was clicked");
         Navigation.findNavController(view)
-                .navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment(currUserEmail));
+                .navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment());
     }
 
     private void refresh() {
 //        swipeRefresh.setRefreshing(true);
-        Model.instance.getUserByEmail(currUserEmail, user -> {
-            Model.instance.getUserPosts(user, (list) -> {
-                if (list != null) {
-                    viewModel.setData(list);
-//                    data = list;
-                    adapter.notifyDataSetChanged();
-                    //            swipeRefresh.setRefreshing(false);
-                }
-            });
+
+        Model.instance.getUserPosts(Model.instance.getCurrentUserModel(), (list) -> {
+            if (list != null) {
+                viewModel.setData(list);
+//                data = list;
+                adapter.notifyDataSetChanged();
+//                swipeRefresh.setRefreshing(false);
+            }
         });
+
     }
 
     /* ********************************* My View Holder ********************************* */

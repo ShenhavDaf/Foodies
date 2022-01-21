@@ -38,7 +38,7 @@ public class HomePageFragment extends Fragment {
     TextView userName;
     ImageButton profile, homePage, addPost;
 
-    String currUserEmail;
+//    String currUserEmail;
 //    User currentUserDetails;
 
 
@@ -52,30 +52,20 @@ public class HomePageFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-
-        // Current login user
-        currUserEmail = HomePageFragmentArgs.fromBundle(getArguments()).getUserEmail();
-
         /* *********************************** Current user *********************************** */
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
 
         userName = view.findViewById(R.id.home_user_name);
-
-        Model.instance.getUserByEmail(currUserEmail, user -> {
-            userName.setText(user.getFullName());
-        });
+        userName.setText(Model.instance.getCurrentUserModel().getFullName());
 
         /* ***************************** Post List - Recycler View ***************************** */
 
         swipeRefresh = view.findViewById(R.id.postlist_swiperefresh);
         swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshPostsList());
 
-
         RecyclerView list = view.findViewById(R.id.postlist_rv);
         list.setHasFixedSize(true);
-
         list.setLayoutManager(new LinearLayoutManager(getContext()));
-
         adapter = new MyAdapter();
         list.setAdapter(adapter);
 
@@ -85,10 +75,9 @@ public class HomePageFragment extends Fragment {
                 String postId = viewModel.getData().getValue().get(position).getId();
                 Navigation.findNavController(v).navigate(
                         HomePageFragmentDirections
-                                .actionHomePageToPostPageFragment(postId, SOURCE_PAGE, currUserEmail));
+                                .actionHomePageToPostPageFragment(postId, SOURCE_PAGE));
             }
         });
-
 
         /* ************************************ Footer menu ************************************ */
 
@@ -104,7 +93,7 @@ public class HomePageFragment extends Fragment {
                 Log.d("TAG", "add btn was clicked........");
                 Navigation.findNavController(view)
                         .navigate(HomePageFragmentDirections
-                                .actionGlobalNewPostFragment(currUserEmail));
+                                .actionGlobalNewPostFragment());
             }
         });
 
@@ -114,7 +103,7 @@ public class HomePageFragment extends Fragment {
                 Log.d("TAG", "profile btn was clicked");
                 Navigation.findNavController(view)
                         .navigate(HomePageFragmentDirections
-                                .actionGlobalProfileFragment(currUserEmail));
+                                .actionGlobalProfileFragment());
             }
         });
 
@@ -156,18 +145,14 @@ public class HomePageFragment extends Fragment {
                     }
                 });
 
+
         return view;
 
     }
 
     private void refresh() {
-//        swipeRefresh.setRefreshing(true);
-//        Model.instance.getAllPosts((list) -> {
-//            viewModel.setData(list);
-////            data = list;
         adapter.notifyDataSetChanged();
         swipeRefresh.setRefreshing(false);
-//        });
     }
 
     /* *************************************** Holder *************************************** */
@@ -188,16 +173,12 @@ public class HomePageFragment extends Fragment {
             rateStar = itemView.findViewById(R.id.listrow_ratingBar);
             rateStar.setEnabled(false);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = getAdapterPosition();
-                    listener.onItemClick(v, pos);
-                }
+            itemView.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
+                listener.onItemClick(v, pos);
             });
         }
     }
-
 
     /* *************************************** Adapter *************************************** */
 
@@ -228,10 +209,11 @@ public class HomePageFragment extends Fragment {
 //            Model.instance.getUserByEmail(currUserEmail, user -> {
 //                holder.userName.setText(user.getFullName());
 //            });
-//            Student student = viewModel.getData().getValue().get(position);
+
             Post post = viewModel.getData().getValue().get(position);
 
             //TODO: after authentication find user name & img
+            //TODO: change to new accordingly function in localDB
             Model.instance.getUserByEmail(post.getUserEmail(), user -> {
                 holder.userName.setText(user.getFullName());
 //                holder.userImage.setImageDrawable(user.getImage());

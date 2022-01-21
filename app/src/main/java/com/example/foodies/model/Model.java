@@ -26,6 +26,18 @@ public class Model {
     Executor executor = Executors.newFixedThreadPool(1);
     Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
+    User currentUserModel;
+
+    public User getCurrentUserModel() {
+        return currentUserModel;
+    }
+
+    public void setCurrentUserModel(User currentUserModel) {
+        this.currentUserModel = currentUserModel;
+    }
+
+
+
     /* ****************************** Loading State ****************************** */
 
     public enum LoadingState {
@@ -46,7 +58,6 @@ public class Model {
 
     /* ******************** Listeners & calling to ModelFirebase ******************** */
 
-
     //singleton
     MutableLiveData<List<Post>> allPostsList = new MutableLiveData<List<Post>>();
 
@@ -56,100 +67,6 @@ public class Model {
             refreshPostsList();
         }
         return allPostsList;
-    }
-
-    public void refreshPostsList() {
-
-        System.out.println("allPostsList ====== " + allPostsList.getValue());
-        postsListLoadingState.setValue(LoadingState.loading);
-
-        System.out.println("Context.MODE_PRIVATE ========= " + MyApplication.getContext());
-
-        /*---------- get last local update date ----------*/
-        Long lastUpdateDate = MyApplication.getContext()
-                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                .getLong(Post.LAST_UPDATE, 0);
-
-        /*---------- firebase - get all updates since localUpdateDate ----------*/
-        modelFirebase.getAllPosts(lastUpdateDate, new ModelFirebase.GetAllPostsListener() {
-            @Override
-            public void onComplete(List<Post> list) {
-
-                // כדי לעבוד על ת'רד אחר, משני, ולא על הראשי נצטרך להשתמש ב executor
-                executor.execute(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        /*---------- add all records to local db ----------*/
-                        Long lud = new Long(0);
-
-                        Log.d("TAG", "firebase returned " + list.size());
-
-                        List<String> myList = new ArrayList<>();
-                        for (Post p : AppLocalDB.db.PostDao().getAll()) {
-                            myList.add(p.getDishName());
-                        }
-                        System.out.println("local before ======= " + myList);
-
-//                        System.out.println(AppLocalDB);
-                        for (Post post : list) {
-
-                            if (post.getDisplay().booleanValue() == false) {
-
-                                System.out.println("post deleted ======= " + post.getDishName());
-                                AppLocalDB.db.PostDao().delete(post);
-                                if(AppLocalDB.db.PostDao().getAll().contains(post)){
-//                                    AppLocalDB.db.PostDao().getAll().remove(post);
-                                }
-                                System.out.println("after the delete == " + AppLocalDB.db.PostDao().getAll().size());
-
-                            }
-                            else if(post.getDisplay().booleanValue() == true) {
-                                System.out.println("post inserted ======== " + post.getDishName());
-                                AppLocalDB.db.PostDao().insertAll(post);
-
-                            }
-                            if (lud < post.getUpdateDate()) {
-                                lud = post.getUpdateDate();
-                            }
-                        }
-
-                        myList = new ArrayList<>();
-
-                        for (Post p : AppLocalDB.db.PostDao().getAll()) {
-                            myList.add(p.getDishName());
-                        }
-                        System.out.println("local after ======= " + myList);
-
-
-
-                        /*---------- update last local update date ----------*/
-                        MyApplication.getContext()
-                                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                                .edit().putLong(Post.LAST_UPDATE, lud).commit();
-
-                        /*---------- return all data to caller ----------*/
-                        List<Post> poList = AppLocalDB.db.PostDao().getAll();
-                        allPostsList.postValue(poList);
-                        postsListLoadingState.postValue(LoadingState.loaded);
-
-
-                        /* בתוך stList יהיה את כל התוכן שיש בdb המקומי */
-
-                    }
-                });
-
-            }
-        });
-
-//        modelFirebase.getAllPosts(lastUpdateDate, new ModelFirebase.GetAllPostsListener() {
-//            @Override
-//            public void onComplete(List<Post> list) {
-//                // מעדכן את כל הלינסנרים שמאזינים לת'רד הראשי
-//                allPostsList.setValue(list);
-//                postsListLoadingState.setValue(LoadingState.loaded);
-//            }
-//        });
     }
 
     /* ----------------------------------------------------- */
@@ -241,7 +158,7 @@ public class Model {
     }
 
     public void addUserDetails(User user, AddUserDetailsListener listener) {
-        modelFirebase.addUserDetails(user, listener);
+        modelFirebase.addUserDetails(user, listener);// when done - add user to collection
     }
 
     /* ----------------------------------------------------- */
@@ -275,5 +192,100 @@ public class Model {
 //        return null;
 //    }
     /* ----------------------------------------------------- */
+
+
+    public void refreshPostsList() {
+
+        System.out.println("allPostsList ====== " + allPostsList.getValue());
+        postsListLoadingState.setValue(LoadingState.loading);
+
+        System.out.println("Context.MODE_PRIVATE ========= " + MyApplication.getContext());
+
+        /*---------- get last local update date ----------*/
+        Long lastUpdateDate = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getLong(Post.LAST_UPDATE, 0);
+
+        /*---------- firebase - get all updates since localUpdateDate ----------*/
+        modelFirebase.getAllPosts(lastUpdateDate, new ModelFirebase.GetAllPostsListener() {
+            @Override
+            public void onComplete(List<Post> list) {
+
+                // כדי לעבוד על ת'רד אחר, משני, ולא על הראשי נצטרך להשתמש ב executor
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        /*---------- add all records to local db ----------*/
+                        Long lud = new Long(0);
+
+                        Log.d("TAG", "firebase returned " + list.size());
+
+                        List<String> myList = new ArrayList<>();
+                        for (Post p : AppLocalDB.db.PostDao().getAll()) {
+                            myList.add(p.getDishName());
+                        }
+                        System.out.println("local before ======= " + myList);
+
+//                        System.out.println(AppLocalDB);
+                        for (Post post : list) {
+
+                            if (post.getDisplay().booleanValue() == false) {
+
+                                System.out.println("post deleted ======= " + post.getDishName());
+                                AppLocalDB.db.PostDao().delete(post);
+                                if (AppLocalDB.db.PostDao().getAll().contains(post)) {
+//                                    AppLocalDB.db.PostDao().getAll().remove(post);
+                                }
+                                System.out.println("after the delete == " + AppLocalDB.db.PostDao().getAll().size());
+
+                            } else if (post.getDisplay().booleanValue() == true) {
+                                System.out.println("post inserted ======== " + post.getDishName());
+                                AppLocalDB.db.PostDao().insertAll(post);
+
+                            }
+                            if (lud < post.getUpdateDate()) {
+                                lud = post.getUpdateDate();
+                            }
+                        }
+
+                        myList = new ArrayList<>();
+
+                        for (Post p : AppLocalDB.db.PostDao().getAll()) {
+                            myList.add(p.getDishName());
+                        }
+                        System.out.println("local after ======= " + myList);
+
+
+
+                        /*---------- update last local update date ----------*/
+                        MyApplication.getContext()
+                                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                                .edit().putLong(Post.LAST_UPDATE, lud).commit();
+
+                        /*---------- return all data to caller ----------*/
+                        List<Post> poList = AppLocalDB.db.PostDao().getAll();
+                        allPostsList.postValue(poList);
+                        postsListLoadingState.postValue(LoadingState.loaded);
+
+
+                        /* בתוך stList יהיה את כל התוכן שיש בdb המקומי */
+
+                    }
+                });
+
+            }
+        });
+
+//        modelFirebase.getAllPosts(lastUpdateDate, new ModelFirebase.GetAllPostsListener() {
+//            @Override
+//            public void onComplete(List<Post> list) {
+//                // מעדכן את כל הלינסנרים שמאזינים לת'רד הראשי
+//                allPostsList.setValue(list);
+//                postsListLoadingState.setValue(LoadingState.loaded);
+//            }
+//        });
+    }
+
 
 }

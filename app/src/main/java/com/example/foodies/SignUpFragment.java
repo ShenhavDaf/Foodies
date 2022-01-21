@@ -35,6 +35,7 @@ public class SignUpFragment extends Fragment {
         passwordEt = view.findViewById(R.id.signin_password_et);
         verifyEt = view.findViewById(R.id.signin_verify_et);
         cityEt = view.findViewById(R.id.signin_city_et);
+        //TODO
 //        imageEt = view.findViewById(R.id.signin_image_img);
 
         join = view.findViewById(R.id.signin_join_btn);
@@ -68,12 +69,6 @@ public class SignUpFragment extends Fragment {
             return;
         }
 
-//        if(image.isEmpty()){
-//            imageEt.setError("Please enter your birthday");
-//            imageEt.requestFocus();
-//            return;
-//        }
-
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailEt.setError("Please provide valid email");
             emailEt.requestFocus();
@@ -102,8 +97,9 @@ public class SignUpFragment extends Fragment {
         Model.instance.addNewUser(email, password, () -> {
             User newUserDetails = new User(email, fullname, city, image);
             Model.instance.addUserDetails(newUserDetails, () -> {
+                Model.instance.setCurrentUserModel(newUserDetails);
                 Navigation.findNavController(view)
-                        .navigate(SignUpFragmentDirections.actionGlobalHomePage(email));
+                        .navigate(SignUpFragmentDirections.actionGlobalHomePage());
             });
         });
 

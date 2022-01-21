@@ -40,7 +40,7 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
 
         /* *************************************** View Items *************************************** */
 
-        currUserEmail = NewPostFragmentArgs.fromBundle(getArguments()).getUserEmail();
+        currUserEmail = Model.instance.getCurrentUserModel().getEmail();
 
         View view = inflater.inflate(R.layout.fragment_new_post, container, false);
 
@@ -73,11 +73,8 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         /* ------------------------------------ Button ------------------------------------ */
 
         postBtn = view.findViewById(R.id.newpost_post_btn);
-        postBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                save(); //TODO: userID
-            }
+        postBtn.setOnClickListener(v -> {
+            save();
         });
 
         return view;
@@ -111,7 +108,6 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
                 Navigation.findNavController(dishName).navigateUp();
             });
         });
-
     }
 
     /* *************************************** Spinner Functions *************************************** */

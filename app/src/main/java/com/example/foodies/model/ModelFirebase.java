@@ -224,6 +224,8 @@ public class ModelFirebase {
 
     // SignUp
     public void addNewUser(String email, String password, Model.GetAuthListener listener) {
+
+        //realtime
         myAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
 
@@ -254,10 +256,13 @@ public class ModelFirebase {
 
     // Authentication
     public void UserLogin(String email, String password, Model.UserLoginListener listener) {
+
+        //check if user exist in system
         myAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
                         listener.onComplete(userId);
                     } else {
                         //TODO: change the print
@@ -277,7 +282,9 @@ public class ModelFirebase {
         db.collection(User.COLLECTION_NAME)
                 .document(user.getEmail())
                 .set(json)
-                .addOnSuccessListener(unused -> listener.onComplete())
+                .addOnSuccessListener(unused -> {
+                    listener.onComplete();
+                })
                 .addOnFailureListener(e -> listener.onComplete());
     }
 

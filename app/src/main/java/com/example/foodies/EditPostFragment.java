@@ -34,14 +34,14 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_edit_post, container, false);
+        currUserEmail = Model.instance.getCurrentUserModel().getEmail();
 
         postId = EditPostFragmentArgs.fromBundle(getArguments()).getPostId();
         sourcePage = PostPageFragmentArgs.fromBundle(getArguments()).getSourcePage();
-        currUserEmail = PostPageFragmentArgs.fromBundle(getArguments()).getUserEmail();
-
 
         /* *************************************** View Items *************************************** */
+        View view = inflater.inflate(R.layout.fragment_edit_post, container, false);
+
         dishName = view.findViewById(R.id.editpost_dishname_et);
         restaurent = view.findViewById(R.id.editpost_restaurant_et);
         address = view.findViewById(R.id.editpost_address_et);
@@ -124,46 +124,13 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
 
                 if (sourcePage.equals("homepage")) {
                     Navigation.findNavController(v)
-                            .navigate(EditPostFragmentDirections.actionGlobalHomePage(currUserEmail));
+                            .navigate(EditPostFragmentDirections.actionGlobalHomePage());
                 } else if (sourcePage.equals("profilepage")) {
                     Navigation.findNavController(v)
-                            .navigate(EditPostFragmentDirections.actionGlobalProfileFragment(currUserEmail));
+                            .navigate(EditPostFragmentDirections.actionGlobalProfileFragment());
                 }
             });
-
-//
-//            Model.instance.addPost(newPost, currUserEmail, () -> {
-//
-//                Model.instance.refreshPostsList();
-//
-//                if (sourcePage.equals("homepage")) {
-//                    Navigation.findNavController(v)
-//                            .navigate(EditPostFragmentDirections.actionGlobalHomePage(currUserEmail));
-//                } else if (sourcePage.equals("profilepage")) {
-//                    Navigation.findNavController(v)
-//                            .navigate(EditPostFragmentDirections.actionGlobalProfileFragment(currUserEmail));
-//                }
-//
-//            });
-
-
-//            if (sourcePage.equals("homepage")) {
-//                Model.instance.addPost(newPost, currUserEmail, () -> {
-//                    Navigation.findNavController(v)
-//                            .navigate(EditPostFragmentDirections.actionGlobalHomePage(currUserEmail));
-//
-//                });
-//            }
-//            if (sourcePage.equals("profilepage")) {
-//                Model.instance.addPost(newPost, currUserEmail, () -> {
-//                    Navigation.findNavController(v)
-//                            .navigate(EditPostFragmentDirections
-//                                    .actionGlobalProfileFragment(currUserEmail));
-//
-//                });
-//            }
         });
-
     }
 
     /*-------------------------------------------*/
@@ -171,46 +138,37 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
     private void delete(String postID, View v) {
         System.out.println("********** Delete btn was clicked in editPage");
 
-                    String name = dishName.getText().toString();
-                    String res = restaurent.getText().toString();
-                    String addr = address.getText().toString();
-                    String categor = category.getSelectedItem().toString();
-                    String desc = description.getText().toString();
-                    String rev = review.getText().toString();
-                    String rateing = rate.getSelectedItem().toString();
+        String name = dishName.getText().toString();
+        String res = restaurent.getText().toString();
+        String addr = address.getText().toString();
+        String categor = category.getSelectedItem().toString();
+        String desc = description.getText().toString();
+        String rev = review.getText().toString();
+        String rateing = rate.getSelectedItem().toString();
 
-                    //TODO:userID, img
-                    String img = "myImg";
+        //TODO:userID, img
+        String img = "myImg";
 
-                    Post newPost = new Post(postID, name, res, addr, categor, desc, rev, img, rateing, currUserEmail, false);
-
-
-                    Model.instance.deletePost(newPost, () -> {
-
-                        Model.instance.refreshPostsList();
-
-                        Navigation.findNavController(v)
-                                .navigate(EditPostFragmentDirections.actionGlobalHomePage(currUserEmail));
-                    });
+        Post newPost = new Post(postID, name, res, addr, categor, desc, rev, img, rateing, currUserEmail, false);
 
 
-//        Model.instance.deletePostById(postId, () -> {
-//            Navigation.findNavController(v)
-//                    .navigate(EditPostFragmentDirections.actionGlobalHomePage(currUserEmail));
-//        });
-
+        Model.instance.deletePost(newPost, () -> {
+            Model.instance.refreshPostsList();
+            Navigation.findNavController(v)
+                    .navigate(EditPostFragmentDirections.actionGlobalHomePage());
+        });
 
     }
 
-                /* *************************************** Spinner Functions *************************************** */
-        @Override
-        public void onItemSelected (AdapterView < ? > parent, View view,int position, long id){
-            String item = parent.getItemAtPosition(position).toString();
-            Toast.makeText(parent.getContext(), item, Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onNothingSelected (AdapterView < ? > parent){
-
-        }
+    /* *************************************** Spinner Functions *************************************** */
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String item = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(), item, Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+}

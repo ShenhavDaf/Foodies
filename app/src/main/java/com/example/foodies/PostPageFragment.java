@@ -21,9 +21,7 @@ public class PostPageFragment extends Fragment {
     RatingBar rate;
     Button editPostBtn;
 
-    String postId, sourcePage, currUserEmail, authorEmail;
-
-    Post currentPost;
+    String postId, sourcePage, authorEmail;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,7 +29,7 @@ public class PostPageFragment extends Fragment {
 
         postId = PostPageFragmentArgs.fromBundle(getArguments()).getPostId();
         sourcePage = PostPageFragmentArgs.fromBundle(getArguments()).getSourcePage();
-        currUserEmail = PostPageFragmentArgs.fromBundle(getArguments()).getUserEmail();
+
         /* ********************************* View Items ********************************* */
 
         View view = inflater.inflate(R.layout.fragment_post_page, container, false);
@@ -61,7 +59,7 @@ public class PostPageFragment extends Fragment {
             rate.setRating(Integer.parseInt(post.getRate()));
 
             authorEmail = post.getUserEmail();
-            if (authorEmail.equals(currUserEmail)) {
+            if (authorEmail.equals(Model.instance.getCurrentUserModel().getEmail())) {
                 editPostBtn.setVisibility(View.VISIBLE);
                 editPostBtn.setOnClickListener(v -> editPost(view, postId));
             }
@@ -75,6 +73,6 @@ public class PostPageFragment extends Fragment {
     private void editPost(View view, String postId) {
         Navigation.findNavController(view)
                 .navigate(PostPageFragmentDirections
-                        .actionPostPageFragmentToEditPostFragment(postId, sourcePage, currUserEmail));
+                        .actionPostPageFragmentToEditPostFragment(postId, sourcePage));
     }
 }

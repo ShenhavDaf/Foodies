@@ -21,31 +21,33 @@ import java.util.List;
 
 public class EditProfileFragment extends Fragment {
 
-    EditText fullName,email, password, verify, city;
+    EditText fullName, city;
     ImageView img;
     Button saveBtn;
 
-    String currentUserEmail;
+    User currUser;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        currentUserEmail = EditProfileFragmentArgs.fromBundle(getArguments()).getUserEmail();
+        currUser = Model.instance.getCurrentUserModel();
+
+        /**************************************/
+
         View view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
 
         fullName = view.findViewById(R.id.editprofile_fullname_et);
         city = view.findViewById(R.id.editprofile_city_et);
         saveBtn = view.findViewById(R.id.editprofile_save_btn);
 
-        Model.instance.getUserByEmail(currentUserEmail, user -> {
 
-            fullName.setText(user.getFullName());
-            city.setText(user.getCity());
+        fullName.setText(currUser.getFullName());
+        city.setText(currUser.getCity());
 
-        //TODO            dishImg.setText(post1.getImage());
+        //TODO            dishImg.setText(currUser.getImg);
 
-        });
 
         saveBtn.setOnClickListener(v -> save(view));
 
@@ -55,34 +57,21 @@ public class EditProfileFragment extends Fragment {
 
     public void save(View view) {
 
-        Model.instance.getUserByEmail(currentUserEmail, user -> {
+        String name = fullName.getText().toString();
+        String mycity = city.getText().toString();
 
-            String name = fullName.getText().toString();
-            String mycity = city.getText().toString();
+        //TODO:userID, img
+        String img = "myImg";
 
-            List<String> list = user.getPostList();
+        List<String> list = currUser.getPostList();
 
-            //TODO:userID, img
-            String img = "myImg";
+        User newUser = new User(currUser.getEmail(), name, mycity, img, list);
 
-            User newUser = new User( currentUserEmail, name, mycity, img, list);
+        /* ------------------------------------ Navigation ------------------------------------ */
 
-
-            /* ------------------------------------ Navigation ------------------------------------ */
-
-            //TODO: make a function in modelFirebase of updateData (change the addPost to updatePost)
-
-
-            Model.instance.addUserDetails(newUser, () -> {
-                Navigation.findNavController(view)
-                        .navigate(EditProfileFragmentDirections
-                                .actionGlobalProfileFragment(currentUserEmail));
-
-            });
-
-
+        Model.instance.addUserDetails(newUser, () -> {
+            Navigation.findNavController(view)
+                    .navigate(EditProfileFragmentDirections.actionGlobalProfileFragment());
         });
-
-
     }
 }

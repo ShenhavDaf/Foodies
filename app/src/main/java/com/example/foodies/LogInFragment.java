@@ -90,8 +90,12 @@ public class LogInFragment extends Fragment {
         /* ------------------------------------ Navigation ------------------------------------ */
 
         Model.instance.UserLogin(localMail, localPass, userID -> {
-            Navigation.findNavController(view)
-                    .navigate(LogInFragmentDirections.actionGlobalHomePage(localMail));
+            Model.instance.getUserByEmail(localMail, user -> {
+                Model.instance.setCurrentUserModel(user);
+
+                Navigation.findNavController(view)
+                        .navigate(LogInFragmentDirections.actionGlobalHomePage());
+            });
         });
 
     }
