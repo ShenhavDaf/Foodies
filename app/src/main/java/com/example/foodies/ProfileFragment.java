@@ -61,6 +61,7 @@ public class ProfileFragment extends Fragment {
 
 
         fullNameTv.setText(Model.instance.getCurrentUserModel().getFullName());
+        cityTv.setText(Model.instance.getCurrentUserModel().getCity());
 
         /* ***************************** Post List - Recycler View ***************************** */
 
@@ -73,14 +74,17 @@ public class ProfileFragment extends Fragment {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
+//                String postId = viewModel.getData().getValue().get(position).getId();
                 String postId = viewModel.getData().get(position).getId();
                 Navigation.findNavController(v)
                         .navigate(ProfileFragmentDirections
                                 .actionProfileFragmentToEditPostFragment(postId, SOURCE_PAGE));
-
-                System.out.println("to the post page");
             }
         });
+
+
+//        viewModel.getData().observe(getViewLifecycleOwner(), posts -> refresh());
+
 
         refresh();
         return view;
@@ -90,23 +94,32 @@ public class ProfileFragment extends Fragment {
     /* ********************************* Function/ Navigation ********************************* */
 
     private void editProfile(View view) {
-        System.out.println("edit profile was clicked");
         Navigation.findNavController(view)
-                .navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment());
+                .navigate(ProfileFragmentDirections
+                        .actionProfileFragmentToEditProfileFragment());
     }
 
     private void refresh() {
-//        swipeRefresh.setRefreshing(true);
-
-        Model.instance.getUserPosts(Model.instance.getCurrentUserModel(), (list) -> {
+////        swipeRefresh.setRefreshing(true);
+//
+        Model.instance.getUserPosts(
+                Model.instance.getCurrentUserModel(), (list) -> {
             if (list != null) {
                 viewModel.setData(list);
-//                data = list;
+////                data = list;
                 adapter.notifyDataSetChanged();
-//                swipeRefresh.setRefreshing(false);
+////                swipeRefresh.setRefreshing(false);
             }
         });
 
+
+//        List<String> userPostsList = Model.instance.getCurrentUserModel().getPostList();
+//
+//        Model.instance.getUserPostsLocalDB(userPostsList);
+//        viewModel.setData(userPosts);
+
+        //צריכה להיות שורה יחידה בפונקציה הזו
+//        adapter.notifyDataSetChanged();
     }
 
     /* ********************************* My View Holder ********************************* */
@@ -162,6 +175,7 @@ public class ProfileFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+//            Post post = viewModel.getData().getValue().get(position);
             Post post = viewModel.getData().get(position);
 
             //TODO: find user name & img
@@ -180,9 +194,11 @@ public class ProfileFragment extends Fragment {
 
         @Override
         public int getItemCount() {
+//            if (viewModel.getData().getValue() == null) {
             if (viewModel.getData() == null) {
                 return 0;
             }
+//            return viewModel.getData().getValue().size();
             return viewModel.getData().size();
         }
     }

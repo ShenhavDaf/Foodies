@@ -33,7 +33,6 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
 
     String currUserEmail;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -100,8 +99,8 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         /* ------------------------------------ Navigation ------------------------------------ */
 
         Model.instance.getNextPostId(currUserEmail, nextId -> {
-            Post newPost =
-                    new Post(nextId , name, res, addr, categor, desc, rev, img, rateing, currUserEmail, true);
+            Post newPost = new Post(nextId, name, res, addr, categor, desc, rev, img, rateing, currUserEmail, true);
+
             Model.instance.addPost(newPost, currUserEmail, () -> {
                 Model.instance.refreshPostsList();
                 //TODO: return to footer caller

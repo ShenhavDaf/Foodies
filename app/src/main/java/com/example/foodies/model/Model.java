@@ -183,13 +183,27 @@ public class Model {
 
     /* ----------------------------------------------------- */
 
-//    public interface DeleltPostByIdListener {
-//        void onComplete();
-//    }
+//    MutableLiveData<List<Post>> userPostsListLD = new MutableLiveData<List<Post>>();
 //
-//    public Post deletePostById(String postId, DeleltPostByIdListener listener) {
-//        modelFirebase.deletePostById(postId, listener);
-//        return null;
+//    public LiveData<List<Post>> getUserPostsLocalDB(List<String> userPostsList) {
+//        List<Post> myList = new ArrayList<>();
+//
+//        executor.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                for (Post localPost : AppLocalDB.db.PostDao().getAll()) {
+//                    if (userPostsList.contains(localPost.getId())) {
+//                        myList.add(localPost);
+//                    }
+//                }
+//
+//                userPostsListLD.postValue(myList);
+//            }
+//        });
+//
+//        System.out.println("from getUserPostsLocalDB ======= " + myList);
+//
+//        return userPostsListLD;
 //    }
     /* ----------------------------------------------------- */
 

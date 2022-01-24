@@ -38,9 +38,6 @@ public class HomePageFragment extends Fragment {
     TextView userName;
     ImageButton profile, homePage, addPost;
 
-//    String currUserEmail;
-//    User currentUserDetails;
-
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -204,11 +201,6 @@ public class HomePageFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
-
-//            Model.instance.getUserByEmail(currUserEmail, user -> {
-//                holder.userName.setText(user.getFullName());
-//            });
 
             Post post = viewModel.getData().getValue().get(position);
 
