@@ -222,6 +222,7 @@ public class Post {
         json.put("userEmail", userEmail);
         json.put("display", display);
 
+
         json.put("updateDate", FieldValue.serverTimestamp());
 
 

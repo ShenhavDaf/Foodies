@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Post;
 import com.example.foodies.model.User;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -170,10 +171,37 @@ public class HomePageFragment extends Fragment {
             rateStar = itemView.findViewById(R.id.listrow_ratingBar);
             rateStar.setEnabled(false);
 
+
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 listener.onItemClick(v, pos);
             });
+        }
+
+        public void bind(Post post){
+
+            //TODO: after authentication find user name & img
+            //TODO: change to new accordingly function in localDB
+            Model.instance.getUserByEmail(post.getUserEmail(), user -> {
+                userName.setText(user.getFullName());
+//                holder.userImage.setImageDrawable(user.getImage());
+            });
+
+            description.setText(post.getDishName());
+
+            //TODO: set at "Post" img to ImageView - now its String
+//            holder.dishImage.setImageDrawable(post.getImage());
+
+            rateNum.setText(post.getRate());
+            rateStar.setRating(Integer.parseInt(post.getRate()));
+            dishImage.setImageResource(R.drawable.ratatoi);
+            if(post.getImage() != null){
+                Picasso.get()
+                        .load(post.getImage())
+                        .into(dishImage);
+            }
+
+
         }
     }
 
@@ -204,20 +232,22 @@ public class HomePageFragment extends Fragment {
 
             Post post = viewModel.getData().getValue().get(position);
 
-            //TODO: after authentication find user name & img
-            //TODO: change to new accordingly function in localDB
-            Model.instance.getUserByEmail(post.getUserEmail(), user -> {
-                holder.userName.setText(user.getFullName());
-//                holder.userImage.setImageDrawable(user.getImage());
-            });
+            holder.bind(post);
 
-            holder.description.setText(post.getDishName());
-
-            //TODO: set at "Post" img to ImageView - now its String
-//            holder.dishImage.setImageDrawable(post.getImage());
-
-            holder.rateNum.setText(post.getRate());
-            holder.rateStar.setRating(Integer.parseInt(post.getRate()));
+//            //TODO: after authentication find user name & img
+//            //TODO: change to new accordingly function in localDB
+//            Model.instance.getUserByEmail(post.getUserEmail(), user -> {
+//                holder.userName.setText(user.getFullName());
+////                holder.userImage.setImageDrawable(user.getImage());
+//            });
+//
+//            holder.description.setText(post.getDishName());
+//
+//            //TODO: set at "Post" img to ImageView - now its String
+////            holder.dishImage.setImageDrawable(post.getImage());
+//
+//            holder.rateNum.setText(post.getRate());
+//            holder.rateStar.setRating(Integer.parseInt(post.getRate()));
 
         }
 

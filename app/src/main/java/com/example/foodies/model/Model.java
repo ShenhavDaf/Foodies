@@ -2,6 +2,7 @@ package com.example.foodies.model;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -34,6 +35,18 @@ public class Model {
 
     public void setCurrentUserModel(User currentUserModel) {
         this.currentUserModel = currentUserModel;
+    }
+
+    /* ****************************** Image Upload ****************************** */
+
+    public interface SaveImageListener{
+
+        void onComplete(String url);
+    }
+
+    public void setImage(Bitmap imageBitmap, String imageName, SaveImageListener listener) {
+
+        modelFirebase.saveImage(imageBitmap, imageName, listener);
     }
 
 
@@ -76,7 +89,13 @@ public class Model {
     }
 
     public void addPost(Post post, String userEmail, AddPostListener listener) {
-        modelFirebase.addPost(post, userEmail, listener);
+        modelFirebase.addPost(post, userEmail, new AddPostListener() {
+            @Override
+            public void onComplete() {
+                refreshPostsList();
+                listener.onComplete();
+            }
+        });
     }
 
     /* ----------------------------------------------------- */

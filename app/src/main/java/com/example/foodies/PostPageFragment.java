@@ -9,17 +9,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Post;
+import com.squareup.picasso.Picasso;
 
 public class PostPageFragment extends Fragment {
 
     TextView dishName, restaurant, address, category, description, review;
     RatingBar rate;
     Button editPostBtn;
+    ImageView dishImage;
 
     String postId, sourcePage, authorEmail;
 
@@ -41,6 +44,7 @@ public class PostPageFragment extends Fragment {
         description = view.findViewById(R.id.postpage_description_tv);
         review = view.findViewById(R.id.postpage_review_tv);
         rate = view.findViewById(R.id.postpage_rate_tv);
+        dishImage = view.findViewById(R.id.postpage_dishimage_imv);
 
         description.setEnabled(false);
         review.setEnabled(false);
@@ -51,6 +55,12 @@ public class PostPageFragment extends Fragment {
 
 
         Post post = Model.instance.getPostByIdLocalDB(postId);
+        if(post.getImage() != null){
+            Picasso.get()
+                    .load(post.getImage())
+                    .into(dishImage);
+        }
+
 
             dishName.setText(post.getDishName());
             restaurant.setText(post.getRestaurant());
