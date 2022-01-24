@@ -21,6 +21,8 @@ import com.example.foodies.model.AppLocalDB;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Post;
 
+import java.util.List;
+
 public class EditPostFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     TextView dishName, restaurent, address, description, review;
@@ -53,9 +55,10 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
 
         /* *************************************** Current Post *************************************** */
 
-        Model.instance.getPostById(postId, post1 -> {
+        Post post1 = Model.instance.getPostByIdLocalDB(postId);
 
-            dishName.setText(post1.getDishName());
+
+        dishName.setText(post1.getDishName());
             restaurent.setText(post1.getRestaurant());
             address.setText(post1.getAddress());
 
@@ -82,7 +85,6 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
                 rate.setSelection(spinnerPosition);
             }
 
-        });
 
         /*---------------------------------- Button --------------------------------------*/
 
@@ -100,7 +102,7 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
     /* *************************************** Functions *************************************** */
 
     private void save(String postID, View v) {
-        Model.instance.getPostById(postID, post1 -> {
+//        Model.instance.getPostById(postID, post1 -> {
 
             String name = dishName.getText().toString();
             String res = restaurent.getText().toString();
@@ -122,20 +124,23 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
             Model.instance.editPost(newPost, () -> {
 
                 Model.instance.refreshPostsList();
+//                Model.instance.getUserPostsLocalDB(Model.instance.getCurrentUserModel().getPostList());
 
                 if (sourcePage.equals("homepage")) {
+                    Model.instance.refreshPostsList();
+
 
                     Navigation.findNavController(v)
                             .navigate(EditPostFragmentDirections.actionGlobalHomePage());
                 } else if (sourcePage.equals("profilepage")) {
+                    Model.instance.refreshPostsList();
 
-//                    Model.instance.getUserPostsLocalDB(Model.instance.getCurrentUserModel().getPostList());
 
                     Navigation.findNavController(v)
                             .navigate(EditPostFragmentDirections.actionGlobalProfileFragment());
                 }
             });
-        });
+//        });
     }
 
     /*-------------------------------------------*/
@@ -143,24 +148,44 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
     private void delete(String postID, View v) {
         System.out.println("********** Delete btn was clicked in editPage");
 
-        String name = dishName.getText().toString();
-        String res = restaurent.getText().toString();
-        String addr = address.getText().toString();
-        String categor = category.getSelectedItem().toString();
-        String desc = description.getText().toString();
-        String rev = review.getText().toString();
-        String rateing = rate.getSelectedItem().toString();
+//        String name = dishName.getText().toString();
+//        String res = restaurent.getText().toString();
+//        String addr = address.getText().toString();
+//        String categor = category.getSelectedItem().toString();
+//        String desc = description.getText().toString();
+//        String rev = review.getText().toString();
+//        String rateing = rate.getSelectedItem().toString();
+//
+//        //TODO:userID, img
+//        String img = "myImg";
+//
+//        Post newPost = new Post(postID, name, res, addr, categor, desc, rev, img, rateing, currUserEmail, false);
+//
 
-        //TODO:userID, img
-        String img = "myImg";
-
-        Post newPost = new Post(postID, name, res, addr, categor, desc, rev, img, rateing, currUserEmail, false);
-
+        Post newPost = Model.instance.getPostByIdLocalDB(postID);
 
         Model.instance.deletePost(newPost, () -> {
             Model.instance.refreshPostsList();
-            Navigation.findNavController(v)
-                    .navigate(EditPostFragmentDirections.actionGlobalHomePage());
+
+
+            List<String> l = Model.instance.getCurrentUserModel().getPostList();
+            l.remove(postID);
+            Model.instance.getCurrentUserModel().setPostList(l);
+
+            if (sourcePage.equals("homepage")) {
+
+                Navigation.findNavController(v)
+                        .navigate(EditPostFragmentDirections.actionGlobalHomePage());
+            } else if (sourcePage.equals("profilepage")) {
+
+//                    Model.instance.getUserPostsLocalDB(Model.instance.getCurrentUserModel().getPostList());
+
+                Navigation.findNavController(v)
+                        .navigate(EditPostFragmentDirections.actionGlobalProfileFragment());
+            }
+
+//            Navigation.findNavController(v)
+//                    .navigate(EditPostFragmentDirections.actionGlobalHomePage());
         });
 
     }

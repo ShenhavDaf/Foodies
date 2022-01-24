@@ -49,7 +49,9 @@ public class PostPageFragment extends Fragment {
         editPostBtn = view.findViewById(R.id.postpage_editpost_btn);
         editPostBtn.setVisibility(View.GONE);
 
-        Model.instance.getPostById(postId, post -> {
+
+        Post post = Model.instance.getPostByIdLocalDB(postId);
+
             dishName.setText(post.getDishName());
             restaurant.setText(post.getRestaurant());
             address.setText(post.getAddress());
@@ -63,7 +65,6 @@ public class PostPageFragment extends Fragment {
                 editPostBtn.setVisibility(View.VISIBLE);
                 editPostBtn.setOnClickListener(v -> editPost(view, postId));
             }
-        });
 
         return view;
     }

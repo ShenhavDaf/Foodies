@@ -59,6 +59,17 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+//        Model.instance.getUserPostsLocalDB(
+//                Model.instance.getCurrentUserModel().getPostList());
+
+        System.out.println("users posts list data =========== ");
+
+        if(viewModel.getData().getValue() != null){
+            for(int i = 0; i<viewModel.getData().getValue().size(); i++){
+                System.out.println(viewModel.getData().getValue().get(i).getDishName());
+            }
+        }
+
 
         fullNameTv.setText(Model.instance.getCurrentUserModel().getFullName());
         cityTv.setText(Model.instance.getCurrentUserModel().getCity());
@@ -74,8 +85,8 @@ public class ProfileFragment extends Fragment {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-//                String postId = viewModel.getData().getValue().get(position).getId();
-                String postId = viewModel.getData().get(position).getId();
+                String postId = viewModel.getData().getValue().get(position).getId();
+//                String postId = viewModel.getData().get(position).getId();
                 Navigation.findNavController(v)
                         .navigate(ProfileFragmentDirections
                                 .actionProfileFragmentToEditPostFragment(postId, SOURCE_PAGE));
@@ -83,10 +94,10 @@ public class ProfileFragment extends Fragment {
         });
 
 
-//        viewModel.getData().observe(getViewLifecycleOwner(), posts -> refresh());
+        viewModel.getData().observe(getViewLifecycleOwner(), posts -> refresh());
 
 
-        refresh();
+//        refresh();
         return view;
     }
 
@@ -102,15 +113,15 @@ public class ProfileFragment extends Fragment {
     private void refresh() {
 ////        swipeRefresh.setRefreshing(true);
 //
-        Model.instance.getUserPosts(
-                Model.instance.getCurrentUserModel(), (list) -> {
-            if (list != null) {
-                viewModel.setData(list);
-////                data = list;
-                adapter.notifyDataSetChanged();
-////                swipeRefresh.setRefreshing(false);
-            }
-        });
+//        Model.instance.getUserPosts(
+//                Model.instance.getCurrentUserModel(), (list) -> {
+//            if (list != null) {
+//                viewModel.setData(list);
+//////                data = list;
+//                adapter.notifyDataSetChanged();
+//////                swipeRefresh.setRefreshing(false);
+//            }
+//        });
 
 
 //        List<String> userPostsList = Model.instance.getCurrentUserModel().getPostList();
@@ -119,7 +130,9 @@ public class ProfileFragment extends Fragment {
 //        viewModel.setData(userPosts);
 
         //צריכה להיות שורה יחידה בפונקציה הזו
-//        adapter.notifyDataSetChanged();
+//        Model.instance.getUserPostsLocalDB(
+//                Model.instance.getCurrentUserModel().getPostList());
+        adapter.notifyDataSetChanged();
     }
 
     /* ********************************* My View Holder ********************************* */
@@ -175,8 +188,8 @@ public class ProfileFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-//            Post post = viewModel.getData().getValue().get(position);
-            Post post = viewModel.getData().get(position);
+            Post post = viewModel.getData().getValue().get(position);
+//            Post post = viewModel.getData().get(position);
 
             //TODO: find user name & img
 //            holder.userImage.setImageDrawable(post.getUserId().getImage);
@@ -194,12 +207,12 @@ public class ProfileFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-//            if (viewModel.getData().getValue() == null) {
-            if (viewModel.getData() == null) {
+            if (viewModel.getData().getValue() == null) {
+//            if (viewModel.getData() == null) {
                 return 0;
             }
-//            return viewModel.getData().getValue().size();
-            return viewModel.getData().size();
+            return viewModel.getData().getValue().size();
+//            return viewModel.getData().size();
         }
     }
 

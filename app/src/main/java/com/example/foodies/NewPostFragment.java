@@ -5,6 +5,7 @@ import androidx.navigation.Navigation;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,6 +104,11 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
 
             Model.instance.addPost(newPost, currUserEmail, () -> {
                 Model.instance.refreshPostsList();
+
+                List<String> l = Model.instance.getCurrentUserModel().getPostList();
+                l.add(newPost.getId());
+                Model.instance.getCurrentUserModel().setPostList(l);
+
                 //TODO: return to footer caller
                 Navigation.findNavController(dishName).navigateUp();
             });

@@ -70,6 +70,13 @@ public class EditProfileFragment extends Fragment {
         /* ------------------------------------ Navigation ------------------------------------ */
 
         Model.instance.addUserDetails(newUser, () -> {
+
+            Model.instance.getCurrentUserModel().setFullName(newUser.getFullName());
+            Model.instance.getCurrentUserModel().setCity(newUser.getCity());
+
+            //TODO: set new img
+//            Model.instance.getCurrentUserModel().setImage(newUser.getImage());
+
             Navigation.findNavController(view)
                     .navigate(EditProfileFragmentDirections.actionGlobalProfileFragment());
         });
