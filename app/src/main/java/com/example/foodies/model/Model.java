@@ -167,8 +167,8 @@ public class Model {
         void onComplete();
     }
 
-    public void addNewUser(String email, String password, GetAuthListener listener) {
-        modelFirebase.addNewUser(email, password, listener);
+    public void addNewUser(User user, String email, String password, GetAuthListener listener) {
+        modelFirebase.addNewUser(user, email, password, listener);
     }
 
     /* ----------------------------------------------------- */

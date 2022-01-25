@@ -2,6 +2,7 @@ package com.example.foodies.model;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -234,28 +235,45 @@ public class ModelFirebase {
     /* ****************************** Users Functions ****************************** */
 
     // SignUp
-    public void addNewUser(String email, String password, Model.GetAuthListener listener) {
+    public void addNewUser(User user, String email, String password, Model.GetAuthListener listener) {
 
         //realtime
         myAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
 
                     if (task.isSuccessful()) {
-                        AuthUser user = new AuthUser(email, password);
 
-                        FirebaseDatabase.getInstance(URL).getReference("Users").
-                                child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                .setValue(user).
-                                addOnCompleteListener(task1 -> {
-                                    if (task1.isSuccessful()) {
-                                        System.out.println("user registered");
-                                        listener.onComplete();
-                                    } else {
-                                        //TODO: change the print
-                                        System.out.println("user not register1");
-                                    }
+                        Log.d("TAG", "create complete");
+                        System.out.println("create complete");
 
+                        Map<String, Object> json = user.toJson();
+                        json.put("counter", 0);
+
+                        db.collection(User.COLLECTION_NAME)
+                                .document(user.getEmail())
+                                .set(json)
+                                .addOnSuccessListener(success -> listener.onComplete())
+                                .addOnFailureListener(failure ->{
+                                    System.out.println("failed to inside the user to userCollection");
+//                                            listener.onComplete();
                                 });
+
+
+//                        AuthUser user = new AuthUser(email, password);
+//
+//                        FirebaseDatabase.getInstance(URL).getReference("Users").
+//                                child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+//                                .setValue(user).
+//                                addOnCompleteListener(task1 -> {
+//                                    if (task1.isSuccessful()) {
+//                                        System.out.println("user registered");
+//                                        listener.onComplete();
+//                                    } else {
+//                                        //TODO: change the print
+//                                        System.out.println("user not register1");
+//                                    }
+//
+//                                });
                     } else {
                         //TODO: change the print
                         System.out.println("user not register2");
