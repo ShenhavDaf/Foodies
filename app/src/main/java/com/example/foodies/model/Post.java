@@ -32,7 +32,7 @@ public class Post {
     String category = "";
     String description = "";
     String review = "";
-    String image = ""; // TODO...
+    String image = "";
     String rate = "0";
     String userEmail = "";
     String userFullName = "";// TODO: for post author in home page

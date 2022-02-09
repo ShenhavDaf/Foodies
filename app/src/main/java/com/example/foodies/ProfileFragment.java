@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Post;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -64,8 +65,8 @@ public class ProfileFragment extends Fragment {
 
         System.out.println("users posts list data =========== ");
 
-        if(viewModel.getData().getValue() != null){
-            for(int i = 0; i<viewModel.getData().getValue().size(); i++){
+        if (viewModel.getData().getValue() != null) {
+            for (int i = 0; i < viewModel.getData().getValue().size(); i++) {
                 System.out.println(viewModel.getData().getValue().get(i).getDishName());
             }
         }
@@ -161,6 +162,39 @@ public class ProfileFragment extends Fragment {
                 }
             });
         }
+
+        public void myBind(Post post){
+            //            Post post = viewModel.getData().get(position);
+
+            //TODO: find user name & img
+//            holder.userImage.setImageDrawable(post.getUserId().getImage);
+//            holder.userName.setText(post.getUserId());
+
+            description.setText(post.getDishName());
+
+            //TODO: set at "Post" img to ImageView - now its String
+//            holder.dishImage.setImageDrawable(post.getImage());
+
+            //            dishImage.setImageResource(R.drawable.ratatoi);
+            if(post.getImage() != null){
+                Picasso.get()
+                        .load(post.getImage())
+                        .into(dishImage);
+            }
+
+
+            //TODO: need to delete + delete all posts in firebase without image
+            if(post.getImage().equals("myImg")){
+                Picasso.get()
+                        .load("https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482930.jpg")
+                        .into(dishImage);
+            }
+
+            rateNum.setText(post.getRate());
+            rateStar.setRating(Integer.parseInt(post.getRate()));
+
+        }
+
     }
 
     /* ********************************* Adapter ********************************* */
@@ -189,20 +223,7 @@ public class ProfileFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             Post post = viewModel.getData().getValue().get(position);
-//            Post post = viewModel.getData().get(position);
-
-            //TODO: find user name & img
-//            holder.userImage.setImageDrawable(post.getUserId().getImage);
-//            holder.userName.setText(post.getUserId());
-
-            holder.description.setText(post.getDishName());
-
-            //TODO: set at "Post" img to ImageView - now its String
-//            holder.dishImage.setImageDrawable(post.getImage());
-
-            holder.rateNum.setText(post.getRate());
-            holder.rateStar.setRating(Integer.parseInt(post.getRate()));
-
+            holder.myBind(post);
         }
 
         @Override

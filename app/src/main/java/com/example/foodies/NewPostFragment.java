@@ -122,6 +122,7 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
             if(resultCode == RESULT_OK){
                 Bundle extras = data.getExtras();
                 imageBitmap = (Bitmap) extras.get("data");
+                //not in interface
                 image.setImageBitmap(imageBitmap);
 
             }
@@ -132,6 +133,7 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
                     final Uri imageUri = data.getData();
                     final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
                     imageBitmap = BitmapFactory.decodeStream(imageStream);
+                    //not in interface
                     image.setImageBitmap(imageBitmap);
 
                 } catch (Exception e) {

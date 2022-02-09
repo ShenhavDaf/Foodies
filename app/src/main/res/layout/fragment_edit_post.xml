@@ -119,7 +119,7 @@
         android:id="@+id/editpost_dishimg_img"
         android:layout_width="143dp"
         android:layout_height="90dp"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="45dp"
         android:layout_marginTop="15dp"
         android:src="@drawable/ratatoi"
         app:layout_constraintStart_toEndOf="@+id/textView24"
@@ -216,6 +216,28 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/editpost_save_btn"
         app:layout_constraintEnd_toStartOf="@+id/editpost_save_btn"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/editpost_camera_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:src="@android:drawable/ic_menu_camera"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.146"
+        app:layout_constraintStart_toEndOf="@+id/editpost_dishimg_img"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
+
+    <ImageButton
+        android:id="@+id/editpost_gallery_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:src="@android:drawable/ic_menu_gallery"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintStart_toEndOf="@+id/editpost_camera_btn"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

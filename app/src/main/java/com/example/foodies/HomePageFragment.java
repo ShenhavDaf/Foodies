@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -180,8 +181,6 @@ public class HomePageFragment extends Fragment {
 
         public void bind(Post post){
 
-            //TODO: after authentication find user name & img
-            //TODO: change to new accordingly function in localDB
             Model.instance.getUserByEmail(post.getUserEmail(), user -> {
                 userName.setText(user.getFullName());
 //                holder.userImage.setImageDrawable(user.getImage());
@@ -189,18 +188,23 @@ public class HomePageFragment extends Fragment {
 
             description.setText(post.getDishName());
 
-            //TODO: set at "Post" img to ImageView - now its String
-//            holder.dishImage.setImageDrawable(post.getImage());
-
             rateNum.setText(post.getRate());
             rateStar.setRating(Integer.parseInt(post.getRate()));
-            dishImage.setImageResource(R.drawable.ratatoi);
+
+//            dishImage.setImageResource(R.drawable.ratatoi);
             if(post.getImage() != null){
                 Picasso.get()
                         .load(post.getImage())
                         .into(dishImage);
             }
 
+
+            //TODO: need to delete + delete all posts in firebase without image
+            if(post.getImage().equals("myImg")){
+                Picasso.get()
+                        .load("https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482930.jpg")
+                        .into(dishImage);
+            }
 
         }
     }
@@ -229,26 +233,8 @@ public class HomePageFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
             Post post = viewModel.getData().getValue().get(position);
-
             holder.bind(post);
-
-//            //TODO: after authentication find user name & img
-//            //TODO: change to new accordingly function in localDB
-//            Model.instance.getUserByEmail(post.getUserEmail(), user -> {
-//                holder.userName.setText(user.getFullName());
-////                holder.userImage.setImageDrawable(user.getImage());
-//            });
-//
-//            holder.description.setText(post.getDishName());
-//
-//            //TODO: set at "Post" img to ImageView - now its String
-////            holder.dishImage.setImageDrawable(post.getImage());
-//
-//            holder.rateNum.setText(post.getRate());
-//            holder.rateStar.setRating(Integer.parseInt(post.getRate()));
-
         }
 
         @Override
