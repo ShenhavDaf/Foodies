@@ -54,7 +54,8 @@ public class ProfileFragment extends Fragment {
         cityTv = view.findViewById(R.id.profile_city_tv);
         image = view.findViewById(R.id.profile_img);
 
-        if(Model.instance.getCurrentUserModel().getImage() != null){
+        //TODO: change the "if" below (remove "" and "myImg")
+        if(Model.instance.getCurrentUserModel().getImage() != null && (!Model.instance.getCurrentUserModel().getImage().equals("myImg")) && (!Model.instance.getCurrentUserModel().getImage().equals(""))){
             Picasso.get()
                     .load(Model.instance.getCurrentUserModel().getImage())
                     .into(image);

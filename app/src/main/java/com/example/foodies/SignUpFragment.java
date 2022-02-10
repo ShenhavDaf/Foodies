@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.foodies.model.Model;
@@ -35,9 +36,12 @@ public class SignUpFragment extends Fragment {
     EditText fullNameEt, emailEt, passwordEt, verifyEt, cityEt, imageEt;
     ImageButton galleryBtn, cameraBtn;
     ImageView image;
+    ProgressBar progressBar;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_IMAGE_PICK = 2;
+
+
 
     // TODO: add image
 
@@ -54,9 +58,8 @@ public class SignUpFragment extends Fragment {
         verifyEt = view.findViewById(R.id.signin_verify_et);
         cityEt = view.findViewById(R.id.signin_city_et);
         image = view.findViewById(R.id.signin_image_img);
-
-        //TODO
-//        imageEt = view.findViewById(R.id.signin_image_img);
+        progressBar = view.findViewById(R.id.signin_progressBar);
+        progressBar.setVisibility(View.GONE);
 
         galleryBtn = view.findViewById(R.id.signin_gallery_btn);
         cameraBtn = view.findViewById(R.id.signin_camera_btn);
@@ -130,7 +133,7 @@ public class SignUpFragment extends Fragment {
         String verify = verifyEt.getText().toString();
         String city = cityEt.getText().toString();
 //       TODO: String image = imageEt.getText().toString();
-        String image = "";
+        String image = "myImg";
 
         /* ********************************** Validations ********************************** */
 
@@ -168,6 +171,9 @@ public class SignUpFragment extends Fragment {
             return;
         }
 
+
+        join.setEnabled(false);
+        progressBar.setVisibility(View.VISIBLE);
 
         /* ------------------------------------ Navigation ------------------------------------ */
 
@@ -210,4 +216,5 @@ public class SignUpFragment extends Fragment {
             });
         }
     }
+
 }

@@ -76,7 +76,15 @@
             android:name="sourcePage"
             app:argType="string" />
     </fragment>
-    <action android:id="@+id/action_global_homePage" app:destination="@id/homePage" />
+    <action
+        android:id="@+id/action_global_homePage"
+        app:destination="@id/homePage"
+        app:popUpTo="@id/homePage"
+        app:popUpToInclusive="true" />
     <action android:id="@+id/action_global_newPostFragment" app:destination="@id/newPostFragment" />
-    <action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment" />
+    <action
+        android:id="@+id/action_global_profileFragment"
+        app:destination="@id/profileFragment"
+        app:popUpTo="@id/profileFragment"
+        app:popUpToInclusive="true" />
 </navigation>

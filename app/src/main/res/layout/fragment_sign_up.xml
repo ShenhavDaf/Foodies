@@ -122,16 +122,6 @@
         app:layout_constraintStart_toEndOf="@+id/signin_city_tv" />
 
     <EditText
-        android:id="@+id/signin_email_et"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBaseline_toBaselineOf="@+id/signin_email_tv"
-        app:layout_constraintStart_toEndOf="@+id/signin_email_tv" />
-
-    <EditText
         android:id="@+id/signin_verify_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -184,5 +174,25 @@
         app:layout_constraintStart_toEndOf="@+id/signin_image_tv"
         app:layout_constraintTop_toBottomOf="@+id/signin_verify_et"
         app:layout_constraintVertical_bias="0.168" />
+
+    <ProgressBar
+        android:id="@+id/signin_progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="166dp"
+        android:layout_height="167dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/signin_email_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBaseline_toBaselineOf="@+id/signin_email_tv"
+        app:layout_constraintStart_toEndOf="@+id/signin_email_tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
