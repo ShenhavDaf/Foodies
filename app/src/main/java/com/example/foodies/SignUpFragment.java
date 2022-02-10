@@ -1,27 +1,45 @@
 package com.example.foodies;
 
+import static android.app.Activity.RESULT_OK;
+
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Post;
 import com.example.foodies.model.User;
+
+import java.io.InputStream;
 
 
 public class SignUpFragment extends Fragment {
 
     Button join;
     EditText fullNameEt, emailEt, passwordEt, verifyEt, cityEt, imageEt;
-    // TODO: add image
+    ImageButton galleryBtn, cameraBtn;
+    ImageView image;
 
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int REQUEST_IMAGE_PICK = 2;
+
+    // TODO: add image
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,15 +53,74 @@ public class SignUpFragment extends Fragment {
         passwordEt = view.findViewById(R.id.signin_password_et);
         verifyEt = view.findViewById(R.id.signin_verify_et);
         cityEt = view.findViewById(R.id.signin_city_et);
+        image = view.findViewById(R.id.signin_image_img);
+
         //TODO
 //        imageEt = view.findViewById(R.id.signin_image_img);
 
+        galleryBtn = view.findViewById(R.id.signin_gallery_btn);
+        cameraBtn = view.findViewById(R.id.signin_camera_btn);
         join = view.findViewById(R.id.signin_join_btn);
+
+        cameraBtn.setOnClickListener(v -> {
+            OpenCamera();
+        });
+
+        galleryBtn.setOnClickListener(v -> {
+            OpenGallery();
+        });
+
         join.setOnClickListener(v -> Join(view));
+
         return view;
     }
 
+
+    private void OpenGallery(){
+
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent,  REQUEST_IMAGE_PICK);
+    }
+
+    private void OpenCamera() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+    }
+
+    Bitmap imageBitmap;
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_IMAGE_CAPTURE){
+            if(resultCode == RESULT_OK){
+                Bundle extras = data.getExtras();
+                imageBitmap = (Bitmap) extras.get("data");
+                //not in interface
+                image.setImageBitmap(imageBitmap);
+
+            }
+        }
+        else if(requestCode == REQUEST_IMAGE_PICK){
+            if(resultCode == RESULT_OK){
+                try {
+                    final Uri imageUri = data.getData();
+                    final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
+                    imageBitmap = BitmapFactory.decodeStream(imageStream);
+                    //not in interface
+                    image.setImageBitmap(imageBitmap);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(),"Failed", Toast.LENGTH_LONG).show();
+                    System.out.println("failed to get to the photo");
+                }
+            }
+        }
+    }
+
     /* ************************************** Function ************************************** */
+
     private void Join(View view) {
         System.out.println("join button was clicked");
 
@@ -94,11 +171,34 @@ public class SignUpFragment extends Fragment {
 
         /* ------------------------------------ Navigation ------------------------------------ */
 
-        User newUserDetails = new User(email, fullname, city, image);
 
-        Model.instance.addNewUser(newUserDetails, email, password, () -> {
-            Model.instance.setCurrentUserModel(newUserDetails);
-            Navigation.findNavController(view)
+        if(imageBitmap != null) {
+
+            Model.instance.setImage(imageBitmap, email + ".jpg", "/users_avatars/", url -> {
+
+                User newUserDetails = new User(email, fullname, city, url);
+
+                Model.instance.addNewUser(newUserDetails, email, password, () -> {
+                    Model.instance.setCurrentUserModel(newUserDetails);
+                    Navigation.findNavController(view)
+                            .navigate(SignUpFragmentDirections.actionGlobalHomePage());
+
+//            User newUserDetails = new User(email, fullname, city, image);
+//            Model.instance.addUserDetails(newUserDetails, () -> {
+//                Model.instance.setCurrentUserModel(newUserDetails);
+//                Navigation.findNavController(view)
+//                        .navigate(SignUpFragmentDirections.actionGlobalHomePage());
+//            });
+                });
+            });
+        }
+        else {
+
+            User newUserDetails = new User(email, fullname, city, image);
+
+            Model.instance.addNewUser(newUserDetails, email, password, () -> {
+                Model.instance.setCurrentUserModel(newUserDetails);
+                Navigation.findNavController(view)
                         .navigate(SignUpFragmentDirections.actionGlobalHomePage());
 
 //            User newUserDetails = new User(email, fullname, city, image);
@@ -107,7 +207,7 @@ public class SignUpFragment extends Fragment {
 //                Navigation.findNavController(view)
 //                        .navigate(SignUpFragmentDirections.actionGlobalHomePage());
 //            });
-        });
-
+            });
+        }
     }
 }

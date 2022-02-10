@@ -378,11 +378,12 @@ public class ModelFirebase {
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
 
-    public void saveImage(Bitmap imageBitmap, String imageName, Model.SaveImageListener listener) {
+    public void saveImage(Bitmap imageBitmap, String imageName, String storageName, Model.SaveImageListener listener) {
 
         // Create a storage reference from our app
         StorageReference storageRef = storage.getReference();
-        StorageReference imgRef = storageRef.child("/posts_images/" + imageName);
+        StorageReference imgRef = storageRef.child(storageName + imageName);
+        // "/posts_images/"
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -399,5 +400,28 @@ public class ModelFirebase {
 
         });
     }
+
+
+//    public void saveProfileImage(Bitmap imageBitmap, String imageName, Model.SaveProfileImageListener listener) {
+//
+//        // Create a storage reference from our app
+//        StorageReference storageRef = storage.getReference();
+//        StorageReference imgRef = storageRef.child("/users_avatars/" + imageName);
+//
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+//        byte[] data = baos.toByteArray();
+//
+//        UploadTask uploadTask = imgRef.putBytes(data);
+//        uploadTask.addOnFailureListener(exception -> {
+//            listener.onComplete(null);
+//        }).addOnSuccessListener(taskSnapshot -> {
+//            imgRef.getDownloadUrl().addOnSuccessListener(uri -> {
+//                Uri downloadUrl = uri;
+//                listener.onComplete(downloadUrl.toString());
+//            });
+//
+//        });
+//    }
 
 }

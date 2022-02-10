@@ -193,7 +193,7 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
         Post newPost = new Post(postID, name, res, addr, categor, desc, rev, img, rateing, currUserEmail, true);
 
         if (imageBitmap != null) {
-            Model.instance.setImage(imageBitmap, postID + ".jpg", url -> {
+            Model.instance.setImage(imageBitmap, postID + ".jpg", "/posts_images/", url -> {
                 newPost.setImage(url);
                 editNavigation(newPost, v);
             });

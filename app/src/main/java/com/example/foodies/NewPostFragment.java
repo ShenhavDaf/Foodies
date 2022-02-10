@@ -193,7 +193,7 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
 
             if(imageBitmap != null){
 
-                Model.instance.setImage(imageBitmap, nextId + ".jpg", url -> {
+                Model.instance.setImage(imageBitmap, nextId + ".jpg","/posts_images/", url -> {
 
                     Post newPost = new Post(nextId, name, res, addr, categor, desc, rev, url, rateing, currUserEmail, true);
                     Model.instance.addPost(newPost, currUserEmail, () -> {

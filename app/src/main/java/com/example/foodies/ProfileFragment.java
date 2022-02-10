@@ -32,6 +32,7 @@ public class ProfileFragment extends Fragment {
 
     Button editProfileBtn;
     TextView fullNameTv, cityTv;
+    ImageView image;
     MyAdapter adapter;
 
 
@@ -51,6 +52,13 @@ public class ProfileFragment extends Fragment {
 
         fullNameTv = view.findViewById(R.id.profile_fullname_tv);
         cityTv = view.findViewById(R.id.profile_city_tv);
+        image = view.findViewById(R.id.profile_img);
+
+        if(Model.instance.getCurrentUserModel().getImage() != null){
+            Picasso.get()
+                    .load(Model.instance.getCurrentUserModel().getImage())
+                    .into(image);
+        }
 
         editProfileBtn = view.findViewById(R.id.profile_editprofile_btn);
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
@@ -169,6 +177,12 @@ public class ProfileFragment extends Fragment {
             //TODO: find user name & img
 //            holder.userImage.setImageDrawable(post.getUserId().getImage);
 //            holder.userName.setText(post.getUserId());
+
+            if(Model.instance.getCurrentUserModel().getImage() != null){
+                Picasso.get()
+                        .load(Model.instance.getCurrentUserModel().getImage())
+                        .into(userImage);
+            }
 
             description.setText(post.getDishName());
 

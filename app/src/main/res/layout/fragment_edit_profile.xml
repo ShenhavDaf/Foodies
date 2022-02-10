@@ -6,6 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".EditProfileFragment">
 
+    <ImageButton
+        android:id="@+id/editprofile_gallery_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="60dp"
+        android:src="@android:drawable/ic_menu_gallery"
+        app:layout_constraintStart_toEndOf="@+id/editprofile_img"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <ImageButton
+        android:id="@+id/editprofile_camera_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:src="@android:drawable/ic_menu_camera"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.358"
+        app:layout_constraintStart_toEndOf="@+id/editprofile_gallery_btn"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -56,21 +77,20 @@
         android:id="@+id/editprofile_img"
         android:layout_width="125dp"
         android:layout_height="119dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="25dp"
         android:src="@drawable/avatar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/editprofile_city_et" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <Button
         android:id="@+id/editprofile_save_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="44dp"
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.455"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editprofile_img" />
 
@@ -95,16 +115,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/editprofile_img_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:src="@android:drawable/ic_menu_camera"
-        app:layout_constraintEnd_toStartOf="@+id/editprofile_img"
-        app:layout_constraintHorizontal_bias="0.927"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

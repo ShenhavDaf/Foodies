@@ -183,6 +183,12 @@ public class HomePageFragment extends Fragment {
 
             Model.instance.getUserByEmail(post.getUserEmail(), user -> {
                 userName.setText(user.getFullName());
+                // TODO: change the "if" below (remove myImg or ""):
+                if(user.getImage() != null && (!user.getImage().equals("myImg")) && (!user.getImage().equals(""))){
+                    Picasso.get()
+                            .load(user.getImage())
+                            .into(userImage);
+                }
 //                holder.userImage.setImageDrawable(user.getImage());
             });
 

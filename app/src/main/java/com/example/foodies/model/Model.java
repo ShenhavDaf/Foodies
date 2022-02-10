@@ -44,10 +44,24 @@ public class Model {
         void onComplete(String url);
     }
 
-    public void setImage(Bitmap imageBitmap, String imageName, SaveImageListener listener) {
+    public void setImage(Bitmap imageBitmap, String imageName, String storageName, SaveImageListener listener) {
 
-        modelFirebase.saveImage(imageBitmap, imageName, listener);
+        modelFirebase.saveImage(imageBitmap, imageName,storageName, listener);
     }
+
+    /* ****************************** Profile Image **************************** */
+
+//    public interface SaveProfileImageListener{
+//
+//        void onComplete(String url);
+//    }
+//
+//    public  void setProfileImage(Bitmap imageBitmap, String imageName, SaveProfileImageListener listener){
+//
+//        modelFirebase.saveProfileImage(imageBitmap, imageName,  listener);
+//
+//    }
+
 
 
 
