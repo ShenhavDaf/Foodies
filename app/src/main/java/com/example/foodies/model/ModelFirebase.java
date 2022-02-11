@@ -127,35 +127,35 @@ public class ModelFirebase {
 
     public void deletePost(Post post, Model.DeletePostListener listener) {
 
-            post.setDisplay(false);
+        post.setDisplay(false);
 
-            Map<String, Object> json = post.toJson();
+        Map<String, Object> json = post.toJson();
 
-            db.collection(Post.COLLECTION_NAME)
-                    .document(post.getId())
-                    .set(json)
-                    .addOnCompleteListener(command -> {
+        db.collection(Post.COLLECTION_NAME)
+                .document(post.getId())
+                .set(json)
+                .addOnCompleteListener(command -> {
 
-
-                db.collection(User.COLLECTION_NAME)
-                        .document(post.getUserEmail())
-                        .get().addOnCompleteListener(command1 -> {
-
-                    User myUser = User.create(command1.getResult().getData());
-                    myUser.getPostList().remove(post.getId());
-
-                    Map<String, Object> userJson = myUser.toJson();
-
-                    userJson.put("counter", command1.getResult().getData().get("counter"));
 
                     db.collection(User.COLLECTION_NAME)
                             .document(post.getUserEmail())
-                            .set(userJson).addOnCompleteListener(command2 -> {
-                        listener.onComplete();
-                    });
+                            .get().addOnCompleteListener(command1 -> {
 
+                        User myUser = User.create(command1.getResult().getData());
+                        myUser.getPostList().remove(post.getId());
+
+                        Map<String, Object> userJson = myUser.toJson();
+
+                        userJson.put("counter", command1.getResult().getData().get("counter"));
+
+                        db.collection(User.COLLECTION_NAME)
+                                .document(post.getUserEmail())
+                                .set(userJson).addOnCompleteListener(command2 -> {
+                            listener.onComplete();
+                        });
+
+                    });
                 });
-            });
     }
 
 
@@ -221,10 +221,10 @@ public class ModelFirebase {
 
                         User myUser = User.create(task.getResult().getData());
 
-                       int counter = Integer.parseInt(task.getResult().getData().get("counter").toString()) + 1;
+                        int counter = Integer.parseInt(task.getResult().getData().get("counter").toString()) + 1;
 
-                            StringBuilder idToSend = new StringBuilder();
-                            idToSend.append(userEmail).append('_').append(counter);
+                        StringBuilder idToSend = new StringBuilder();
+                        idToSend.append(userEmail).append('_').append(counter);
 
                         listener.onComplete(idToSend.toString());
 
@@ -253,7 +253,7 @@ public class ModelFirebase {
                                 .document(user.getEmail())
                                 .set(json)
                                 .addOnSuccessListener(success -> listener.onComplete())
-                                .addOnFailureListener(failure ->{
+                                .addOnFailureListener(failure -> {
                                     System.out.println("failed to inside the user to userCollection");
 //                                            listener.onComplete();
                                 });
@@ -309,12 +309,11 @@ public class ModelFirebase {
         db.collection(User.COLLECTION_NAME).document(user.getEmail())
                 .get().addOnCompleteListener(task -> {
 
-                    if(task.getResult().getData().get("counter") != null){
-                        json.put("counter", task.getResult().getData().get("counter"));
-                    }
-                    else{
-                        json.put("counter", 0);
-                    }
+            if (task.getResult().getData().get("counter") != null) {
+                json.put("counter", task.getResult().getData().get("counter"));
+            } else {
+                json.put("counter", 0);
+            }
 
             System.out.println("print from firebase ========= " + json.get("counter"));
 
@@ -326,7 +325,7 @@ public class ModelFirebase {
                     })
                     .addOnFailureListener(e -> listener.onComplete());
 
-                });
+        });
 
     }
 
@@ -373,7 +372,7 @@ public class ModelFirebase {
         }
     }
 
-/*************************************** FirebaseStorage **************************************************/
+    /*************************************** FirebaseStorage **************************************************/
 
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -383,7 +382,6 @@ public class ModelFirebase {
         // Create a storage reference from our app
         StorageReference storageRef = storage.getReference();
         StorageReference imgRef = storageRef.child(storageName + imageName);
-        // "/posts_images/"
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -400,28 +398,4 @@ public class ModelFirebase {
 
         });
     }
-
-
-//    public void saveProfileImage(Bitmap imageBitmap, String imageName, Model.SaveProfileImageListener listener) {
-//
-//        // Create a storage reference from our app
-//        StorageReference storageRef = storage.getReference();
-//        StorageReference imgRef = storageRef.child("/users_avatars/" + imageName);
-//
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-//        byte[] data = baos.toByteArray();
-//
-//        UploadTask uploadTask = imgRef.putBytes(data);
-//        uploadTask.addOnFailureListener(exception -> {
-//            listener.onComplete(null);
-//        }).addOnSuccessListener(taskSnapshot -> {
-//            imgRef.getDownloadUrl().addOnSuccessListener(uri -> {
-//                Uri downloadUrl = uri;
-//                listener.onComplete(downloadUrl.toString());
-//            });
-//
-//        });
-//    }
-
 }

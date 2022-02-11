@@ -197,8 +197,7 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
                 newPost.setImage(url);
                 editNavigation(newPost, v);
             });
-        }
-        else {
+        } else {
             editNavigation(newPost, v);
         }
 

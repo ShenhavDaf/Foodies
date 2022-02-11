@@ -1,6 +1,5 @@
 package com.example.foodies;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -55,26 +54,31 @@ public class PostPageFragment extends Fragment {
 
 
         Post post = Model.instance.getPostByIdLocalDB(postId);
-        if(post.getImage() != null){
+
+        if (post.getImage().equals("myImg") || post.getImage() == null) {
+            Picasso.get()
+                    .load("https://t3.ftcdn.net/jpg/04/34/72/82/240_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg")
+                    .into(dishImage);
+        } else {
             Picasso.get()
                     .load(post.getImage())
                     .into(dishImage);
         }
 
 
-            dishName.setText(post.getDishName());
-            restaurant.setText(post.getRestaurant());
-            address.setText(post.getAddress());
-            category.setText(post.getCategory());
-            description.setText(post.getDescription());
-            review.setText(post.getReview());
-            rate.setRating(Integer.parseInt(post.getRate()));
+        dishName.setText(post.getDishName());
+        restaurant.setText(post.getRestaurant());
+        address.setText(post.getAddress());
+        category.setText(post.getCategory());
+        description.setText(post.getDescription());
+        review.setText(post.getReview());
+        rate.setRating(Integer.parseInt(post.getRate()));
 
-            authorEmail = post.getUserEmail();
-            if (authorEmail.equals(Model.instance.getCurrentUserModel().getEmail())) {
-                editPostBtn.setVisibility(View.VISIBLE);
-                editPostBtn.setOnClickListener(v -> editPost(view, postId));
-            }
+        authorEmail = post.getUserEmail();
+        if (authorEmail.equals(Model.instance.getCurrentUserModel().getEmail())) {
+            editPostBtn.setVisibility(View.VISIBLE);
+            editPostBtn.setOnClickListener(v -> editPost(view, postId));
+        }
 
         return view;
     }

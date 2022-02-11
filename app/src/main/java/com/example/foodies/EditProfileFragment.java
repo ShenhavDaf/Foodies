@@ -150,21 +150,19 @@ public class EditProfileFragment extends Fragment {
         User newUser = new User(currUser.getEmail(), name, mycity, img, list);
 
 
-        if(imageBitmap != null){
-            Model.instance.setImage(imageBitmap,  currUser.getEmail() + ".jpg", "/users_avatars/", url -> {
+        if (imageBitmap != null) {
+            Model.instance.setImage(imageBitmap, currUser.getEmail() + ".jpg", "/users_avatars/", url -> {
 
                 newUser.setImage(url);
                 changeUserAndNavigate(newUser, view);
             });
-        }
-        else{
+        } else {
 
             changeUserAndNavigate(newUser, view);
 
         }
 
         /* ------------------------------------ Navigation ------------------------------------ */
-
 
 
 //        Model.instance.addUserDetails(newUser, () -> {
@@ -181,7 +179,7 @@ public class EditProfileFragment extends Fragment {
     }
 
 
-    public void changeUserAndNavigate(User newUser, View view){
+    public void changeUserAndNavigate(User newUser, View view) {
 
         Model.instance.addUserDetails(newUser, () -> {
 
@@ -195,7 +193,6 @@ public class EditProfileFragment extends Fragment {
             Navigation.findNavController(view)
                     .navigate(EditProfileFragmentDirections.actionGlobalProfileFragment());
         });
-
 
 
     }

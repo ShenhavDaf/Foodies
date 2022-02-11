@@ -3,7 +3,6 @@ package com.example.foodies;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,13 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -25,10 +22,7 @@ import android.widget.TextView;
 
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Post;
-import com.example.foodies.model.User;
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 public class HomePageFragment extends Fragment {
 
@@ -179,12 +173,12 @@ public class HomePageFragment extends Fragment {
             });
         }
 
-        public void bind(Post post){
+        public void bind(Post post) {
 
             Model.instance.getUserByEmail(post.getUserEmail(), user -> {
                 userName.setText(user.getFullName());
                 // TODO: change the "if" below (remove myImg or ""):
-                if(user.getImage() != null && (!user.getImage().equals("myImg")) && (!user.getImage().equals(""))){
+                if (user.getImage() != null && (!user.getImage().equals("myImg")) && (!user.getImage().equals(""))) {
                     Picasso.get()
                             .load(user.getImage())
                             .into(userImage);
@@ -198,20 +192,17 @@ public class HomePageFragment extends Fragment {
             rateStar.setRating(Integer.parseInt(post.getRate()));
 
 //            dishImage.setImageResource(R.drawable.ratatoi);
-            if(post.getImage() != null){
+
+            //TODO: need to delete + delete all posts in firebase without image
+            if (post.getImage().equals("myImg") || post.getImage() == null) {
+                Picasso.get()
+                        .load("https://t3.ftcdn.net/jpg/04/34/72/82/240_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg")
+                        .into(dishImage);
+            } else {
                 Picasso.get()
                         .load(post.getImage())
                         .into(dishImage);
             }
-
-
-            //TODO: need to delete + delete all posts in firebase without image
-            if(post.getImage().equals("myImg")){
-                Picasso.get()
-                        .load("https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482930.jpg")
-                        .into(dishImage);
-            }
-
         }
     }
 

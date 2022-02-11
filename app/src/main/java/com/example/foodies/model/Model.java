@@ -39,31 +39,15 @@ public class Model {
 
     /* ****************************** Image Upload ****************************** */
 
-    public interface SaveImageListener{
+    public interface SaveImageListener {
 
         void onComplete(String url);
     }
 
     public void setImage(Bitmap imageBitmap, String imageName, String storageName, SaveImageListener listener) {
 
-        modelFirebase.saveImage(imageBitmap, imageName,storageName, listener);
+        modelFirebase.saveImage(imageBitmap, imageName, storageName, listener);
     }
-
-    /* ****************************** Profile Image **************************** */
-
-//    public interface SaveProfileImageListener{
-//
-//        void onComplete(String url);
-//    }
-//
-//    public  void setProfileImage(Bitmap imageBitmap, String imageName, SaveProfileImageListener listener){
-//
-//        modelFirebase.saveProfileImage(imageBitmap, imageName,  listener);
-//
-//    }
-
-
-
 
     /* ****************************** Loading State ****************************** */
 
@@ -136,10 +120,10 @@ public class Model {
 
     /* ----------------------------------------------------- */
 
-    public Post getPostByIdLocalDB(String postId){
+    public Post getPostByIdLocalDB(String postId) {
 
-        for (Post p:allPostsList.getValue()) {
-            if(p.getId().equals(postId)){
+        for (Post p : allPostsList.getValue()) {
+            if (p.getId().equals(postId)) {
                 return p;
             }
         }
@@ -233,9 +217,9 @@ public class Model {
     public LiveData<List<Post>> getUserPostsLocalDB(List<String> userPostsList) {
         List<Post> myList = new ArrayList<>();
 
-        for (Post p:allPostsList.getValue()) {
+        for (Post p : allPostsList.getValue()) {
             if (userPostsList.contains(p.getId())) {
-                        myList.add(p);
+                myList.add(p);
             }
         }
         userPostsListLD.postValue(myList);

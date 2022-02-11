@@ -97,16 +97,15 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         });
 
 
-
         return view;
     }
 
 
-    private void OpenGallery(){
+    private void OpenGallery() {
 
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent,  REQUEST_IMAGE_PICK);
+        startActivityForResult(photoPickerIntent, REQUEST_IMAGE_PICK);
     }
 
     private void OpenCamera() {
@@ -115,20 +114,20 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
     }
 
     Bitmap imageBitmap;
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_IMAGE_CAPTURE){
-            if(resultCode == RESULT_OK){
+        if (requestCode == REQUEST_IMAGE_CAPTURE) {
+            if (resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
                 imageBitmap = (Bitmap) extras.get("data");
                 //not in interface
                 image.setImageBitmap(imageBitmap);
 
             }
-        }
-        else if(requestCode == REQUEST_IMAGE_PICK){
-            if(resultCode == RESULT_OK){
+        } else if (requestCode == REQUEST_IMAGE_PICK) {
+            if (resultCode == RESULT_OK) {
                 try {
                     final Uri imageUri = data.getData();
                     final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
@@ -138,7 +137,7 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(getContext(),"Failed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Failed", Toast.LENGTH_LONG).show();
                     System.out.println("failed to get to the photo");
                 }
             }
@@ -191,9 +190,9 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
 
         Model.instance.getNextPostId(currUserEmail, nextId -> {
 
-            if(imageBitmap != null){
+            if (imageBitmap != null) {
 
-                Model.instance.setImage(imageBitmap, nextId + ".jpg","/posts_images/", url -> {
+                Model.instance.setImage(imageBitmap, nextId + ".jpg", "/posts_images/", url -> {
 
                     Post newPost = new Post(nextId, name, res, addr, categor, desc, rev, url, rateing, currUserEmail, true);
                     Model.instance.addPost(newPost, currUserEmail, () -> {
@@ -207,17 +206,11 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
                         Navigation.findNavController(dishName).navigateUp();
                     });
                 });
-            }
-            else {
+            } else {
 
 
                 // TODO: pop-up
             }
-
-
-
-
-
 
 
         });

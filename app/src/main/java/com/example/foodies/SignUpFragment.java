@@ -32,7 +32,7 @@ import java.io.InputStream;
 
 public class SignUpFragment extends Fragment {
 
-    Button join;
+    Button joinBtn;
     EditText fullNameEt, emailEt, passwordEt, verifyEt, cityEt, imageEt;
     ImageButton galleryBtn, cameraBtn;
     ImageView image;
@@ -40,7 +40,6 @@ public class SignUpFragment extends Fragment {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_IMAGE_PICK = 2;
-
 
 
     // TODO: add image
@@ -63,7 +62,7 @@ public class SignUpFragment extends Fragment {
 
         galleryBtn = view.findViewById(R.id.signin_gallery_btn);
         cameraBtn = view.findViewById(R.id.signin_camera_btn);
-        join = view.findViewById(R.id.signin_join_btn);
+        joinBtn = view.findViewById(R.id.signin_join_btn);
 
         cameraBtn.setOnClickListener(v -> {
             OpenCamera();
@@ -73,17 +72,17 @@ public class SignUpFragment extends Fragment {
             OpenGallery();
         });
 
-        join.setOnClickListener(v -> Join(view));
+        joinBtn.setOnClickListener(v -> Join(view));
 
         return view;
     }
 
 
-    private void OpenGallery(){
+    private void OpenGallery() {
 
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent,  REQUEST_IMAGE_PICK);
+        startActivityForResult(photoPickerIntent, REQUEST_IMAGE_PICK);
     }
 
     private void OpenCamera() {
@@ -92,20 +91,20 @@ public class SignUpFragment extends Fragment {
     }
 
     Bitmap imageBitmap;
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_IMAGE_CAPTURE){
-            if(resultCode == RESULT_OK){
+        if (requestCode == REQUEST_IMAGE_CAPTURE) {
+            if (resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
                 imageBitmap = (Bitmap) extras.get("data");
                 //not in interface
                 image.setImageBitmap(imageBitmap);
 
             }
-        }
-        else if(requestCode == REQUEST_IMAGE_PICK){
-            if(resultCode == RESULT_OK){
+        } else if (requestCode == REQUEST_IMAGE_PICK) {
+            if (resultCode == RESULT_OK) {
                 try {
                     final Uri imageUri = data.getData();
                     final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
@@ -115,7 +114,7 @@ public class SignUpFragment extends Fragment {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(getContext(),"Failed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Failed", Toast.LENGTH_LONG).show();
                     System.out.println("failed to get to the photo");
                 }
             }
@@ -123,6 +122,15 @@ public class SignUpFragment extends Fragment {
     }
 
     /* ************************************** Function ************************************** */
+
+    private void myNavigation(View view, User newUserDetails, String email, String password) {
+        Model.instance.addNewUser(newUserDetails, email, password, () -> {
+            Model.instance.setCurrentUserModel(newUserDetails);
+            Navigation.findNavController(view)
+                    .navigate(SignUpFragmentDirections.actionGlobalHomePage());
+        });
+    }
+
 
     private void Join(View view) {
         System.out.println("join button was clicked");
@@ -133,7 +141,7 @@ public class SignUpFragment extends Fragment {
         String verify = verifyEt.getText().toString();
         String city = cityEt.getText().toString();
 //       TODO: String image = imageEt.getText().toString();
-        String image = "myImg";
+        String image = null;
 
         /* ********************************** Validations ********************************** */
 
@@ -172,49 +180,20 @@ public class SignUpFragment extends Fragment {
         }
 
 
-        join.setEnabled(false);
+        joinBtn.setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
 
         /* ------------------------------------ Navigation ------------------------------------ */
 
+        User newUserDetails = new User(email, fullname, city, image);
 
-        if(imageBitmap != null) {
-
+        if (imageBitmap != null) {
             Model.instance.setImage(imageBitmap, email + ".jpg", "/users_avatars/", url -> {
-
-                User newUserDetails = new User(email, fullname, city, url);
-
-                Model.instance.addNewUser(newUserDetails, email, password, () -> {
-                    Model.instance.setCurrentUserModel(newUserDetails);
-                    Navigation.findNavController(view)
-                            .navigate(SignUpFragmentDirections.actionGlobalHomePage());
-
-//            User newUserDetails = new User(email, fullname, city, image);
-//            Model.instance.addUserDetails(newUserDetails, () -> {
-//                Model.instance.setCurrentUserModel(newUserDetails);
-//                Navigation.findNavController(view)
-//                        .navigate(SignUpFragmentDirections.actionGlobalHomePage());
-//            });
-                });
+                newUserDetails.setImage(url);
+                myNavigation(view, newUserDetails, email, password);
             });
-        }
-        else {
-
-            User newUserDetails = new User(email, fullname, city, image);
-
-            Model.instance.addNewUser(newUserDetails, email, password, () -> {
-                Model.instance.setCurrentUserModel(newUserDetails);
-                Navigation.findNavController(view)
-                        .navigate(SignUpFragmentDirections.actionGlobalHomePage());
-
-//            User newUserDetails = new User(email, fullname, city, image);
-//            Model.instance.addUserDetails(newUserDetails, () -> {
-//                Model.instance.setCurrentUserModel(newUserDetails);
-//                Navigation.findNavController(view)
-//                        .navigate(SignUpFragmentDirections.actionGlobalHomePage());
-//            });
-            });
+        } else {
+            myNavigation(view, newUserDetails, email, password);
         }
     }
-
 }

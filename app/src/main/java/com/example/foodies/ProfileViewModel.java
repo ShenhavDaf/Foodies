@@ -18,8 +18,6 @@ public class ProfileViewModel extends ViewModel {
         this.data =
                 Model.instance.getUserPostsLocalDB(
                         Model.instance.getCurrentUserModel().getPostList());
-
-
     }
 
     public LiveData<List<Post>> getData() {

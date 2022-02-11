@@ -1,7 +1,6 @@
 package com.example.foodies;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -14,26 +13,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Post;
+import com.example.foodies.model.User;
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
     private final static String SOURCE_PAGE = "profilepage";
     ProfileViewModel viewModel;
+    MyAdapter adapter;
 
     Button editProfileBtn;
     TextView fullNameTv, cityTv;
     ImageView image;
-    MyAdapter adapter;
+
+    User currUserFromModel;
 
 
     @Override
@@ -46,6 +45,8 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        currUserFromModel = Model.instance.getCurrentUserModel();
+
         /* ********************************** View Items ********************************** */
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -54,10 +55,11 @@ public class ProfileFragment extends Fragment {
         cityTv = view.findViewById(R.id.profile_city_tv);
         image = view.findViewById(R.id.profile_img);
 
+//        ....
         //TODO: change the "if" below (remove "" and "myImg")
-        if(Model.instance.getCurrentUserModel().getImage() != null && (!Model.instance.getCurrentUserModel().getImage().equals("myImg")) && (!Model.instance.getCurrentUserModel().getImage().equals(""))){
+        if (currUserFromModel.getImage() != null && (!currUserFromModel.getImage().equals("myImg")) && (!currUserFromModel.getImage().equals(""))) {
             Picasso.get()
-                    .load(Model.instance.getCurrentUserModel().getImage())
+                    .load(currUserFromModel.getImage())
                     .into(image);
         }
 
@@ -148,7 +150,7 @@ public class ProfileFragment extends Fragment {
     /* ********************************* My View Holder ********************************* */
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView userName, description, rateNum;
+        TextView dishName, description, rateNum;
         RatingBar rateStar;
         ImageView userImage, dishImage;
 
@@ -156,7 +158,7 @@ public class ProfileFragment extends Fragment {
             super(itemView);
 
             userImage = itemView.findViewById(R.id.listrow_avatar_imv);
-            userName = itemView.findViewById(R.id.listrow_username_tv);
+            dishName = itemView.findViewById(R.id.listrow_username_tv);
             description = itemView.findViewById(R.id.listrow_description_tv);
             dishImage = itemView.findViewById(R.id.listrow_post_img);
             rateNum = itemView.findViewById(R.id.listrow_rate_tv);
@@ -172,36 +174,34 @@ public class ProfileFragment extends Fragment {
             });
         }
 
-        public void myBind(Post post){
+        public void myBind(Post post) {
             //            Post post = viewModel.getData().get(position);
 
             //TODO: find user name & img
 //            holder.userImage.setImageDrawable(post.getUserId().getImage);
 //            holder.userName.setText(post.getUserId());
 
-            if(Model.instance.getCurrentUserModel().getImage() != null){
+            if (Model.instance.getCurrentUserModel().getImage() != null) {
                 Picasso.get()
                         .load(Model.instance.getCurrentUserModel().getImage())
                         .into(userImage);
             }
 
-            description.setText(post.getDishName());
+            dishName.setText(post.getDishName());
+            description.setText(post.getDescription());
 
             //TODO: set at "Post" img to ImageView - now its String
 //            holder.dishImage.setImageDrawable(post.getImage());
 
             //            dishImage.setImageResource(R.drawable.ratatoi);
-            if(post.getImage() != null){
+            //TODO: need to delete + delete all posts in firebase without image
+            if (post.getImage().equals("myImg") || post.getImage() == null) {
+                Picasso.get()
+                        .load("https://t3.ftcdn.net/jpg/04/34/72/82/240_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg")
+                        .into(dishImage);
+            } else {
                 Picasso.get()
                         .load(post.getImage())
-                        .into(dishImage);
-            }
-
-
-            //TODO: need to delete + delete all posts in firebase without image
-            if(post.getImage().equals("myImg")){
-                Picasso.get()
-                        .load("https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482930.jpg")
                         .into(dishImage);
             }
 

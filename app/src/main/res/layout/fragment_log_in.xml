@@ -16,8 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/background"
-        />
+        app:srcCompat="@drawable/background" />
 
     <TextView
         android:id="@+id/login_email_tv"
