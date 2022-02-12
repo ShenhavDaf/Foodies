@@ -71,8 +71,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-//        Model.instance.getUserPostsLocalDB(
-//                Model.instance.getCurrentUserModel().getPostList());
 
         System.out.println("users posts list data =========== ");
 
@@ -108,8 +106,6 @@ public class ProfileFragment extends Fragment {
 
         viewModel.getData().observe(getViewLifecycleOwner(), posts -> refresh());
 
-
-//        refresh();
         return view;
     }
 
@@ -123,27 +119,6 @@ public class ProfileFragment extends Fragment {
     }
 
     private void refresh() {
-////        swipeRefresh.setRefreshing(true);
-//
-//        Model.instance.getUserPosts(
-//                Model.instance.getCurrentUserModel(), (list) -> {
-//            if (list != null) {
-//                viewModel.setData(list);
-//////                data = list;
-//                adapter.notifyDataSetChanged();
-//////                swipeRefresh.setRefreshing(false);
-//            }
-//        });
-
-
-//        List<String> userPostsList = Model.instance.getCurrentUserModel().getPostList();
-//
-//        Model.instance.getUserPostsLocalDB(userPostsList);
-//        viewModel.setData(userPosts);
-
-        //צריכה להיות שורה יחידה בפונקציה הזו
-//        Model.instance.getUserPostsLocalDB(
-//                Model.instance.getCurrentUserModel().getPostList());
         adapter.notifyDataSetChanged();
     }
 

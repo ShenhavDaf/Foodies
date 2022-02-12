@@ -73,15 +73,17 @@
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toEndOf="@+id/textView7" />
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/editprofile_img"
         android:layout_width="125dp"
         android:layout_height="119dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="25dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/avatar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
 
     <Button
         android:id="@+id/editprofile_save_btn"

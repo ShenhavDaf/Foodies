@@ -145,21 +145,17 @@ public class EditProfileFragment extends Fragment {
         String mycity = city.getText().toString();
 
         //TODO:userID, img
-        String img = "myImg";
+        String img = currUser.getImage();
         List<String> list = currUser.getPostList();
         User newUser = new User(currUser.getEmail(), name, mycity, img, list);
 
-
         if (imageBitmap != null) {
             Model.instance.setImage(imageBitmap, currUser.getEmail() + ".jpg", "/users_avatars/", url -> {
-
                 newUser.setImage(url);
                 changeUserAndNavigate(newUser, view);
             });
         } else {
-
             changeUserAndNavigate(newUser, view);
-
         }
 
         /* ------------------------------------ Navigation ------------------------------------ */

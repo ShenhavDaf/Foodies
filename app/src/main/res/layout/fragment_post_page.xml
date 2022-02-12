@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".PostPageFragment">
 
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="54dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="12dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/delete_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton2" />
+
     <TextView
         android:id="@+id/postpage_category_tv"
         android:layout_width="188dp"
@@ -71,7 +81,8 @@
             android:id="@+id/postpage_description_tv"
             android:layout_width="395dp"
             android:layout_height="wrap_content"
-            android:hint="Description:" />
+            android:hint="Description:"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -109,6 +120,8 @@
         android:layout_marginBottom="58dp"
         android:progressTint="@color/myYellow"
         android:secondaryProgressTint="@color/black"
+        android:outlineSpotShadowColor="@color/red"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView17"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
@@ -133,7 +146,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:text="Edit Post"
+        android:text="Edit Post "
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -154,4 +167,15 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/textView13"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView13" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="54dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/edit_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postpage_editpost_btn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

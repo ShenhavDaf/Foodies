@@ -14,6 +14,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.foodies.MyApplication;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -77,7 +78,18 @@ public class Model {
         if (allPostsList.getValue() == null) {
             refreshPostsList();
         }
+
         return allPostsList;
+    }
+
+    MutableLiveData<List<Post>> userPostsListLD = new MutableLiveData<List<Post>>();
+
+    public LiveData<List<Post>> getUserPosts() {
+        if (userPostsListLD.getValue() == null) {
+            refreshPostsList();
+        }
+
+        return userPostsListLD;
     }
 
     /* ----------------------------------------------------- */
@@ -103,8 +115,6 @@ public class Model {
     }
 
     public void editPost(Post post, EditPostListener listener) {
-        System.out.println("333333333");
-
         modelFirebase.editPost(post, listener);
     }
 
@@ -212,32 +222,9 @@ public class Model {
 
     /* ----------------------------------------------------- */
 
-    MutableLiveData<List<Post>> userPostsListLD = new MutableLiveData<List<Post>>();
-
-    public LiveData<List<Post>> getUserPostsLocalDB(List<String> userPostsList) {
-        List<Post> myList = new ArrayList<>();
-
-        for (Post p : allPostsList.getValue()) {
-            if (userPostsList.contains(p.getId())) {
-                myList.add(p);
-            }
-        }
-        userPostsListLD.postValue(myList);
-
-
-        System.out.println("from getUserPostsLocalDB ======= " + myList);
-
-        return userPostsListLD;
-    }
-    /* ----------------------------------------------------- */
-
-
     public void refreshPostsList() {
 
-        System.out.println("allPostsList ====== " + allPostsList.getValue());
         postsListLoadingState.setValue(LoadingState.loading);
-
-        System.out.println("Context.MODE_PRIVATE ========= " + MyApplication.getContext());
 
         /*---------- get last local update date ----------*/
         Long lastUpdateDate = MyApplication.getContext()
@@ -249,7 +236,6 @@ public class Model {
             @Override
             public void onComplete(List<Post> list) {
 
-                // כדי לעבוד על ת'רד אחר, משני, ולא על הראשי נצטרך להשתמש ב executor
                 executor.execute(new Runnable() {
                     @Override
                     public void run() {
@@ -257,28 +243,12 @@ public class Model {
                         /*---------- add all records to local db ----------*/
                         Long lud = new Long(0);
 
-                        Log.d("TAG", "firebase returned " + list.size());
-
-                        List<String> myList = new ArrayList<>();
-                        for (Post p : AppLocalDB.db.PostDao().getAll()) {
-                            myList.add(p.getDishName());
-                        }
-                        System.out.println("local before ======= " + myList);
-
-//                        System.out.println(AppLocalDB);
                         for (Post post : list) {
 
                             if (post.getDisplay().booleanValue() == false) {
-
-                                System.out.println("post deleted ======= " + post.getDishName());
                                 AppLocalDB.db.PostDao().delete(post);
-                                if (AppLocalDB.db.PostDao().getAll().contains(post)) {
-//                                    AppLocalDB.db.PostDao().getAll().remove(post);
-                                }
-                                System.out.println("after the delete == " + AppLocalDB.db.PostDao().getAll().size());
 
                             } else if (post.getDisplay().booleanValue() == true) {
-                                System.out.println("post inserted ======== " + post.getDishName());
                                 AppLocalDB.db.PostDao().insertAll(post);
 
                             }
@@ -287,15 +257,6 @@ public class Model {
                             }
                         }
 
-                        myList = new ArrayList<>();
-
-                        for (Post p : AppLocalDB.db.PostDao().getAll()) {
-                            myList.add(p.getDishName());
-                        }
-                        System.out.println("local after ======= " + myList);
-
-
-
                         /*---------- update last local update date ----------*/
                         MyApplication.getContext()
                                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
@@ -303,26 +264,25 @@ public class Model {
 
                         /*---------- return all data to caller ----------*/
                         List<Post> poList = AppLocalDB.db.PostDao().getAll();
+                        Collections.reverse(poList);
                         allPostsList.postValue(poList);
                         postsListLoadingState.postValue(LoadingState.loaded);
 
 
-                        /* בתוך stList יהיה את כל התוכן שיש בdb המקומי */
+                        List<Post> userPostList = new ArrayList<>();
 
+                        for (Post p : poList) {
+                            if (currentUserModel.getPostList().contains(p.getId())) {
+                                userPostList.add(p);
+                            }
+                        }
+                        userPostsListLD.postValue(userPostList);
                     }
                 });
 
             }
         });
 
-//        modelFirebase.getAllPosts(lastUpdateDate, new ModelFirebase.GetAllPostsListener() {
-//            @Override
-//            public void onComplete(List<Post> list) {
-//                // מעדכן את כל הלינסנרים שמאזינים לת'רד הראשי
-//                allPostsList.setValue(list);
-//                postsListLoadingState.setValue(LoadingState.loaded);
-//            }
-//        });
     }
 
 

@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -39,6 +40,8 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
     ImageView image;
     ImageButton cameraBtn, galleryBtn;
     String currUserEmail;
+    ProgressBar progressBar;
+
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_IMAGE_PICK = 2;
 
@@ -97,6 +100,9 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         });
 
 
+        progressBar = view.findViewById(R.id.newpost_progressBar);
+        progressBar.setVisibility(View.GONE);
+
         return view;
     }
 
@@ -146,9 +152,22 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
 
     /* ************* Functions ************* */
 
+    private void myNavigaation(Post newPost) {
+        Model.instance.addPost(newPost, currUserEmail, () -> {
+//                            Model.instance.refreshPostsList();
+
+            List<String> l = Model.instance.getCurrentUserModel().getPostList();
+            l.add(newPost.getId());
+            Model.instance.getCurrentUserModel().setPostList(l);
+
+            //TODO: return to footer caller
+            Navigation.findNavController(dishName).navigateUp();
+        });
+    }
+
+
     private void save() {
         // save on firebase
-        postBtn.setEnabled(false);
 
         String name = dishName.getText().toString();
         String res = restaurant.getText().toString();
@@ -157,6 +176,7 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         String desc = description.getText().toString();
         String rev = review.getText().toString();
         String rateing = rate.getSelectedItem().toString();
+        String img = "myImg";
 
 //
 //        if (name.isEmpty()) {
@@ -182,40 +202,29 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
 
         //TODO: category and rating
 
-        //TODO: img, userid
-
-
+        postBtn.setEnabled(false);
+        progressBar.setVisibility(View.VISIBLE);
 
         /* ------------------------------------ Navigation ------------------------------------ */
 
         Model.instance.getNextPostId(currUserEmail, nextId -> {
 
+            Post newPost = new Post(nextId, name, res, addr, categor, desc, rev, img, rateing, currUserEmail, true);
+
             if (imageBitmap != null) {
 
                 Model.instance.setImage(imageBitmap, nextId + ".jpg", "/posts_images/", url -> {
-
-                    Post newPost = new Post(nextId, name, res, addr, categor, desc, rev, url, rateing, currUserEmail, true);
-                    Model.instance.addPost(newPost, currUserEmail, () -> {
-//                            Model.instance.refreshPostsList();
-
-                        List<String> l = Model.instance.getCurrentUserModel().getPostList();
-                        l.add(newPost.getId());
-                        Model.instance.getCurrentUserModel().setPostList(l);
-
-                        //TODO: return to footer caller
-                        Navigation.findNavController(dishName).navigateUp();
-                    });
+                    newPost.setImage(url);
+                    myNavigaation(newPost);
                 });
-            } else {
-
-
-                // TODO: pop-up
             }
-
-
+            else {
+                myNavigaation(newPost);
+            }
         });
-
     }
+
+
 
     /* ************* Spinner Functions ************* */
 

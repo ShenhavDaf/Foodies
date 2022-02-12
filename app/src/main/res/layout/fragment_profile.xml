@@ -28,15 +28,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_fullname_tv" />
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profile_img"
-        android:layout_width="172dp"
-        android:layout_height="139dp"
+        android:layout_width="256dp"
+        android:layout_height="188dp"
         android:layout_marginTop="16dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/avatar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize8Percent" />
 
     <TextView
         android:id="@+id/profile_fullname_tv"
