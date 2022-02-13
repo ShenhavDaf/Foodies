@@ -1,6 +1,7 @@
-package com.example.foodies;
+package com.example.foodies.login;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,13 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
+import com.example.foodies.MainActivity;
+import com.example.foodies.R;
 import com.example.foodies.model.Model;
-import com.example.foodies.model.User;
 
-
-public class LogInFragment extends Fragment {
+public class NewLoginFragment extends Fragment {
 
     Button loginBtn;
     TextView joinTv;
@@ -29,38 +28,32 @@ public class LogInFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        /* ********************************** View Items ********************************** */
+        int layoutName;
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            layoutName = R.layout.fragment_new_login;
+        }
+        else{
+            layoutName = R.layout.horizontal_fragment_log_in;
+        }
 
-        View view = inflater.inflate(R.layout.fragment_log_in, container, false);
-        emailEt = view.findViewById(R.id.login_email_et);
-        passwordEt = view.findViewById(R.id.login_password_et);
-
-
-        joinTv = view.findViewById(R.id.main_joinbtn_tv);
-        joinTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JoinUs(v);
-            }
-        });
+        View view = inflater.inflate(layoutName, container, false);
+        emailEt = view.findViewById(R.id.newlogin_email_et);
+        passwordEt = view.findViewById(R.id.newlogin_password_et);
 
 
-        loginBtn = view.findViewById(R.id.main_login_btn);
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LogIn(v);
-            }
-        });
+        joinTv = view.findViewById(R.id.newlogin_joinbtn_tv);
+        joinTv.setOnClickListener(v -> JoinUs(v));
 
+
+        loginBtn = view.findViewById(R.id.newlogin_login_btn);
+        loginBtn.setOnClickListener(v -> LogIn(v));
 
         return view;
     }
 
-    /* *************************************** Functions *************************************** */
 
     private void JoinUs(View view) {
-        Navigation.findNavController(view).navigate(R.id.action_logInFragment_to_signIn);
+        Navigation.findNavController(view).navigate(R.id.action_newLoginFragment_to_signUpFragment);
     }
 
     private void LogIn(View view) {
@@ -87,17 +80,20 @@ public class LogInFragment extends Fragment {
             return;
         }
 
-        /* ------------------------------------ Navigation ------------------------------------ */
+        toHomeActivity(localMail, localPass);
+
+    }
+
+    private void toHomeActivity(String localMail, String localPass) {
+
 
         Model.instance.UserLogin(localMail, localPass, userID -> {
             Model.instance.getUserByEmail(localMail, user -> {
                 Model.instance.setCurrentUserModel(user);
 
-                Navigation.findNavController(view)
-                        .navigate(LogInFragmentDirections.actionGlobalHomePage());
+                startActivity(new Intent(getContext(), MainActivity.class));
+                getActivity().finish();
             });
         });
-
     }
-
 }

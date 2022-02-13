@@ -1,6 +1,5 @@
 package com.example.foodies.model;
 
-import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
@@ -25,8 +24,8 @@ public class Model {
     public static final Model instance = new Model();
     ModelFirebase modelFirebase = new ModelFirebase();
 
-    Executor executor = Executors.newFixedThreadPool(1);
-    Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
+    public Executor executor = Executors.newFixedThreadPool(1);
+    public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
     User currentUserModel;
 
@@ -37,6 +36,8 @@ public class Model {
     public void setCurrentUserModel(User currentUserModel) {
         this.currentUserModel = currentUserModel;
     }
+
+
 
     /* ****************************** Image Upload ****************************** */
 
@@ -285,5 +286,17 @@ public class Model {
 
     }
 
+
+    public boolean isSignedIn() {
+        return modelFirebase.isSignedIn();
+    }
+
+    public String getLastUserEmail(){
+        return modelFirebase.getLastUserEmail();
+    }
+
+    public void UserLogout() {
+        modelFirebase.UserLogout();
+    }
 
 }

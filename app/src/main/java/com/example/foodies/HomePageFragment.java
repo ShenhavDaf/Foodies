@@ -13,6 +13,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -139,6 +142,7 @@ public class HomePageFragment extends Fragment {
                 });
 
 
+        setHasOptionsMenu(true);
         return view;
 
     }
@@ -183,15 +187,12 @@ public class HomePageFragment extends Fragment {
                             .load(user.getImage())
                             .into(userImage);
                 }
-//                holder.userImage.setImageDrawable(user.getImage());
             });
 
             description.setText(post.getDishName());
 
             rateNum.setText(post.getRate());
             rateStar.setRating(Integer.parseInt(post.getRate()));
-
-//            dishImage.setImageResource(R.drawable.ratatoi);
 
             //TODO: need to delete + delete all posts in firebase without image
             if (post.getImage().equals("myImg") || post.getImage() == null) {
@@ -245,21 +246,24 @@ public class HomePageFragment extends Fragment {
 
     /* *************************************** Menu Functions *************************************** */
 
-//    @Override
-//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-//        inflater.inflate(R.menu.student_list_menu,menu);
-//    }
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.base_menu,menu);
+    }
 
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        if (item.getItemId() == R.id.addStudentFragment){
-//            Log.d("TAG","ADD...");
-//            return true;
-//        }else {
-//            return super.onOptionsItemSelected(item);
-//        }
-//    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.Exit){
+            Log.d("TAG","ADD...");
+
+            Model.instance.UserLogout();
+            getActivity().finish();
+            return true;
+        }else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
 
 }
 

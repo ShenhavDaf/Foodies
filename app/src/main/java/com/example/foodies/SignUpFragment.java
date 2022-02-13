@@ -126,8 +126,8 @@ public class SignUpFragment extends Fragment {
     private void myNavigation(View view, User newUserDetails, String email, String password) {
         Model.instance.addNewUser(newUserDetails, email, password, () -> {
             Model.instance.setCurrentUserModel(newUserDetails);
-            Navigation.findNavController(view)
-                    .navigate(SignUpFragmentDirections.actionGlobalHomePage());
+            startActivity(new Intent(getContext(), MainActivity.class));
+            getActivity().finish();
         });
     }
 

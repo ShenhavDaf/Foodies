@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/logInFragment">
+    app:startDestination="@id/homePage">
     <fragment
         android:id="@+id/homePage"
         android:name="com.example.foodies.HomePageFragment"
@@ -13,20 +13,6 @@
             android:id="@+id/action_homePage_to_postPageFragment"
             app:destination="@id/postPageFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/logInFragment"
-        android:name="com.example.foodies.LogInFragment"
-        android:label="Log In"
-        tools:layout="@layout/fragment_log_in">
-        <action
-            android:id="@+id/action_logInFragment_to_signIn"
-            app:destination="@id/signIn" />
-    </fragment>
-    <fragment
-        android:id="@+id/signIn"
-        android:name="com.example.foodies.SignUpFragment"
-        android:label="Sign Up"
-        tools:layout="@layout/fragment_sign_up" />
     <fragment
         android:id="@+id/newPostFragment"
         android:name="com.example.foodies.NewPostFragment"

@@ -4,17 +4,9 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldPath;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -43,13 +35,16 @@ public class ModelFirebase {
         db.setFirestoreSettings(settings);
     }
 
-
-
     /* ****************************** interfaces ****************************** */
 
     public interface GetAllPostsListener {
         void onComplete(List<Post> list);
     }
+
+    /*
+     *
+     *
+     */
 
     /* ****************************** Posts Functions ****************************** */
 
@@ -232,6 +227,11 @@ public class ModelFirebase {
                 });
     }
 
+    /*
+     *
+     *
+     */
+
     /* ****************************** Users Functions ****************************** */
 
     // SignUp
@@ -255,25 +255,10 @@ public class ModelFirebase {
                                 .addOnSuccessListener(success -> listener.onComplete())
                                 .addOnFailureListener(failure -> {
                                     System.out.println("failed to inside the user to userCollection");
+                                    //TODO:
 //                                            listener.onComplete();
                                 });
 
-
-//                        AuthUser user = new AuthUser(email, password);
-//
-//                        FirebaseDatabase.getInstance(URL).getReference("Users").
-//                                child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-//                                .setValue(user).
-//                                addOnCompleteListener(task1 -> {
-//                                    if (task1.isSuccessful()) {
-//                                        System.out.println("user registered");
-//                                        listener.onComplete();
-//                                    } else {
-//                                        //TODO: change the print
-//                                        System.out.println("user not register1");
-//                                    }
-//
-//                                });
                     } else {
                         //TODO: change the print
                         System.out.println("user not register2");
@@ -331,6 +316,29 @@ public class ModelFirebase {
 
     /* -------------------------------------------------------------------------- */
 
+
+    FirebaseUser currentUser = myAuth.getCurrentUser();
+
+    public boolean isSignedIn() {
+//        System.out.println("===================== currentUser = " + currentUser.getEmail());
+        return (currentUser != null);
+
+    }
+
+    /* -------------------------------------------------------------------------- */
+
+    public String getLastUserEmail() {
+        return currentUser.getEmail();
+    }
+
+    /* -------------------------------------------------------------------------- */
+
+    public void UserLogout() {
+        myAuth.signOut();
+    }
+
+    /* -------------------------------------------------------------------------- */
+
     public void getUserByEmail(String email, Model.GetUserByEmailListener listener) {
         db.collection(User.COLLECTION_NAME)
                 .document(email)
@@ -372,8 +380,12 @@ public class ModelFirebase {
         }
     }
 
-    /*************************************** FirebaseStorage **************************************************/
+    /*
+     *
+     *
+     */
 
+    /*************************************** FirebaseStorage **************************************************/
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
 

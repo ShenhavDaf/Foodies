@@ -1,198 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignUpFragment">
 
-    <ImageButton
-        android:id="@+id/signin_camera_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="16dp"
-        android:src="@android:drawable/ic_menu_camera"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/signin_gallery_btn"
-        app:layout_constraintTop_toBottomOf="@+id/signin_verify_et" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageButton
-        android:id="@+id/signin_gallery_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="8dp"
-        android:src="@android:drawable/ic_menu_gallery"
-        app:layout_constraintEnd_toStartOf="@+id/signin_camera_btn"
-        app:layout_constraintStart_toEndOf="@+id/signin_image_img"
-        app:layout_constraintTop_toBottomOf="@+id/signin_verify_et" />
+        <ImageButton
+            android:id="@+id/signin_camera_btn"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="56dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:padding="10dp"
+            android:scaleType="centerCrop"
+            android:src="@android:drawable/ic_menu_camera"
+            app:layout_constraintStart_toEndOf="@+id/signin_image_img"
+            app:layout_constraintTop_toBottomOf="@+id/signin_verify_et" />
 
-    <EditText
-        android:id="@+id/signin_password_et"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        app:layout_constraintBaseline_toBaselineOf="@+id/signin_password_tv"
-        app:layout_constraintStart_toEndOf="@+id/signin_password_tv" />
+        <ImageButton
+            android:id="@+id/signin_gallery_btn"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="-2dp"
+            android:layout_marginTop="56dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:padding="10dp"
+            android:scaleType="centerCrop"
+            android:src="@android:drawable/ic_menu_gallery"
+            app:layout_constraintStart_toEndOf="@+id/signin_camera_btn"
+            app:layout_constraintTop_toBottomOf="@+id/signin_verify_et" />
 
-    <TextView
-        android:id="@+id/signin_verify_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="52dp"
-        android:text="Verify:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_password_tv" />
+        <EditText
+            android:id="@+id/signin_password_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:ems="10"
+            android:inputType="textPassword"
+            app:layout_constraintBaseline_toBaselineOf="@+id/signin_password_tv"
+            app:layout_constraintStart_toEndOf="@+id/signin_password_tv" />
 
-    <TextView
-        android:id="@+id/signin_name_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="52dp"
-        android:text="Name + Last Name:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_title_tv" />
+        <TextView
+            android:id="@+id/signin_verify_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="52dp"
+            android:text="Verify:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signin_password_tv" />
 
-    <TextView
-        android:id="@+id/signin_city_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="52dp"
-        android:text="City:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_name_tv" />
+        <TextView
+            android:id="@+id/signin_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="52dp"
+            android:text="Name + Last Name:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signin_title_tv" />
 
-    <TextView
-        android:id="@+id/signin_email_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="52dp"
-        android:text="EMail:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_city_tv" />
+        <TextView
+            android:id="@+id/signin_city_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="52dp"
+            android:text="City:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signin_name_tv" />
 
-    <TextView
-        android:id="@+id/signin_password_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="52dp"
-        android:text="Password:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_email_tv" />
+        <TextView
+            android:id="@+id/signin_email_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="52dp"
+            android:text="EMail:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signin_city_tv" />
 
-    <TextView
-        android:id="@+id/signin_title_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="175dp"
-        android:text="Sign In"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/signin_password_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="52dp"
+            android:text="Password:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signin_email_tv" />
 
-    <EditText
-        android:id="@+id/signin_name_et"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBaseline_toBaselineOf="@+id/signin_name_tv"
-        app:layout_constraintStart_toEndOf="@+id/signin_name_tv" />
+        <TextView
+            android:id="@+id/signin_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="172dp"
+            android:text="Sign In"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/signin_city_et"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBaseline_toBaselineOf="@+id/signin_city_tv"
-        app:layout_constraintStart_toEndOf="@+id/signin_city_tv" />
+        <EditText
+            android:id="@+id/signin_name_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            app:layout_constraintBaseline_toBaselineOf="@+id/signin_name_tv"
+            app:layout_constraintStart_toEndOf="@+id/signin_name_tv" />
 
-    <EditText
-        android:id="@+id/signin_verify_et"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        app:layout_constraintBaseline_toBaselineOf="@+id/signin_verify_tv"
-        app:layout_constraintStart_toEndOf="@+id/signin_verify_tv" />
+        <EditText
+            android:id="@+id/signin_city_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="104dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            app:layout_constraintBaseline_toBaselineOf="@+id/signin_city_tv"
+            app:layout_constraintStart_toEndOf="@+id/signin_city_tv" />
 
-    <Button
-        android:id="@+id/signin_join_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="28dp"
-        android:text="Join"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_image_img" />
+        <EditText
+            android:id="@+id/signin_verify_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="92dp"
+            android:ems="10"
+            android:inputType="textPassword"
+            app:layout_constraintBaseline_toBaselineOf="@+id/signin_verify_tv"
+            app:layout_constraintStart_toEndOf="@+id/signin_verify_tv" />
 
-    <TextView
-        android:id="@+id/signin_image_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="52dp"
-        android:text="Image:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_verify_tv" />
+        <Button
+            android:id="@+id/signin_join_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:layout_marginEnd="20dp"
+            android:text="Join"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signin_image_img" />
 
+        <TextView
+            android:id="@+id/signin_image_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="52dp"
+            android:text="Image:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signin_verify_tv" />
 
-    <!--    <ImageView-->
-    <!--        android:id="@+id/signin_image_img"-->
-    <!--        android:layout_width="120dp"-->
-    <!--        android:layout_height="89dp"-->
-    <!--        android:layout_marginStart="84dp"-->
-    <!--        android:layout_marginTop="20dp"-->
-    <!--        app:layout_constraintStart_toEndOf="@+id/signin_image_tv"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/signin_verify_et"-->
-    <!--        tools:srcCompat="@drawable/avatar" />-->
+        <ImageView
+            android:id="@+id/signin_image_img"
+            android:layout_width="120dp"
+            android:layout_height="89dp"
+            android:layout_marginStart="75dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/avatar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/signin_image_tv"
+            app:layout_constraintTop_toBottomOf="@+id/signin_verify_et"
+            app:layout_constraintVertical_bias="0.168" />
 
+        <ProgressBar
+            android:id="@+id/signin_progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="166dp"
+            android:layout_height="167dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/signin_image_img"
-        android:layout_width="120dp"
-        android:layout_height="89dp"
-        android:layout_marginStart="75dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/avatar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/signin_image_tv"
-        app:layout_constraintTop_toBottomOf="@+id/signin_verify_et"
-        app:layout_constraintVertical_bias="0.168" />
+        <EditText
+            android:id="@+id/signin_email_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="84dp"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            app:layout_constraintBaseline_toBaselineOf="@+id/signin_email_tv"
+            app:layout_constraintStart_toEndOf="@+id/signin_email_tv" />
 
-    <ProgressBar
-        android:id="@+id/signin_progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="166dp"
-        android:layout_height="167dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <EditText
-        android:id="@+id/signin_email_et"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBaseline_toBaselineOf="@+id/signin_email_tv"
-        app:layout_constraintStart_toEndOf="@+id/signin_email_tv" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

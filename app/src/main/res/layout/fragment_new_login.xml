@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LogInFragment">
-
-    <ImageView
-        android:id="@+id/background_imv"
-        android:layout_width="523dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/background" />
+    tools:context=".login.NewLoginFragment">
 
     <TextView
         android:id="@+id/login_email_tv"
@@ -29,36 +18,38 @@
         android:text="Email:"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/login_email_et"
+        app:layout_constraintEnd_toStartOf="@+id/newlogin_email_et"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <EditText
-        android:id="@+id/login_email_et"
+        android:id="@+id/newlogin_email_et"
         style="@style/TextAppearance.AppCompat.Headline"
         android:layout_width="237dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:layout_marginStart="56dp"
         android:layout_marginEnd="30dp"
         android:ems="10"
         android:inputType="textEmailAddress"
         android:singleLine="false"
         android:textStyle="normal"
+        android:focusableInTouchMode="true"
         app:layout_constraintBaseline_toBaselineOf="@+id/login_email_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/login_email_tv" />
 
     <EditText
-        android:id="@+id/login_password_et"
+        android:id="@+id/newlogin_password_et"
         style="@style/TextAppearance.AppCompat.Headline"
         android:layout_width="237dp"
-        android:layout_height="43dp"
+        android:layout_height="48dp"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="27dp"
         android:ems="10"
         android:inputType="textPassword"
         android:textStyle="normal"
+        android:focusableInTouchMode="true"
         app:layout_constraintBaseline_toBaselineOf="@+id/login_password_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -75,13 +66,13 @@
         android:text="Password:"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/login_password_et"
+        app:layout_constraintEnd_toStartOf="@+id/newlogin_password_et"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_email_tv" />
 
 
     <Button
-        android:id="@+id/main_login_btn"
+        android:id="@+id/newlogin_login_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="150dp"
@@ -103,14 +94,14 @@
         android:layout_height="184dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/background_imv"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
 
     <TextView
-        android:id="@+id/main_joinbtn_tv"
+        android:id="@+id/newlogin_joinbtn_tv"
         style="@style/TextAppearance.AppCompat.Headline"
         android:layout_width="144dp"
-        android:layout_height="38dp"
+        android:layout_height="48dp"
         android:clickable="true"
         android:ellipsize="middle"
         android:text="JOIN US"
@@ -134,6 +125,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_login_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/newlogin_login_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
