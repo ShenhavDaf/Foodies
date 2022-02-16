@@ -2,10 +2,13 @@ package com.example.foodies;
 
 import static android.app.Activity.RESULT_OK;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +16,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -60,6 +66,7 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         address = view.findViewById(R.id.newpost_address_et);
         category = view.findViewById(R.id.newpost_category_spinner);
 
+
         // Category spinner
         ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter
                 .createFromResource(this.getContext(), R.array.postCategories,
@@ -79,6 +86,17 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
                         android.R.layout.simple_spinner_item);
         rateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         rate.setAdapter(rateAdapter);
+
+        // Menu
+
+//        View menu = view.findViewById(R.menu);
+//        MenuItem addItem = menu.findViewById(R.id.NewPostFragment);
+//        MenuItem homeItem = menu.findViewById(R.id.HomePageFragment);
+//        MenuItem profileItem = menu.findViewById(R.id.ProfileFragment);
+//
+//        addItem.setVisible(false);
+//        profileItem.setVisible(false);
+
 
 
         /* ------------------------------------ Button ------------------------------------ */
@@ -238,4 +256,34 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
+    /* ************* Menu Functions ************* */
+
+//    @Override
+//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+//        super.onCreateOptionsMenu(menu, inflater);
+//        menu.findItem(R.id.NewPostFragment).setVisible(false);
+//        menu.findItem(R.id.HomePageFragment).setVisible(false);
+//        menu.findItem(R.id.ProfileFragment).setVisible(false);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+////        else if(item.getItemId() == R.id.NewPostFragment) {
+////            NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalNewPostFragment());
+////            return true;
+////        }
+//        if(item.getItemId() == R.id.ProfileFragment) {
+//            NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalProfileFragment());
+//            return true;
+//        }
+//        else if(item.getItemId() == R.id.HomePageFragment){
+//            NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalHomePage());
+//            return true;
+//        }
+//        else{
+//            return super.onOptionsItemSelected(item);
+//        }
+//    }
+
 }

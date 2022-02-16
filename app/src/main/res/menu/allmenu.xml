@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/NewPostFragment"
+        android:checkable="false"
+        android:icon="@drawable/add_icon"
+        android:title="New Post"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/HomePageFragment"
+        android:icon="@drawable/home_icon"
+        android:title="Home"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/ProfileFragment"
+        android:icon="@drawable/user_icon"
+        android:title="My Profile"
+        app:showAsAction="always"/>
+
+
+    <item
+        android:id="@+id/Exit"
+        android:icon="@android:drawable/ic_menu_close_clear_cancel"
+        android:title="Exit"
+        app:showAsAction="always" />
+</menu>

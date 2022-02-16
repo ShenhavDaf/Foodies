@@ -1,9 +1,15 @@
 package com.example.foodies;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -78,6 +84,7 @@ public class PostPageFragment extends Fragment {
             editPostBtn.setOnClickListener(v -> editPost(view, postId));
         }
 
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -88,4 +95,34 @@ public class PostPageFragment extends Fragment {
                 .navigate(PostPageFragmentDirections
                         .actionPostPageFragmentToEditPostFragment(postId, sourcePage));
     }
+
+
+    /* ********************************* Function/ Menu ********************************* */
+
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.bottom_nav_menu,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.NewPostFragment) {
+            NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalNewPostFragment());
+            return true;
+        }
+        if(item.getItemId() == R.id.ProfileFragment) {
+            NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalProfileFragment());
+            return true;
+        }
+        else if(item.getItemId() == R.id.HomePageFragment){
+            NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalHomePage());
+            return true;
+        }
+        else{
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
 }

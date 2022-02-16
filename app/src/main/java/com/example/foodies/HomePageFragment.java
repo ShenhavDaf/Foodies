@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -77,31 +78,31 @@ public class HomePageFragment extends Fragment {
 
         /* ************************************ Footer menu ************************************ */
 
-        View footer = view.findViewById(R.id.home_footer);
+//        View footer = view.findViewById(R.id.home_footer);
+//
+//        addPost = footer.findViewById(R.id.NewPostFragment);
+//        homePage = footer.findViewById(R.id.HomePageFragment);
+//        profile = footer.findViewById(R.id.ProfileFragment);
 
-        addPost = footer.findViewById(R.id.NewPostFragment);
-        homePage = footer.findViewById(R.id.HomePageFragment);
-        profile = footer.findViewById(R.id.ProfileFragment);
-
-        addPost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("TAG", "add btn was clicked........");
-                Navigation.findNavController(view)
-                        .navigate(HomePageFragmentDirections
-                                .actionGlobalNewPostFragment());
-            }
-        });
-
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("TAG", "profile btn was clicked");
-                Navigation.findNavController(view)
-                        .navigate(HomePageFragmentDirections
-                                .actionGlobalProfileFragment());
-            }
-        });
+//        addPost.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d("TAG", "add btn was clicked........");
+//                Navigation.findNavController(view)
+//                        .navigate(HomePageFragmentDirections
+//                                .actionGlobalNewPostFragment());
+//            }
+//        });
+//
+//        profile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d("TAG", "profile btn was clicked");
+//                Navigation.findNavController(view)
+//                        .navigate(HomePageFragmentDirections
+//                                .actionGlobalProfileFragment());
+//            }
+//        });
 
 //        homePage.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -249,21 +250,30 @@ public class HomePageFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.base_menu,menu);
+        inflater.inflate(R.menu.allmenu,menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.Exit){
-            Log.d("TAG","ADD...");
-
             Model.instance.UserLogout();
             getActivity().finish();
             return true;
-        }else {
+        }else if(item.getItemId() == R.id.NewPostFragment) {
+            NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalNewPostFragment());
+            return true;
+        }
+        else if(item.getItemId() == R.id.ProfileFragment) {
+            NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalProfileFragment());
+            return true;
+        }
+        else if(item.getItemId() == R.id.HomePageFragment){
+            NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalHomePage());
+            return true;
+        }
+        else{
             return super.onOptionsItemSelected(item);
         }
     }
-
 }
 
