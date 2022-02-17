@@ -1,97 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".login.NewLoginFragment">
 
-    <TextView
-        android:id="@+id/login_email_tv"
-        style="@style/TextAppearance.AppCompat.Headline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="1dp"
-        android:text="Email:"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/newlogin_email_et"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
-
-    <EditText
-        android:id="@+id/newlogin_email_et"
-        style="@style/TextAppearance.AppCompat.Headline"
-        android:layout_width="237dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginEnd="30dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:singleLine="false"
-        android:textStyle="normal"
-        android:focusableInTouchMode="true"
-        app:layout_constraintBaseline_toBaselineOf="@+id/login_email_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/login_email_tv" />
-
-    <EditText
-        android:id="@+id/newlogin_password_et"
-        style="@style/TextAppearance.AppCompat.Headline"
-        android:layout_width="237dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="27dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:textStyle="normal"
-        android:focusableInTouchMode="true"
-        app:layout_constraintBaseline_toBaselineOf="@+id/login_password_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/login_password_tv" />
-
-    <TextView
-        android:id="@+id/login_password_tv"
-        style="@style/TextAppearance.AppCompat.Headline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="1dp"
-        android:text="Password:"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/newlogin_password_et"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_email_tv" />
-
-
-    <Button
-        android:id="@+id/newlogin_login_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="150dp"
-        android:backgroundTint="#16b4bb"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:text="Login..."
-        android:textColor="#4E4C4C"
-        android:textSize="20sp"
-        app:cornerRadius="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_password_tv" />
-
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="464dp"
-        android:layout_height="184dp"
+        android:layout_width="393dp"
+        android:layout_height="166dp"
+        android:layout_marginTop="28dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -100,31 +19,104 @@
     <TextView
         android:id="@+id/newlogin_joinbtn_tv"
         style="@style/TextAppearance.AppCompat.Headline"
-        android:layout_width="144dp"
-        android:layout_height="48dp"
+        android:layout_width="163dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="30dp"
+        android:background="#FFFFFF"
         android:clickable="true"
         android:ellipsize="middle"
         android:text="JOIN US"
-        android:textColor="#3652E3"
-        android:textSize="34sp"
+        android:textColor="#0097A7"
+        android:textColorHighlight="@color/ActionBar9"
+        android:textColorLink="@color/ActionBar9"
+        android:textSize="38sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_tv"
-        app:layout_constraintVertical_bias="0.124" />
+        app:layout_constraintVertical_bias="0.067" />
 
     <TextView
         android:id="@+id/main_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:text="Not registered yet?"
-        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        android:text="Not a foodie yet?"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newlogin_login_btn" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout6"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:boxStrokeColor="@color/ActionBar9"
+        app:hintTextColor="#73BEE4"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        tools:layout_editor_absoluteX="0dp"
+        app:errorEnabled="true"
+        tools:ignore="MissingConstraints">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/newlogin_input_email_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:textColorHighlight="@color/ActionBar9"
+            android:textColorLink="@color/ActionBar9"
+            tools:layout_editor_absoluteX="53dp"
+            tools:layout_editor_absoluteY="214dp"
+            android:maxLines="1"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout7"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:boxStrokeColor="@color/ActionBar9"
+        app:hintTextColor="@color/ActionBar9"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout6"
+        tools:layout_editor_absoluteX="2dp"
+        tools:ignore="MissingConstraints">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/newlogin_input_password_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textColorHighlight="@color/ActionBar9"
+            android:textColorLink="@color/ActionBar9"
+            tools:layout_editor_absoluteX="5dp"
+            tools:layout_editor_absoluteY="318dp"
+            android:maxLines="1"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/newlogin_login_btn"
+        android:layout_width="115dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:backgroundTint="@color/ActionBar9"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="Login..."
+        android:textColor="#4E4C4C"
+        android:textColorHighlight="@color/ActionBar9"
+        android:textColorLink="@color/ActionBar9"
+        android:textSize="20sp"
+        app:cornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

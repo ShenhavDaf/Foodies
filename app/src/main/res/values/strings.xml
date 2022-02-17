@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Foodies</string>
     <string name="into_text"><![CDATA[By Shenhav & Lilach]]></string>
+    <string name="password_err"> password must have at least 6 characters </string>
 
     <string-array name="postRating">
         <item>1</item>

@@ -5,7 +5,10 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavHost;
+import androidx.navigation.NavHostController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -14,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.foodies.HomePageFragmentDirections;
 import com.example.foodies.MainActivity;
 import com.example.foodies.R;
 import com.example.foodies.model.Model;
@@ -22,7 +27,7 @@ public class NewLoginFragment extends Fragment {
 
     Button loginBtn;
     TextView joinTv;
-    EditText emailEt, passwordEt;
+    EditText emailEt, passwordEt, emailInputEt, passwordInputEt;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +44,8 @@ public class NewLoginFragment extends Fragment {
         View view = inflater.inflate(layoutName, container, false);
         emailEt = view.findViewById(R.id.newlogin_email_et);
         passwordEt = view.findViewById(R.id.newlogin_password_et);
+        emailInputEt = view.findViewById(R.id.newlogin_input_email_et);
+        passwordInputEt = view.findViewById(R.id.newlogin_input_password_et);
 
 
         joinTv = view.findViewById(R.id.newlogin_joinbtn_tv);
@@ -54,33 +61,40 @@ public class NewLoginFragment extends Fragment {
 
     private void JoinUs(View view) {
         Navigation.findNavController(view).navigate(R.id.action_newLoginFragment_to_signUpFragment);
+//        NavHostFragment.findNavController(this).navigate();
     }
 
     private void LogIn(View view) {
 
-        String localMail = emailEt.getText().toString().trim();
-        String localPass = passwordEt.getText().toString().trim();
+//        String localMail = emailEt.getText().toString().trim();
+//        String localPass = passwordEt.getText().toString().trim();
+        String localInputIEmail = emailInputEt.getText().toString().trim();
+        String localInputPassword = passwordInputEt.getText().toString().trim();
+
+        System.out.println(" ----------------------- " + localInputIEmail);
+        System.out.println(" ----------------------- " + localInputPassword);
 
         /* *************************************** Validations *************************************** */
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(localMail).matches()) {
-            emailEt.setError("Please provide valid email");
-            emailEt.requestFocus();
+        if (!Patterns.EMAIL_ADDRESS.matcher(localInputIEmail).matches()) {
+            emailInputEt.setError("Please provide valid email");
+            emailInputEt.requestFocus();
+
             return;
         }
-        if (localMail.isEmpty()) {
-            emailEt.setError("Please enter your Email");
-            emailEt.requestFocus();
+        if (localInputIEmail.isEmpty()) {
+            emailInputEt.setError("Please enter your Email");
+            emailInputEt.requestFocus();
             return;
         }
 
-        if (localPass.length() < 6) {
-            passwordEt.setError("Password length should be at least 6 characters");
-            passwordEt.requestFocus();
+        if (localInputPassword.length() < 6) {
+            passwordInputEt.setError("Password length should be at least 6 characters");
+            passwordInputEt.requestFocus();
             return;
         }
 
-        toHomeActivity(localMail, localPass);
+        toHomeActivity(localInputIEmail, localInputPassword);
 
     }
 
@@ -88,12 +102,29 @@ public class NewLoginFragment extends Fragment {
 
 
         Model.instance.UserLogin(localMail, localPass, userID -> {
-            Model.instance.getUserByEmail(localMail, user -> {
-                Model.instance.setCurrentUserModel(user);
 
-                startActivity(new Intent(getContext(), MainActivity.class));
-                getActivity().finish();
-            });
+            System.out.println("the userId is ----------------------------- " + userID);
+            if(userID == null){
+                emailInputEt.setError("Please recheck your email and password");
+                emailInputEt.requestFocus();
+                passwordInputEt.setError("Please recheck your email and password");
+                passwordInputEt.requestFocus();
+
+            }
+            else{
+                Model.instance.getUserByEmail(localMail, user -> {
+//                System.out.println("the userId is ++++++++++++++++++++++++++ " + userID);
+
+                    Model.instance.setCurrentUserModel(user);
+
+                    startActivity(new Intent(getContext(), MainActivity.class));
+                    getActivity().finish();
+                });
+
+            }
+
+
+
         });
     }
 }

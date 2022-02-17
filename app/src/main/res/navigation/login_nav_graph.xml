@@ -8,15 +8,17 @@
     <fragment
         android:id="@+id/newLoginFragment"
         android:name="com.example.foodies.login.NewLoginFragment"
-        android:label="new_login"
-        tools:layout="@layout/fragment_new_login" >
+        android:label="Log In"
+        tools:layout="@layout/fragment_new_login">
         <action
             android:id="@+id/action_newLoginFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
+            app:destination="@id/signUpFragment"
+            app:popUpTo="@id/newLoginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.example.foodies.SignUpFragment"
-        android:label="fragment_sign_up"
+        android:label="Sign Up"
         tools:layout="@layout/fragment_sign_up" />
 </navigation>

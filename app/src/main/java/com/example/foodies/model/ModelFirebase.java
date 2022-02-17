@@ -3,6 +3,7 @@ package com.example.foodies.model;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -280,6 +281,8 @@ public class ModelFirebase {
                         listener.onComplete(userId);
                     } else {
                         //TODO: change the print
+                        listener.onComplete(null);
+
                         System.out.println("User name or password wrong!!");
                     }
                 });
