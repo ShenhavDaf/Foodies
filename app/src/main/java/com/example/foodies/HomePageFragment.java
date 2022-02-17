@@ -9,10 +9,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,7 +22,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Post;
 import com.squareup.picasso.Picasso;
@@ -76,57 +74,6 @@ public class HomePageFragment extends Fragment {
             }
         });
 
-        /* ************************************ Footer menu ************************************ */
-
-//        View footer = view.findViewById(R.id.home_footer);
-//
-//        addPost = footer.findViewById(R.id.NewPostFragment);
-//        homePage = footer.findViewById(R.id.HomePageFragment);
-//        profile = footer.findViewById(R.id.ProfileFragment);
-
-//        addPost.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d("TAG", "add btn was clicked........");
-//                Navigation.findNavController(view)
-//                        .navigate(HomePageFragmentDirections
-//                                .actionGlobalNewPostFragment());
-//            }
-//        });
-//
-//        profile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d("TAG", "profile btn was clicked");
-//                Navigation.findNavController(view)
-//                        .navigate(HomePageFragmentDirections
-//                                .actionGlobalProfileFragment());
-//            }
-//        });
-
-//        homePage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d("TAG", "homepage btn was clicked");
-//                Navigation.findNavController(view).navigate(R.id.action_global_homePage);
-//            }
-//        });
-
-
-        /* ************************************ menu ************************************ */
-
-//        setHasOptionsMenu(true);
-//        viewModel.getData().observe(getViewLifecycleOwner(), list1 -> refresh());
-//        swipeRefresh.setRefreshing(Model.instance.getStudentListLoadingState().getValue() == Model.StudentListLoadingState.loading);
-//        Model.instance.getStudentListLoadingState().observe(getViewLifecycleOwner(), studentListLoadingState -> {
-//            if (studentListLoadingState == Model.StudentListLoadingState.loading){
-//                swipeRefresh.setRefreshing(true);
-//            }else{
-//                swipeRefresh.setRefreshing(false);
-//            }
-
-//        });
-
         viewModel.getData().observe(getViewLifecycleOwner(), posts -> refresh());
 
         swipeRefresh.setRefreshing(
@@ -169,7 +116,7 @@ public class HomePageFragment extends Fragment {
             dishImage = itemView.findViewById(R.id.listrow_post_img);
             rateNum = itemView.findViewById(R.id.listrow_rate_tv);
             rateStar = itemView.findViewById(R.id.listrow_ratingBar);
-            rateStar.setEnabled(false);
+            rateStar.setClickable(false);
 
 
             itemView.setOnClickListener(v -> {
@@ -225,7 +172,16 @@ public class HomePageFragment extends Fragment {
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.post_list_row, parent, false);
+
+            int layoutName;
+            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+                layoutName = R.layout.post_list_row;
+            }
+            else{
+                layoutName = R.layout.horizontal_post_list_row;
+            }
+
+            View view = getLayoutInflater().inflate(layoutName, parent, false);
             MyViewHolder holder = new MyViewHolder(view, listener);
             return holder;
         }

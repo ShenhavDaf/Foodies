@@ -34,15 +34,14 @@
 
         <TextView
             android:id="@+id/listrow_username_tv"
-            android:layout_width="168dp"
+            android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="120dp"
+            android:layout_marginEnd="80dp"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/listrow_avatar_imv"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,16 +51,17 @@
             android:layout_height="46dp"
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="30dp"
-            android:progressTint="@color/myYellow"
-            android:secondaryProgressTint="@color/black"
+            android:elevation="8dp"
+            android:progressTint="@color/ratingBarPrimary"
+            android:secondaryProgressTint="@color/ratingBarSecondary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/listrow_description_tv"
-            android:layout_width="233dp"
+            android:layout_width="0dp"
             android:layout_height="29dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="60dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="20dp"
             android:textSize="24sp"

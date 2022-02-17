@@ -7,8 +7,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,7 +20,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Post;
 import com.example.foodies.model.User;
@@ -142,7 +141,7 @@ public class ProfileFragment extends Fragment {
             dishImage = itemView.findViewById(R.id.listrow_post_img);
             rateNum = itemView.findViewById(R.id.listrow_rate_tv);
             rateStar = itemView.findViewById(R.id.listrow_ratingBar);
-            rateStar.setEnabled(false);
+            rateStar.setClickable(false);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -209,7 +208,16 @@ public class ProfileFragment extends Fragment {
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.post_list_row, parent, false);
+
+            int layoutName;
+            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+                layoutName = R.layout.post_list_row;
+            }
+            else{
+                layoutName = R.layout.horizontal_post_list_row;
+            }
+
+            View view = getLayoutInflater().inflate(layoutName, parent, false);
             MyViewHolder holder = new MyViewHolder(view, listener);
             return holder;
         }

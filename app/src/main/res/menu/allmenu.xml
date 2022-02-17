@@ -24,7 +24,7 @@
 
     <item
         android:id="@+id/Exit"
-        android:icon="@android:drawable/ic_menu_close_clear_cancel"
+        android:icon="@drawable/logout_icon"
         android:title="Exit"
         app:showAsAction="always" />
 </menu>

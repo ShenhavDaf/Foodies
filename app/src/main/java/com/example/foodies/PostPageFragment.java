@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -51,7 +50,8 @@ public class PostPageFragment extends Fragment {
 
         description.setEnabled(false);
         review.setEnabled(false);
-        rate.setEnabled(false);
+        rate.setClickable(false);
+
 
         editPostBtn = view.findViewById(R.id.postpage_editpost_btn);
         editPostBtn.setVisibility(View.GONE);

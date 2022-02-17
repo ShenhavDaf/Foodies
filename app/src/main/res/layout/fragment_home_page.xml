@@ -6,13 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".HomePageFragment">
 
-
     <ImageView
         android:id="@+id/home_logo"
         android:layout_width="165dp"
         android:layout_height="58dp"
         android:layout_marginEnd="235dp"
-        android:src="@drawable/small_logo"
+        android:src="@drawable/new_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,12 +25,10 @@
         android:layout_marginTop="10dp"
         android:text="Hello,"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/searchView"
         app:layout_constraintEnd_toStartOf="@+id/home_user_name"
         app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toEndOf="@+id/home_logo"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.242" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/home_user_name"
@@ -43,23 +40,15 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="409dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="2dp"
-        android:background="#80DCDCDC"
-        app:layout_constraintBottom_toTopOf="@+id/postlist_swiperefresh"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_logo" />
-
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/postlist_swiperefresh"
-        android:layout_width="416dp"
-        android:layout_height="504dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +68,7 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-<!--    <include-->
+    <!--    <include-->
 <!--        android:id="@+id/home_footer"-->
 <!--        layout="@layout/footer"-->
 <!--        android:layout_width="411dp"-->

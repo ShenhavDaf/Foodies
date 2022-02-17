@@ -5,9 +5,19 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="myYellow">#FFF000</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="myGray">#E3E3E3</color>
     <color name="red">#FF0000</color>
+    <color name="ratingBarPrimary">#E9FFD700</color>
+    <color name="ratingBarSecondary">#FFF000</color>
+
+    <color name="ActionBar1">#73BEE4</color>
+    <color name="ActionBar2">#1C9ADA</color>
+    <color name="ActionBar3">#FF4E81</color>
+    <color name="ActionBar4">#71ACFF</color>
+    <color name="ActionBar5">#99B5EC</color>
+
+
 </resources>
