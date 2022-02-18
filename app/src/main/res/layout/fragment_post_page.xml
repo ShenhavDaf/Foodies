@@ -217,7 +217,7 @@
             android:layout_marginStart="108dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="10dp"
-            android:progressBackgroundTint="@color/primeryRed"
+            android:progressBackgroundTint="@color/ActionBar8"
             android:progressTint="@color/ratingBarPrimary"
             android:secondaryProgressTint="@color/ratingBarSecondary"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -98,7 +98,7 @@ public class HomePageFragment extends Fragment {
     /* *************************************** Holder *************************************** */
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView userName, description, rateNum;
+        TextView userName, description;
         RatingBar rateStar;
         ImageView userImage, dishImage;
 
@@ -109,9 +109,9 @@ public class HomePageFragment extends Fragment {
             userName = itemView.findViewById(R.id.listrow_username_tv);
             description = itemView.findViewById(R.id.listrow_description_tv);
             dishImage = itemView.findViewById(R.id.listrow_post_img);
-            rateNum = itemView.findViewById(R.id.listrow_rate_tv);
             rateStar = itemView.findViewById(R.id.listrow_ratingBar);
             rateStar.setClickable(false);
+            rateStar.setEnabled(false);
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
@@ -131,7 +131,6 @@ public class HomePageFragment extends Fragment {
             });
 
             description.setText(post.getDishName());
-            rateNum.setText(post.getRate());
             rateStar.setRating(Integer.parseInt(post.getRate()));
 
             if (post.getImage().equals("myImg")) {
@@ -171,7 +170,7 @@ public class HomePageFragment extends Fragment {
                 layoutName = R.layout.horizontal_post_list_row;
             }
 
-            View view = getLayoutInflater().inflate(layoutName, parent, false);
+            View view = getLayoutInflater().inflate(R.layout.post_list_row, parent, false);
             MyViewHolder holder = new MyViewHolder(view, listener);
             return holder;
         }

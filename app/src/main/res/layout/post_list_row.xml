@@ -39,6 +39,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="80dp"
+            android:textColor="#94AF0202"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -51,14 +52,14 @@
             android:layout_width="248dp"
             android:layout_height="63dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
             android:elevation="8dp"
+            android:progressBackgroundTint="#AF0202"
             android:progressTint="@color/ratingBarPrimary"
             android:secondaryProgressTint="@color/ratingBarSecondary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.85"
-            app:layout_constraintStart_toEndOf="@+id/listrow_rate_tv"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/listrow_post_img" />
 
         <TextView
@@ -76,9 +77,11 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/listrow_post_img"
-            android:layout_width="335dp"
-            android:layout_height="153dp"
+            android:layout_width="595dp"
+            android:layout_height="223dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginBottom="5dp"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -90,18 +93,6 @@
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize8Percent"
             app:srcCompat="@drawable/image_place" />
 
-        <TextView
-            android:id="@+id/listrow_rate_tv"
-            android:layout_width="20dp"
-            android:layout_height="46dp"
-            android:layout_marginStart="60dp"
-            android:text="1"
-            android:textAlignment="center"
-            android:textSize="40sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listrow_post_img" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

@@ -20,12 +20,19 @@
     <color name="ActionBar5">#99B5EC</color>
     <color name="ActionBar6">#409C8A</color>
     <color name="ActionBar7">#7FD8C7</color>
-    <color name="ActionBar8">#087285</color>
-    <color name="ActionBar9">#6DA5AF</color>
+    <color name="ActionBar10">#087285</color>
+<!--    // 8-->
+    <color name="ActionBar11">#6DA5AF</color>
+<!--    // 9-->
     <color name="spinner_backgroung">#2FA1A1A1</color>
 
     <color name="inputBox">#30087285</color>
     <color name="inputBlackTextAtDisabled">#3C3434</color>
 
-    <color name="primeryRed">#AF0202</color>
+    <color name="ActionBar12">#AF0202</color>
+    <color name="ActionBar13">#94F1E505</color>
+
+    <color name="ActionBar9">#94AF0202</color>
+    <color name="ActionBar8">#4BAF0202</color>
+
 </resources>

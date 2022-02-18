@@ -46,7 +46,7 @@
             app:boxCornerRadiusTopStart="100dp"
             app:boxStrokeColor="@color/ActionBar9"
             app:errorEnabled="true"
-            app:hintTextColor="@color/ActionBar1"
+            app:hintTextColor="@color/ActionBar8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,8 +59,8 @@
                 android:hint="   Email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:textColorHighlight="@color/ActionBar9"
-                android:textColorLink="@color/ActionBar9"
+                android:textColorHighlight="@color/ActionBar8"
+                android:textColorLink="@color/ActionBar8"
                 tools:layout_editor_absoluteX="53dp"
                 tools:layout_editor_absoluteY="214dp" />
 
@@ -78,7 +78,7 @@
             app:boxCornerRadiusTopEnd="100dp"
             app:boxCornerRadiusTopStart="100dp"
             app:boxStrokeColor="@color/ActionBar9"
-            app:hintTextColor="@color/ActionBar9"
+            app:hintTextColor="@color/ActionBar8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -92,8 +92,8 @@
                 android:hint="   Password"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:textColorHighlight="@color/ActionBar9"
-                android:textColorLink="@color/ActionBar9"
+                android:textColorHighlight="@color/ActionBar8"
+                android:textColorLink="@color/ActionBar8"
                 tools:layout_editor_absoluteX="5dp"
                 tools:layout_editor_absoluteY="318dp" />
 
@@ -127,7 +127,7 @@
             android:ellipsize="middle"
             android:longClickable="true"
             android:text="JOIN US"
-            android:textColor="#0097A7"
+            android:textColor="@color/ActionBar8"
             android:textColorHighlight="@color/ActionBar9"
             android:textColorLink="@color/ActionBar9"
             android:textSize="38sp"

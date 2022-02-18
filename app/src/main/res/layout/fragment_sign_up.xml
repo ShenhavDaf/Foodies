@@ -29,7 +29,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Name and last name"
-                android:inputType="text" />
+                android:inputType="text"
+                android:textColorLink="@color/ActionBar8"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- ***************************** city layout *********************************** -->
@@ -50,7 +52,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="City"
-                android:inputType="text" />
+                android:inputType="text"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- ***************************** email layout *********************************** -->
@@ -71,7 +74,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- ***************************** paswword layout *********************************** -->
@@ -92,7 +96,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- ***************************** verify layout *********************************** -->
@@ -113,7 +118,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Verify"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- ***************************** image layout *********************************** -->
@@ -135,7 +141,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="16dp"
                 android:text="Image:"
-                android:textColor="@color/ActionBar9"
+                android:textColor="@color/ActionBar8"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/signin_image_img"
@@ -188,6 +194,7 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="196dp"
             android:layout_height="251dp"
+            android:backgroundTint="@color/ActionBar9"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -198,6 +205,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:backgroundTint="@color/ActionBar9"
             android:text="Join"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"

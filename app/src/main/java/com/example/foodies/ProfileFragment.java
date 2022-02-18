@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -98,13 +99,11 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-
         setHasOptionsMenu(true);
         viewModel.getData().observe(getViewLifecycleOwner(), posts -> refresh());
 
         return view;
     }
-
 
     /* ********************************* Function/ Navigation ********************************* */
 
@@ -121,7 +120,7 @@ public class ProfileFragment extends Fragment {
     /* ********************************* My View Holder ********************************* */
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView dishName, description, rateNum;
+        TextView dishName, description;
         RatingBar rateStar;
         ImageView userImage, dishImage;
 
@@ -132,9 +131,9 @@ public class ProfileFragment extends Fragment {
             dishName = itemView.findViewById(R.id.listrow_username_tv);
             description = itemView.findViewById(R.id.listrow_description_tv);
             dishImage = itemView.findViewById(R.id.listrow_post_img);
-            rateNum = itemView.findViewById(R.id.listrow_rate_tv);
             rateStar = itemView.findViewById(R.id.listrow_ratingBar);
             rateStar.setClickable(false);
+            rateStar.setEnabled(false);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -166,7 +165,6 @@ public class ProfileFragment extends Fragment {
                         .into(dishImage);
             }
 
-            rateNum.setText(post.getRate());
             rateStar.setRating(Integer.parseInt(post.getRate()));
         }
     }

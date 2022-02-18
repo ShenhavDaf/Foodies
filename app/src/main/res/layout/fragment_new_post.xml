@@ -25,7 +25,8 @@
                 android:id="@+id/newpost_dishname_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/dish_name_input" />
+                android:hint="@string/dish_name_input"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -43,7 +44,8 @@
                 android:id="@+id/newpost_restaurant_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/restaurant_name_input" />
+                android:hint="@string/restaurant_name_input"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -61,7 +63,8 @@
                 android:id="@+id/newpost_address_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/restaurant_address_input" />
+                android:hint="@string/restaurant_address_input"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -79,7 +82,8 @@
                 android:id="@+id/newpost_desc_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/dish_description_input" />
+                android:hint="@string/dish_description_input"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -97,7 +101,8 @@
                 android:id="@+id/newpost_review_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/your_review" />
+                android:hint="@string/your_review"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -118,6 +123,7 @@
                 android:layout_marginStart="8dp"
                 android:text="Category:"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -230,6 +236,7 @@
                 android:layout_marginStart="8dp"
                 android:text="Rate:"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -266,6 +273,7 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="104dp"
             android:layout_height="97dp"
+            android:indeterminateTint="#AC7D7D"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
