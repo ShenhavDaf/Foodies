@@ -29,7 +29,7 @@ public class Post {
     String image = "myImg";
     String rate = "0";
     String userEmail = "";
-    String userFullName = "";// TODO: for post author in home page
+    String userFullName = "";
     Long updateDate = new Long(0);
 
     Boolean display = true;

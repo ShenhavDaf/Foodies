@@ -62,9 +62,6 @@ public class NewLoginFragment extends Fragment {
 
     private void LogIn(View view) {
 
-        progressBar.setVisibility(View.VISIBLE);
-        loginBtn.setEnabled(false);
-
         String localInputIEmail = emailInputEt.getText().toString().trim();
         String localInputPassword = passwordInputEt.getText().toString().trim();
 
@@ -87,6 +84,9 @@ public class NewLoginFragment extends Fragment {
             passwordInputEt.requestFocus();
             return;
         }
+
+        progressBar.setVisibility(View.VISIBLE);
+        loginBtn.setEnabled(false);
 
         toHomeActivity(localInputIEmail, localInputPassword);
     }

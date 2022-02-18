@@ -89,15 +89,15 @@ public class Model {
     /* ----------------------------------------------------- */
 
     public interface AddPostListener {
-        void onComplete();
+        void onComplete(Boolean isSuccess);
     }
 
     public void addPost(Post post, String userEmail, AddPostListener listener) {
         modelFirebase.addPost(post, userEmail, new AddPostListener() {
             @Override
-            public void onComplete() {
+            public void onComplete(Boolean isSuccess) {
                 refreshPostsList();
-                listener.onComplete();
+                listener.onComplete(true);
             }
         });
     }
@@ -105,7 +105,7 @@ public class Model {
     /* ----------------------------------------------------- */
 
     public interface EditPostListener {
-        void onComplete();
+        void onComplete(Boolean isSuccess);
     }
 
     public void editPost(Post post, EditPostListener listener) {
@@ -115,7 +115,7 @@ public class Model {
     /* ----------------------------------------------------- */
 
     public interface DeletePostListener {
-        void onComplete();
+        void onComplete(Boolean isSuccess);
     }
 
     public void deletePost(Post post, DeletePostListener listener) {
@@ -187,7 +187,7 @@ public class Model {
     /* ----------------------------------------------------- */
 
     public interface AddUserDetailsListener {
-        void onComplete();
+        void onComplete(Boolean isSuccess);
     }
 
     public void addUserDetails(User user, AddUserDetailsListener listener) {

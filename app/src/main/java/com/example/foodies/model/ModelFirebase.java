@@ -76,11 +76,11 @@ public class ModelFirebase {
 
                                     db.collection(User.COLLECTION_NAME)
                                             .document(userEmail).set(updateJson, SetOptions.merge())
-                                            .addOnSuccessListener(command -> listener.onComplete())
-                                            .addOnFailureListener(command -> listener.onComplete());
+                                            .addOnSuccessListener(command -> listener.onComplete(true))
+                                            .addOnFailureListener(command -> listener.onComplete(false));
                                 }
                             });
-                }).addOnFailureListener(e -> listener.onComplete());
+                }).addOnFailureListener(e -> listener.onComplete(false));
     }
 
     /* -------------------------------------------------------------------------- */
@@ -91,8 +91,8 @@ public class ModelFirebase {
         db.collection(Post.COLLECTION_NAME)
                 .document(post.getId())
                 .set(json)
-                .addOnSuccessListener(unused -> listener.onComplete())
-                .addOnFailureListener(e -> listener.onComplete());
+                .addOnSuccessListener(unused -> listener.onComplete(true))
+                .addOnFailureListener(e -> listener.onComplete(false));
     }
 
     /* -------------------------------------------------------------------------- */
@@ -119,9 +119,13 @@ public class ModelFirebase {
 
                         db.collection(User.COLLECTION_NAME)
                                 .document(post.getUserEmail())
-                                .set(userJson).addOnCompleteListener(command2 -> listener.onComplete());
+                                .set(userJson)
+                                .addOnCompleteListener(command2 -> listener.onComplete(true))
+                                .addOnFailureListener(command2 -> listener.onComplete(false));
                     });
-                });
+                })
+                .addOnFailureListener(command -> listener.onComplete(false))
+        ;
     }
 
     /* -------------------------------------------------------------------------- */
@@ -162,7 +166,9 @@ public class ModelFirebase {
                         listener.onComplete(idToSend.toString());
 
                     }
-                });
+                }).addOnFailureListener(command ->
+                Toast.makeText(MyApplication.getContext(), "Internet connection problem, please try again later", Toast.LENGTH_SHORT).show()
+        );
     }
 
     /*
@@ -190,11 +196,11 @@ public class ModelFirebase {
                                 .addOnFailureListener(failure -> {
                                     Toast.makeText(MyApplication.getContext(), "Internet connection problem, please try again later", Toast.LENGTH_SHORT).show();
                                 });
-                    }
-                    else{
+                    } else {
                         listener.onComplete(false);
                     }
-                });
+                })
+        ;
     }
 
     /* -------------------------------------------------------------------------- */
@@ -210,7 +216,8 @@ public class ModelFirebase {
                     } else {
                         listener.onComplete(null);
                     }
-                });
+                })
+        .addOnFailureListener(command -> Toast.makeText(MyApplication.getContext(), "Internet connection problem, please try again later", Toast.LENGTH_SHORT).show());
     }
 
     /* -------------------------------------------------------------------------- */
@@ -220,21 +227,24 @@ public class ModelFirebase {
         Map<String, Object> json = user.toJson();
 
         db.collection(User.COLLECTION_NAME).document(user.getEmail())
-                .get().addOnCompleteListener(task -> {
+                .get()
+                .addOnCompleteListener(task -> {
 
-            if (task.getResult().getData().get("counter") != null) {
-                json.put("counter", task.getResult().getData().get("counter"));
-            } else {
-                json.put("counter", 0);
-            }
+                    if (task.getResult().getData().get("counter") != null) {
+                        json.put("counter", task.getResult().getData().get("counter"));
+                    } else {
+                        json.put("counter", 0);
+                    }
 
-            db.collection(User.COLLECTION_NAME)
-                    .document(user.getEmail())
-                    .set(json)
-                    .addOnSuccessListener(unused -> listener.onComplete())
-                    .addOnFailureListener(e -> listener.onComplete());
+                    db.collection(User.COLLECTION_NAME)
+                            .document(user.getEmail())
+                            .set(json)
+                            .addOnSuccessListener(unused -> listener.onComplete(true))
+                            .addOnFailureListener(e -> listener.onComplete(false));
 
-        });
+                })
+                .addOnFailureListener(command -> listener.onComplete(false))
+        ;
     }
 
     /* -------------------------------------------------------------------------- */
@@ -267,7 +277,10 @@ public class ModelFirebase {
                         user = User.create(task.getResult().getData());
                     }
                     listener.onComplete(user);
-                });
+                })
+                .addOnFailureListener(command -> Toast.makeText(MyApplication.getContext(), "Internet connection problem, please try again later", Toast.LENGTH_SHORT).show()
+                )
+        ;
     }
 
     /*
@@ -294,7 +307,9 @@ public class ModelFirebase {
                         Uri downloadUrl = uri;
                         listener.onComplete(downloadUrl.toString());
                     });
-                });
+                })
+                .addOnFailureListener(command -> Toast.makeText(MyApplication.getContext(), "Internet connection problem, please try again later", Toast.LENGTH_SHORT).show())
+        ;
     }
 
 

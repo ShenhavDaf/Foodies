@@ -5,6 +5,7 @@ import static android.app.Activity.RESULT_OK;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,12 +20,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Post;
 import com.squareup.picasso.Picasso;
+
 import java.io.InputStream;
 import java.util.List;
 
@@ -35,6 +39,8 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
     Spinner category, rate;
     Button saveBtn;
     ImageButton cameraBtn, galleryBtn, deleteBtn;
+    ProgressBar progressBar;
+
     String postId, sourcePage, currUserEmail;
     Post currPost;
     Bitmap imageBitmap;
@@ -63,6 +69,8 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
         review = view.findViewById(R.id.editpost_review_et);
         dishImg = view.findViewById(R.id.editpost_dishimg_img);
         rate = view.findViewById(R.id.editpost_rate_spinner);
+        progressBar = view.findViewById(R.id.editpost_progressBar);
+        progressBar.setVisibility(View.GONE);
 
         /* *************************************** Current Post *************************************** */
 
@@ -160,7 +168,9 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
 
     private void save(String postID, View v) {
 
+        progressBar.setVisibility(View.VISIBLE);
         saveBtn.setEnabled(false);
+        deleteBtn.setEnabled(false);
 
         String name = dishName.getText().toString();
         String res = restaurent.getText().toString();
@@ -186,9 +196,16 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
 
     private void editNavigation(Post newPost, View v) {
 
-        Model.instance.editPost(newPost, () -> {
-            Model.instance.refreshPostsList();
-            navigateTo(v);
+        Model.instance.editPost(newPost, (isSuccess) -> {
+            if (isSuccess) {
+                Model.instance.refreshPostsList();
+                navigateTo(v);
+            } else {
+                progressBar.setVisibility(View.GONE);
+                saveBtn.setEnabled(true);
+                deleteBtn.setEnabled(true);
+                Toast.makeText(MyApplication.getContext(), "Internet connection problem, please try again later", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -196,20 +213,34 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
 
     private void delete(String postID, View v) {
 
+        progressBar.setVisibility(View.VISIBLE);
+        saveBtn.setEnabled(false);
+        deleteBtn.setEnabled(false);
+
         Post newPost = Model.instance.getPostByIdLocalDB(postID);
 
-        Model.instance.deletePost(newPost, () -> {
-            Model.instance.refreshPostsList();
+        Model.instance.deletePost(newPost, (isSuccess) -> {
 
-            List<String> l = Model.instance.getCurrentUserModel().getPostList();
-            l.remove(postID);
-            Model.instance.getCurrentUserModel().setPostList(l);
+            if (isSuccess) {
 
-           navigateTo(v);
+                Model.instance.refreshPostsList();
+
+                List<String> l = Model.instance.getCurrentUserModel().getPostList();
+                l.remove(postID);
+                Model.instance.getCurrentUserModel().setPostList(l);
+
+                navigateTo(v);
+            }
+            else{
+                progressBar.setVisibility(View.GONE);
+                saveBtn.setEnabled(true);
+                deleteBtn.setEnabled(true);
+                Toast.makeText(MyApplication.getContext(), "Internet connection problem, please try again later", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
-    public void navigateTo(View v){
+    public void navigateTo(View v) {
         if (sourcePage.equals("homepage")) {
             Navigation.findNavController(v)
                     .navigate(EditPostFragmentDirections.actionGlobalHomePage());

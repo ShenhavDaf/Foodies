@@ -11,6 +11,7 @@
         android:layout_height="match_parent">
 
         <!--*********************************** Title ***********************************-->
+
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -87,38 +88,14 @@
             app:layout_constraintTop_toBottomOf="@+id/restaurant_name_layout">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/signin_name_et"
+                android:id="@+id/editpost_address_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/restaurant_address_input"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--*********************************** Category ***********************************-->
-
         <!--*********************************** Description ***********************************-->
-
-        <TextView
-            android:id="@+id/category_lable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="220dp"
-            android:layout_marginTop="16dp"
-            android:text="Category:"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/restaurant_address_layout" />
-
-        <Spinner
-            android:id="@+id/editpost_category_spinner"
-            android:layout_width="145dp"
-            android:layout_height="42dp"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.693"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/restaurant_address_layout" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/description_layout"
@@ -128,7 +105,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_category_spinner">
+            app:layout_constraintTop_toBottomOf="@+id/restaurant_address_layout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editpost_description_et"
@@ -158,6 +135,40 @@
                 android:hint="@string/your_review" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!--*********************************** Category ***********************************-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/category_layout"
+            android:layout_width="394dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/myGray"
+            app:layout_constraintTop_toBottomOf="@+id/review_layout">
+
+            <TextView
+                android:id="@+id/category_lable"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:text="Category:"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/editpost_category_spinner"
+                android:layout_width="254dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/category_lable"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <!--*********************************** image , gallery , camera , rate ***********************************-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -168,7 +179,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/review_layout">
+            app:layout_constraintTop_toBottomOf="@+id/category_layout">
 
             <TextView
                 android:id="@+id/textView24"
@@ -274,6 +285,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_rate_layout"
             app:layout_constraintVertical_bias="0.0" />
+
+        <ProgressBar
+            android:id="@+id/editpost_progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="94dp"
+            android:layout_height="98dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.326" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

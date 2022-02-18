@@ -87,6 +87,9 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         rateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         rate.setAdapter(rateAdapter);
 
+        progressBar = view.findViewById(R.id.newpost_progressBar);
+        progressBar.setVisibility(View.GONE);
+
         /* ------------------------------------ Button ------------------------------------ */
 
         postBtn = view.findViewById(R.id.newpost_post_btn);
@@ -105,8 +108,6 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
             OpenGallery();
         });
 
-        progressBar = view.findViewById(R.id.newpost_progressBar);
-        progressBar.setVisibility(View.GONE);
 
         return view;
     }
@@ -153,11 +154,19 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
     /* ********************************* Functions ********************************* */
 
     private void myNavigation(Post newPost) {
-        Model.instance.addPost(newPost, currUserEmail, () -> {
-            List<String> l = Model.instance.getCurrentUserModel().getPostList();
-            l.add(newPost.getId());
-            Model.instance.getCurrentUserModel().setPostList(l);
-            Navigation.findNavController(dishName).navigateUp();
+        Model.instance.addPost(newPost, currUserEmail, (isSuccess) -> {
+
+            if(isSuccess) {
+                List<String> l = Model.instance.getCurrentUserModel().getPostList();
+                l.add(newPost.getId());
+                Model.instance.getCurrentUserModel().setPostList(l);
+                Navigation.findNavController(dishName).navigateUp();
+            }
+            else{
+                progressBar.setVisibility(View.GONE);
+                postBtn.setEnabled(true);
+                Toast.makeText(MyApplication.getContext(), "Internet connection problem, please try again later", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
