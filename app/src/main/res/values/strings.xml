@@ -44,11 +44,13 @@
     <string name="dish_name_input">Dish Name:</string>
     <string name="restaurant_name_input">Restaurant Name:</string>
     <string name="restaurant_address_input">Restaurant address:</string>
-    <string name="category_lable">Category:</string>
+    <string name="category_input">Category:</string>
     <string name="dish_description_input">Dish description:</string>
     <string name="your_review">Your review:</string>
     <string name="image_lable">Image:</string>
     <string name="rate_lable">Rate:</string>
     <string name="save_changes">Save Changes</string>
+    <string name="description_input">Description:</string>
+    <string name="review_input">Review:</string>
 
 </resources>

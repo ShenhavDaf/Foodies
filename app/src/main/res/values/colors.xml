@@ -24,5 +24,7 @@
     <color name="ActionBar9">#6DA5AF</color>
     <color name="spinner_backgroung">#2FA1A1A1</color>
 
+    <color name="inputBox">#30087285</color>
+<color name="inputBlackTextAtDisabled">#3C3434</color>
 
 </resources>

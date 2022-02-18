@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Post;
 import com.squareup.picasso.Picasso;
@@ -47,6 +49,11 @@ public class PostPageFragment extends Fragment {
         rate = view.findViewById(R.id.postpage_rate_tv);
         dishImage = view.findViewById(R.id.postpage_dishimage_imv);
 
+
+        dishName.setEnabled(false);
+        restaurant.setEnabled(false);
+        address.setEnabled(false);
+        category.setEnabled(false);
         description.setEnabled(false);
         review.setEnabled(false);
         rate.setClickable(false);
@@ -99,24 +106,22 @@ public class PostPageFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.bottom_nav_menu,menu);
+        inflater.inflate(R.menu.bottom_nav_menu, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.NewPostFragment) {
+        if (item.getItemId() == R.id.NewPostFragment) {
             NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalNewPostFragment());
             return true;
         }
-        if(item.getItemId() == R.id.ProfileFragment) {
+        if (item.getItemId() == R.id.ProfileFragment) {
             NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalProfileFragment());
             return true;
-        }
-        else if(item.getItemId() == R.id.HomePageFragment){
+        } else if (item.getItemId() == R.id.HomePageFragment) {
             NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalHomePage());
             return true;
-        }
-        else{
+        } else {
             return super.onOptionsItemSelected(item);
         }
     }

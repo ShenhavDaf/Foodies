@@ -8,101 +8,207 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
-            android:id="@+id/postpage_category_tv"
-            android:layout_width="188dp"
-            android:layout_height="33dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView14"
+        <!--*********************************** Edit button ***********************************-->
+
+        <!--*********************************** Dish image ***********************************-->
+
+        <!--*********************************** Dish name ***********************************-->
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/postpage_dishimage_imv"
+            android:layout_width="306dp"
+            android:layout_height="205dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_place"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView14" />
+            app:layout_constraintEnd_toStartOf="@+id/postpage_editpost_btn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize8Percent" />
+
+        <ImageButton
+            android:id="@+id/postpage_editpost_btn"
+            android:layout_width="54dp"
+            android:layout_height="61dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:padding="15dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/edit_icon"
+            android:tooltipText="Edit Post"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:id="@+id/postpage_dishname_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:textSize="30sp"
+            android:textAlignment="center"
+            android:textColor="@color/ActionBar9"
+            android:textSize="40sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/postpage_dishimage_imv" />
 
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
+        <!--*********************************** Restaurant ***********************************-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/post_restaurant_layout"
+            style="@style/myInputText"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
-            android:text="Restaurant:"
+            android:layout_marginEnd="15dp"
             android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/postpage_dishname_tv" />
+            app:layout_constraintTop_toBottomOf="@+id/postpage_dishname_tv">
 
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:text="Address:"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/postpage_restaurent_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:ems="10"
+                android:hint="@string/restaurant_name_input"
+                android:inputType="text"
+                android:textColor="@color/inputBlackTextAtDisabled"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textView19"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:text="Category:"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+        <!--*********************************** Address ***********************************-->
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout"
-            android:layout_width="395dp"
+            android:id="@+id/post_address_layout"
+            style="@style/myInputText"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="15dp"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView14">
+            app:layout_constraintTop_toBottomOf="@+id/post_restaurant_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/postpage_address_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:ems="10"
+                android:hint="@string/restaurant_address_input"
+                android:textColor="@color/inputBlackTextAtDisabled"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--*********************************** Description ***********************************-->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/post_description_layout"
+            style="@style/myInputText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="15dp"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/post_address_layout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/postpage_description_tv"
-                android:layout_width="395dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Description:" />
+                android:layout_marginEnd="16dp"
+                android:ems="10"
+                android:textColor="@color/inputBlackTextAtDisabled"
+                android:hint="@string/description_input" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!--*********************************** Review ***********************************-->
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/restaurant_name_layout"
-            android:layout_width="395dp"
+            android:id="@+id/post_review_layout"
+            style="@style/myInputText"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="15dp"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+            app:layout_constraintTop_toBottomOf="@+id/post_description_layout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/postpage_review_tv"
-                android:layout_width="395dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Review:" />
+                android:layout_marginEnd="16dp"
+                android:ems="10"
+                android:textColor="@color/inputBlackTextAtDisabled"
+                android:hint="@string/review_input" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="wrap_content"
+        <!--*********************************** Category ***********************************-->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/post_categoy_layout"
+            style="@style/myInputText"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Rate:"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="15dp"
             android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/restaurant_name_layout" />
+            app:layout_constraintTop_toBottomOf="@+id/post_review_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/postpage_category_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:ems="10"
+                android:textColor="@color/inputBlackTextAtDisabled"
+                android:hint="@string/category_input" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <!--*********************************** Rate ***********************************-->
+
+        <TextView
+            android:id="@+id/post_rate_tv"
+            android:layout_width="73dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/rate_lable"
+            android:textColor="@color/ActionBar9"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/post_categoy_layout" />
 
         <RatingBar
             android:id="@+id/postpage_rate_tv"
@@ -114,54 +220,8 @@
             android:progressTint="@color/ratingBarPrimary"
             android:secondaryProgressTint="@color/ratingBarSecondary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView17"
-            app:layout_constraintTop_toBottomOf="@+id/restaurant_name_layout" />
-
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/postpage_dishimage_imv"
-            android:layout_width="306dp"
-            android:layout_height="205dp"
-            android:layout_marginTop="8dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/image_place"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.406"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize8Percent" />
-
-        <TextView
-            android:id="@+id/postpage_restaurent_tv"
-            android:layout_width="188dp"
-            android:layout_height="33dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView12"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.354"
-            app:layout_constraintStart_toEndOf="@+id/textView12" />
-
-        <TextView
-            android:id="@+id/postpage_address_tv"
-            android:layout_width="188dp"
-            android:layout_height="33dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView13"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView13" />
-
-        <ImageButton
-            android:id="@+id/postpage_editpost_btn"
-            android:layout_width="54dp"
-            android:layout_height="61dp"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:padding="15dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/edit_icon"
-            android:tooltipText="Edit Post"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/postpage_dishimage_imv"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/post_rate_tv"
+            app:layout_constraintTop_toBottomOf="@+id/post_categoy_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>
