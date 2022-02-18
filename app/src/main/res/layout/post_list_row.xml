@@ -22,67 +22,71 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="6dp"
             android:layout_marginBottom="8dp"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.206"
+            app:layout_constraintVertical_bias="0.064"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
             app:srcCompat="@drawable/avatar" />
 
         <TextView
             android:id="@+id/listrow_username_tv"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="20dp"
+            android:layout_width="256dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="18dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="80dp"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/listrow_avatar_imv"
             app:layout_constraintTop_toTopOf="parent" />
 
         <RatingBar
             android:id="@+id/listrow_ratingBar"
-            android:layout_width="48dp"
-            android:layout_height="46dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="30dp"
+            android:layout_width="248dp"
+            android:layout_height="63dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
             android:elevation="8dp"
             android:progressTint="@color/ratingBarPrimary"
             android:secondaryProgressTint="@color/ratingBarSecondary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.85"
+            app:layout_constraintStart_toEndOf="@+id/listrow_rate_tv"
+            app:layout_constraintTop_toBottomOf="@+id/listrow_post_img" />
 
         <TextView
             android:id="@+id/listrow_description_tv"
-            android:layout_width="0dp"
-            android:layout_height="29dp"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="4dp"
+            android:layout_width="258dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/listrow_avatar_imv"
             app:layout_constraintTop_toBottomOf="@+id/listrow_username_tv" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/listrow_post_img"
-            android:layout_width="150dp"
-            android:layout_height="115dp"
+            android:layout_width="335dp"
+            android:layout_height="153dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.423"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/listrow_description_tv"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_bias="0.018"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize8Percent"
             app:srcCompat="@drawable/image_place" />
 
@@ -90,16 +94,14 @@
             android:id="@+id/listrow_rate_tv"
             android:layout_width="20dp"
             android:layout_height="46dp"
-            android:layout_marginStart="35dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginStart="60dp"
             android:text="1"
             android:textAlignment="center"
             android:textSize="40sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/listrow_ratingBar"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/listrow_post_img" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/listrow_post_img" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
