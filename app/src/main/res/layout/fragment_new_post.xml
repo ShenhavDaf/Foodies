@@ -10,226 +10,256 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/img_tv"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dishname_Layout"
+            android:layout_width="409dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="84dp"
-            android:text="Image:"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/reviwe_tv" />
-
-        <TextView
-            android:id="@+id/desc_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:text="Description:"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/category_tv" />
-
-        <TextView
-            android:id="@+id/reviwe_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="56dp"
-            android:text="Review:"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/desc_tv" />
-
-        <TextView
-            android:id="@+id/res_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
-            android:text="Restaurant: "
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dish_tv" />
-
-        <TextView
-            android:id="@+id/addr_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="2dp"
             android:layout_marginTop="20dp"
-            android:text="Address: "
-            android:textSize="24sp"
+            android:layout_marginEnd="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/res_tv" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/dish_tv"
-            android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/newpost_dishname_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/dish_name_input" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/resaurant_Layout"
+            android:layout_width="409dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="2dp"
             android:layout_marginTop="20dp"
-            android:text="Dish Name:"
-            android:textSize="24sp"
+            android:layout_marginEnd="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+            app:layout_constraintTop_toBottomOf="@+id/dishname_Layout">
 
-        <TextView
-            android:id="@+id/category_tv"
-            android:layout_width="169dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="28dp"
-            android:text="Dish Category: "
-            android:textSize="24sp"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/newpost_restaurant_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/restaurant_name_input" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/address_Layout"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addr_tv" />
+            app:layout_constraintTop_toBottomOf="@+id/resaurant_Layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/newpost_address_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/restaurant_address_input" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/description_Layout"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/address_Layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/newpost_desc_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/dish_description_input" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/review_Layout"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description_Layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/newpost_review_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/your_review" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/category_layout"
+            android:layout_width="403dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/myGray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/review_Layout">
+
+            <TextView
+                android:id="@+id/category_tv"
+                android:layout_width="98dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:text="Category:"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/newpost_category_spinner"
+                android:layout_width="167dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/category_tv"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/image_layout"
+            android:layout_width="394dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rate_layout">
+
+            <TextView
+                android:id="@+id/img_tv"
+                android:layout_width="73dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="16dp"
+                android:text="Image:"
+                android:textColor="@color/ActionBar9"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/newpost_img"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/newpost_img"
+                android:layout_width="174dp"
+                android:layout_height="114dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="4dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/image_place"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/newpost_camera_btn"
+
+                app:layout_constraintStart_toEndOf="@+id/img_tv"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize8Percent" />
+
+            <ImageButton
+                android:id="@+id/newpost_camera_btn"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="4dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:padding="10dp"
+                android:scaleType="centerCrop"
+                android:src="@android:drawable/ic_menu_camera"
+                app:layout_constraintEnd_toStartOf="@+id/newpost_gallery_btn"
+                app:layout_constraintStart_toEndOf="@+id/newpost_img"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <ImageButton
+                android:id="@+id/newpost_gallery_btn"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="25dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:padding="10dp"
+                android:scaleType="centerCrop"
+                android:src="@android:drawable/ic_menu_gallery"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/newpost_camera_btn"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rate_layout"
+            android:layout_width="403dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/myGray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/category_layout">
+
+            <TextView
+                android:id="@+id/rate_tv"
+                android:layout_width="81dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="8dp"
+                android:text="Rate:"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/newpost_rate_spinner"
+                android:layout_width="167dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/rate_tv"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
             android:id="@+id/newpost_post_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_width="203dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="20dp"
             android:text="Post"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.956"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/newpost_rate_spinner" />
-
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Add New Post"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/newpost_img"
-            android:layout_width="133dp"
-            android:layout_height="85dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="28dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/image_place"
-            app:layout_constraintStart_toEndOf="@+id/img_tv"
-            app:layout_constraintTop_toBottomOf="@+id/newpost_review_et"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize8Percent" />
-
-        <Spinner
-            android:id="@+id/newpost_rate_spinner"
-            android:layout_width="100dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="36dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/rate_tv"
-            app:layout_constraintTop_toBottomOf="@+id/newpost_img"
-            app:layout_constraintVertical_bias="0.277" />
-
-        <TextView
-            android:id="@+id/rate_tv"
-            android:layout_width="62dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="20dp"
-            android:text="Rate:"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_tv"
-            app:layout_constraintVertical_bias="0.474" />
-
-        <EditText
-            android:id="@+id/newpost_dishname_et"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_marginEnd="28dp"
-            android:background="#46B7B9BA"
-            android:ems="10"
-            android:inputType="textPersonName"
-            app:layout_constraintBaseline_toBaselineOf="@+id/dish_tv"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <EditText
-            android:id="@+id/newpost_address_et"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_marginEnd="28dp"
-            android:background="#46B7B9BA"
-            android:ems="10"
-            android:inputType="textPersonName"
-            app:layout_constraintBaseline_toBaselineOf="@+id/addr_tv"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <EditText
-            android:id="@+id/newpost_restaurant_et"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_marginEnd="28dp"
-            android:background="#46B7B9BA"
-            android:ems="10"
-            android:inputType="textPersonName"
-            app:layout_constraintBaseline_toBaselineOf="@+id/res_tv"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <Spinner
-            android:id="@+id/newpost_category_spinner"
-            android:layout_width="167dp"
-            android:layout_height="43dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.266"
-            app:layout_constraintStart_toEndOf="@+id/category_tv"
-            app:layout_constraintTop_toBottomOf="@+id/newpost_address_et" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/newpost_desc_et"
-            android:layout_width="220dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:background="#46B7B9BA"
-            app:layout_constraintStart_toEndOf="@+id/desc_tv"
-            app:layout_constraintTop_toBottomOf="@+id/newpost_category_spinner" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/newpost_review_et"
-            android:layout_width="218dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="68dp"
-            android:layout_marginTop="20dp"
-            android:background="#46B7B9BA"
-            app:layout_constraintStart_toEndOf="@+id/reviwe_tv"
-            app:layout_constraintTop_toBottomOf="@+id/newpost_desc_et" />
-
-        <ImageButton
-            android:id="@+id/newpost_camera_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:src="@android:drawable/ic_menu_camera"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.284"
-            app:layout_constraintStart_toEndOf="@+id/newpost_img"
-            app:layout_constraintTop_toBottomOf="@+id/newpost_review_et" />
-
-        <ImageButton
-            android:id="@+id/newpost_gallery_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:src="@android:drawable/ic_menu_gallery"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.176"
-            app:layout_constraintStart_toEndOf="@+id/newpost_camera_btn"
-            app:layout_constraintTop_toBottomOf="@+id/newpost_review_et" />
+            app:layout_constraintTop_toBottomOf="@+id/image_layout" />
 
         <ProgressBar
             android:id="@+id/newpost_progressBar"
@@ -242,7 +272,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.38" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
