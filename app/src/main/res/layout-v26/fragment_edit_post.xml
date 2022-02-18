@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <!--*********************************** Title ***********************************-->
         <TextView
@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Edit Post"
+            android:text="@string/edit_post_title"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -74,6 +74,8 @@
 
         <!--*********************************** Address ***********************************-->
 
+        <!--*********************************** Category ***********************************-->
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/restaurant_address_layout"
             android:layout_width="409dp"
@@ -87,38 +89,56 @@
             app:layout_constraintTop_toBottomOf="@+id/restaurant_name_layout">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/signin_name_et"
+                android:id="@+id/editpost_address_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:ems="10"
                 android:hint="@string/restaurant_address_input"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--*********************************** Category ***********************************-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/category_layout"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/restaurant_address_layout">
+
+            <TextView
+                android:id="@+id/category_lable"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="16dp"
+                android:text="@string/category_lable"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/editpost_category_spinner"
+                android:layout_width="177dp"
+                android:layout_height="48dp"
+
+                android:background="@color/spinner_backgroung"
+                android:ems="10"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.57"
+                app:layout_constraintStart_toEndOf="@+id/category_lable"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!--*********************************** Description ***********************************-->
-
-        <TextView
-            android:id="@+id/category_lable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="220dp"
-            android:layout_marginTop="16dp"
-            android:text="Category:"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/restaurant_address_layout" />
-
-        <Spinner
-            android:id="@+id/editpost_category_spinner"
-            android:layout_width="145dp"
-            android:layout_height="42dp"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.693"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/restaurant_address_layout" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/description_layout"
@@ -128,7 +148,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_category_spinner">
+            app:layout_constraintTop_toBottomOf="@+id/category_layout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editpost_description_et"
@@ -174,7 +194,7 @@
                 android:id="@+id/textView24"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Image:"
+                android:text="@string/image_lable"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -197,26 +217,31 @@
                 android:layout_marginTop="16dp"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:padding="10dp"
                 android:scaleType="centerCrop"
                 android:src="@android:drawable/ic_menu_gallery"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/editpost_camera_btn"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
             <ImageButton
                 android:id="@+id/editpost_camera_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="16dp"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:padding="10dp"
                 android:src="@android:drawable/ic_menu_camera"
                 android:tooltipText="Open Camera"
                 app:layout_constraintStart_toEndOf="@+id/editpost_dishimg_img"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck" />
 
 
             <Spinner
@@ -225,7 +250,7 @@
                 android:layout_height="42dp"
                 android:layout_marginStart="44dp"
                 android:layout_marginTop="16dp"
-                android:background="#2FA1A1A1"
+                android:background="@color/spinner_backgroung"
                 app:layout_constraintStart_toEndOf="@+id/textView25"
                 app:layout_constraintTop_toBottomOf="@+id/editpost_dishimg_img" />
 
@@ -235,7 +260,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Rate:"
+                android:text="@string/rate_lable"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editpost_dishimg_img" />
@@ -253,6 +278,7 @@
             android:layout_marginBottom="10dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
+            android:focusable="true"
             android:padding="8dp"
             android:scaleType="centerCrop"
             android:src="@drawable/delete_icon"
@@ -260,7 +286,8 @@
             app:layout_constraintBottom_toTopOf="@+id/dishname_layout"
             app:layout_constraintStart_toEndOf="@+id/title"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <Button
             android:id="@+id/editpost_save_btn"

@@ -4,8 +4,8 @@ import static android.app.Activity.RESULT_OK;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,7 +24,6 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.foodies.model.Model;
-import com.example.foodies.model.Post;
 import com.example.foodies.model.User;
 
 import java.io.InputStream;
@@ -123,7 +122,7 @@ public class SignUpFragment extends Fragment {
 
     /* ************************************** Function ************************************** */
 
-    private void myNavigation(View view, User newUserDetails, String email, String password) {
+    private void myNavigation(User newUserDetails, String email, String password) {
         Model.instance.addNewUser(newUserDetails, email, password, () -> {
             Model.instance.setCurrentUserModel(newUserDetails);
             startActivity(new Intent(getContext(), MainActivity.class));
@@ -183,6 +182,13 @@ public class SignUpFragment extends Fragment {
         joinBtn.setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
 
+        String msg = "Welcome to Foodies ♥";
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+
+        AlertDialog alert = builder.create();
+        alert.setTitle("\n" + msg + "\n");
+        alert.show();
+
         /* ------------------------------------ Navigation ------------------------------------ */
 
         User newUserDetails = new User(email, fullname, city, image);
@@ -190,10 +196,10 @@ public class SignUpFragment extends Fragment {
         if (imageBitmap != null) {
             Model.instance.setImage(imageBitmap, email + ".jpg", "/users_avatars/", url -> {
                 newUserDetails.setImage(url);
-                myNavigation(view, newUserDetails, email, password);
+                myNavigation(newUserDetails, email, password);
             });
         } else {
-            myNavigation(view, newUserDetails, email, password);
+            myNavigation(newUserDetails, email, password);
         }
     }
 }

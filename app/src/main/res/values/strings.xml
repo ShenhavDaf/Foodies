@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">Foodies</string>
+
+    <!--intro page-->
     <string name="into_text"><![CDATA[By Shenhav & Lilach]]></string>
+
+    <!--login page-->
     <string name="password_err"> password must have at least 6 characters </string>
 
+    <!--spinner/dropdown of rating-->
     <string-array name="postRating">
         <item>1</item>
         <item>2</item>
@@ -11,6 +16,7 @@
         <item>5</item>
     </string-array>
 
+    <!--spinner/dropdown of categories-->
     <string-array name="postCategories">
         <item>Asian</item>
         <item>Breakfast</item>
@@ -30,5 +36,17 @@
         <item>Vegan</item>
         <item>Vegetarian</item>
     </string-array>
+
+    <!--edit post page-->
+    <string name="edit_post_title">Edit Post</string>
+    <string name="dish_name_input">Dish Name:</string>
+    <string name="restaurant_name_input">Restaurant Name:</string>
+    <string name="restaurant_address_input">Restaurant address:</string>
+    <string name="category_lable">Category:</string>
+    <string name="dish_description_input">Dish description:</string>
+    <string name="your_review">Your review:</string>
+    <string name="image_lable">Image:</string>
+    <string name="rate_lable">Rate:</string>
+    <string name="save_changes">Save Changes</string>
 
 </resources>

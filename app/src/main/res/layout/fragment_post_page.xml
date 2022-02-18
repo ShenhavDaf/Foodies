@@ -79,7 +79,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout2"
+            android:id="@+id/restaurant_name_layout"
             android:layout_width="395dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -102,7 +102,7 @@
             android:text="Rate:"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+            app:layout_constraintTop_toBottomOf="@+id/restaurant_name_layout" />
 
         <RatingBar
             android:id="@+id/postpage_rate_tv"
@@ -115,7 +115,7 @@
             android:secondaryProgressTint="@color/ratingBarSecondary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView17"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+            app:layout_constraintTop_toBottomOf="@+id/restaurant_name_layout" />
 
 
         <com.google.android.material.imageview.ShapeableImageView

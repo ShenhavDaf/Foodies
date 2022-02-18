@@ -1,15 +1,11 @@
 package com.example.foodies.login;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavHost;
-import androidx.navigation.NavHostController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
-
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.example.foodies.HomePageFragmentDirections;
 import com.example.foodies.MainActivity;
 import com.example.foodies.R;
 import com.example.foodies.model.Model;
@@ -41,7 +35,7 @@ public class NewLoginFragment extends Fragment {
             layoutName = R.layout.horizontal_fragment_log_in;
         }
 
-        View view = inflater.inflate(layoutName, container, false);
+        View view = inflater.inflate(R.layout.fragment_new_login, container, false);
         emailEt = view.findViewById(R.id.newlogin_email_et);
         passwordEt = view.findViewById(R.id.newlogin_password_et);
         emailInputEt = view.findViewById(R.id.newlogin_input_email_et);
@@ -104,12 +98,23 @@ public class NewLoginFragment extends Fragment {
         Model.instance.UserLogin(localMail, localPass, userID -> {
 
             System.out.println("the userId is ----------------------------- " + userID);
+//            if(userID == null){
+//                emailInputEt.setError("Please recheck your email and password");
+//                emailInputEt.requestFocus();
+//                passwordInputEt.setError("Please recheck your email and password");
+//                passwordInputEt.requestFocus();
+//
+//            }
             if(userID == null){
-                emailInputEt.setError("Please recheck your email and password");
-                emailInputEt.requestFocus();
-                passwordInputEt.setError("Please recheck your email and password");
-                passwordInputEt.requestFocus();
+                String msg = "Username or password incorrect!!\nPlease try again 😊";
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+                builder.setNegativeButton("OK", (dialog, which) -> dialog.cancel());
+
+                AlertDialog alert = builder.create();
+                alert.setTitle("Error");
+                alert.setMessage("\n"+msg+"\n");
+                alert.show();
             }
             else{
                 Model.instance.getUserByEmail(localMail, user -> {

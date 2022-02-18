@@ -1,122 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".login.NewLoginFragment">
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="393dp"
-        android:layout_height="166dp"
-        android:layout_marginTop="28dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/new_logo" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/newlogin_joinbtn_tv"
-        style="@style/TextAppearance.AppCompat.Headline"
-        android:layout_width="163dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="30dp"
-        android:background="#FFFFFF"
-        android:clickable="true"
-        android:ellipsize="middle"
-        android:text="JOIN US"
-        android:textColor="#0097A7"
-        android:textColorHighlight="@color/ActionBar9"
-        android:textColorLink="@color/ActionBar9"
-        android:textSize="38sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_tv"
-        app:layout_constraintVertical_bias="0.067" />
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="350dp"
+            android:layout_height="166dp"
+            android:layout_marginTop="28dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/new_logo" />
 
-    <TextView
-        android:id="@+id/main_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Not a foodie yet?"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newlogin_login_btn" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout6"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        app:boxStrokeColor="@color/ActionBar9"
-        app:hintTextColor="#73BEE4"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        tools:layout_editor_absoluteX="0dp"
-        app:errorEnabled="true"
-        tools:ignore="MissingConstraints">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/newlogin_input_email_et"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/main_tv"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
+            android:layout_marginTop="30dp"
+            android:text="Not a foodie yet?"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newlogin_login_btn" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout6"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="350dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="30dp"
+            app:boxCornerRadiusBottomEnd="100dp"
+            app:boxCornerRadiusBottomStart="100dp"
+            app:boxCornerRadiusTopEnd="100dp"
+            app:boxCornerRadiusTopStart="100dp"
+            app:boxStrokeColor="@color/ActionBar9"
+            app:errorEnabled="true"
+            app:hintTextColor="@color/ActionBar1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView4">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/newlogin_input_email_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="   Email"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textColorHighlight="@color/ActionBar9"
+                android:textColorLink="@color/ActionBar9"
+                tools:layout_editor_absoluteX="53dp"
+                tools:layout_editor_absoluteY="214dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout7"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:boxCornerRadiusBottomEnd="100dp"
+            app:boxCornerRadiusBottomStart="100dp"
+            app:boxCornerRadiusTopEnd="100dp"
+            app:boxCornerRadiusTopStart="100dp"
+            app:boxStrokeColor="@color/ActionBar9"
+            app:hintTextColor="@color/ActionBar9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/newlogin_input_password_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="   Password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textColorHighlight="@color/ActionBar9"
+                android:textColorLink="@color/ActionBar9"
+                tools:layout_editor_absoluteX="5dp"
+                tools:layout_editor_absoluteY="318dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/newlogin_login_btn"
+            android:layout_width="115dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="60dp"
+            android:backgroundTint="@color/ActionBar9"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="Login..."
+            android:textColor="#4E4C4C"
             android:textColorHighlight="@color/ActionBar9"
             android:textColorLink="@color/ActionBar9"
-            tools:layout_editor_absoluteX="53dp"
-            tools:layout_editor_absoluteY="214dp"
-            android:maxLines="1"/>
+            android:textSize="20sp"
+            app:cornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout7" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout7"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:boxStrokeColor="@color/ActionBar9"
-        app:hintTextColor="@color/ActionBar9"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout6"
-        tools:layout_editor_absoluteX="2dp"
-        tools:ignore="MissingConstraints">
-
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/newlogin_input_password_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:inputType="textPassword"
+        <TextView
+            android:id="@+id/newlogin_joinbtn_tv"
+            style="@style/TextAppearance.AppCompat.Headline"
+            android:layout_width="147dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="30dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:ellipsize="middle"
+            android:longClickable="true"
+            android:text="JOIN US"
+            android:textColor="#0097A7"
             android:textColorHighlight="@color/ActionBar9"
             android:textColorLink="@color/ActionBar9"
-            tools:layout_editor_absoluteX="5dp"
-            tools:layout_editor_absoluteY="318dp"
-            android:maxLines="1"/>
+            android:textSize="38sp"
+            app:cornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_tv"
+            app:layout_constraintVertical_bias="0.067" />
 
-    </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/newlogin_login_btn"
-        android:layout_width="115dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:backgroundTint="@color/ActionBar9"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:text="Login..."
-        android:textColor="#4E4C4C"
-        android:textColorHighlight="@color/ActionBar9"
-        android:textColorLink="@color/ActionBar9"
-        android:textSize="20sp"
-        app:cornerRadius="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout7" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
