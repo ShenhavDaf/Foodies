@@ -4,7 +4,6 @@ import static android.app.Activity.RESULT_OK;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,26 +21,22 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.example.foodies.model.Model;
 import com.example.foodies.model.User;
-
 import java.io.InputStream;
-
 
 public class SignUpFragment extends Fragment {
 
     Button joinBtn;
-    EditText fullNameEt, emailEt, passwordEt, verifyEt, cityEt, imageEt;
+    EditText fullNameEt, emailEt, passwordEt, verifyEt, cityEt;
     ImageButton galleryBtn, cameraBtn;
     ImageView image;
     ProgressBar progressBar;
+    Bitmap imageBitmap;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_IMAGE_PICK = 2;
 
-
-    // TODO: add image
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,14 +66,13 @@ public class SignUpFragment extends Fragment {
             OpenGallery();
         });
 
-        joinBtn.setOnClickListener(v -> Join(view));
+        joinBtn.setOnClickListener(v -> Join());
 
         return view;
     }
 
 
     private void OpenGallery() {
-
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, REQUEST_IMAGE_PICK);
@@ -89,8 +83,6 @@ public class SignUpFragment extends Fragment {
         startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
     }
 
-    Bitmap imageBitmap;
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -98,9 +90,7 @@ public class SignUpFragment extends Fragment {
             if (resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
                 imageBitmap = (Bitmap) extras.get("data");
-                //not in interface
                 image.setImageBitmap(imageBitmap);
-
             }
         } else if (requestCode == REQUEST_IMAGE_PICK) {
             if (resultCode == RESULT_OK) {
@@ -108,13 +98,10 @@ public class SignUpFragment extends Fragment {
                     final Uri imageUri = data.getData();
                     final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
                     imageBitmap = BitmapFactory.decodeStream(imageStream);
-                    //not in interface
                     image.setImageBitmap(imageBitmap);
-
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(getContext(), "Failed", Toast.LENGTH_LONG).show();
-                    System.out.println("failed to get to the photo");
                 }
             }
         }
@@ -123,24 +110,44 @@ public class SignUpFragment extends Fragment {
     /* ************************************** Function ************************************** */
 
     private void myNavigation(User newUserDetails, String email, String password) {
-        Model.instance.addNewUser(newUserDetails, email, password, () -> {
-            Model.instance.setCurrentUserModel(newUserDetails);
-            startActivity(new Intent(getContext(), MainActivity.class));
-            getActivity().finish();
+        Model.instance.addNewUser(newUserDetails, email, password, (isSuccess) -> {
+
+            if(isSuccess == true){
+                String msg = "Welcome to Foodies ♥";
+                AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+
+                AlertDialog alert = builder.create();
+                alert.setTitle("\n" + msg + "\n");
+                alert.show();
+                Model.instance.setCurrentUserModel(newUserDetails);
+                startActivity(new Intent(getContext(), MainActivity.class));
+                getActivity().finish();
+            }
+            else{
+
+                String msg = "Email is already exist in our system. \n Please enter another email";
+                AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+                builder.setNegativeButton("OK", (dialog, which) -> dialog.cancel());
+
+                AlertDialog alert = builder.create();
+                alert.setTitle("\n" + msg + "\n");
+                alert.show();
+
+                progressBar.setVisibility(View.GONE);
+                joinBtn.setEnabled(true);
+
+            }
         });
     }
 
 
-    private void Join(View view) {
-        System.out.println("join button was clicked");
-
+    private void Join() {
         String fullname = fullNameEt.getText().toString();
         String email = emailEt.getText().toString();
         String password = passwordEt.getText().toString();
         String verify = verifyEt.getText().toString();
         String city = cityEt.getText().toString();
-//       TODO: String image = imageEt.getText().toString();
-        String image = null;
+        String image = "myImg";
 
         /* ********************************** Validations ********************************** */
 
@@ -182,12 +189,12 @@ public class SignUpFragment extends Fragment {
         joinBtn.setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
 
-        String msg = "Welcome to Foodies ♥";
-        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
-
-        AlertDialog alert = builder.create();
-        alert.setTitle("\n" + msg + "\n");
-        alert.show();
+//        String msg = "Welcome to Foodies ♥";
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+//
+//        AlertDialog alert = builder.create();
+//        alert.setTitle("\n" + msg + "\n");
+//        alert.show();
 
         /* ------------------------------------ Navigation ------------------------------------ */
 

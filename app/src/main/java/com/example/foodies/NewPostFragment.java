@@ -47,6 +47,8 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
     ImageButton cameraBtn, galleryBtn;
     String currUserEmail;
     ProgressBar progressBar;
+    Bitmap imageBitmap;
+
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_IMAGE_PICK = 2;
@@ -55,9 +57,9 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        /* ************* View Items ************* */
-
         currUserEmail = Model.instance.getCurrentUserModel().getEmail();
+
+        /* ********************************* View Items ********************************* */
 
         View view = inflater.inflate(R.layout.fragment_new_post, container, false);
 
@@ -66,14 +68,12 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         address = view.findViewById(R.id.newpost_address_et);
         category = view.findViewById(R.id.newpost_category_spinner);
 
-
         // Category spinner
         ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter
                 .createFromResource(this.getContext(), R.array.postCategories,
                         android.R.layout.simple_spinner_item);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         category.setAdapter(categoryAdapter);
-
 
         description = view.findViewById(R.id.newpost_desc_et);
         review = view.findViewById(R.id.newpost_review_et);
@@ -86,18 +86,6 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
                         android.R.layout.simple_spinner_item);
         rateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         rate.setAdapter(rateAdapter);
-
-        // Menu
-
-//        View menu = view.findViewById(R.menu);
-//        MenuItem addItem = menu.findViewById(R.id.NewPostFragment);
-//        MenuItem homeItem = menu.findViewById(R.id.HomePageFragment);
-//        MenuItem profileItem = menu.findViewById(R.id.ProfileFragment);
-//
-//        addItem.setVisible(false);
-//        profileItem.setVisible(false);
-
-
 
         /* ------------------------------------ Button ------------------------------------ */
 
@@ -117,13 +105,11 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
             OpenGallery();
         });
 
-
         progressBar = view.findViewById(R.id.newpost_progressBar);
         progressBar.setVisibility(View.GONE);
 
         return view;
     }
-
 
     private void OpenGallery() {
 
@@ -137,7 +123,6 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
     }
 
-    Bitmap imageBitmap;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -146,7 +131,6 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
             if (resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
                 imageBitmap = (Bitmap) extras.get("data");
-                //not in interface
                 image.setImageBitmap(imageBitmap);
 
             }
@@ -156,9 +140,7 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
                     final Uri imageUri = data.getData();
                     final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
                     imageBitmap = BitmapFactory.decodeStream(imageStream);
-                    //not in interface
                     image.setImageBitmap(imageBitmap);
-
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(getContext(), "Failed", Toast.LENGTH_LONG).show();
@@ -168,25 +150,19 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         }
     }
 
-    /* ************* Functions ************* */
+    /* ********************************* Functions ********************************* */
 
-    private void myNavigaation(Post newPost) {
+    private void myNavigation(Post newPost) {
         Model.instance.addPost(newPost, currUserEmail, () -> {
-//                            Model.instance.refreshPostsList();
-
             List<String> l = Model.instance.getCurrentUserModel().getPostList();
             l.add(newPost.getId());
             Model.instance.getCurrentUserModel().setPostList(l);
-
-            //TODO: return to footer caller
             Navigation.findNavController(dishName).navigateUp();
         });
     }
 
 
     private void save() {
-        // save on firebase
-
         String name = dishName.getText().toString();
         String res = restaurant.getText().toString();
         String addr = address.getText().toString();
@@ -196,29 +172,32 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         String rateing = rate.getSelectedItem().toString();
         String img = "myImg";
 
-//
-//        if (name.isEmpty()) {
-//            dishName.setError("Please enter the name of the dish");
-//            dishName.requestFocus();
-//            return;
-//        }
-//        if (res.isEmpty()) {
-//            restaurant.setError("Please enter the name of the restaurant");
-//            restaurant.requestFocus();
-//            return;
-//        }
-//        if (addr.isEmpty()) {
-//            address.setError("Please enter restaurant address");
-//            address.requestFocus();
-//            return;
-//        }
-//        if (rev.isEmpty()) {
-//            review.setError("Please enter restaurant address");
-//            review.requestFocus();
-//            return;
-//        }
 
-        //TODO: category and rating
+        if (name.isEmpty()) {
+            dishName.setError("Please enter the name of the dish");
+            dishName.requestFocus();
+            return;
+        }
+        if (res.isEmpty()) {
+            restaurant.setError("Please enter the name of the restaurant");
+            restaurant.requestFocus();
+            return;
+        }
+        if (addr.isEmpty()) {
+            address.setError("Please enter restaurant address");
+            address.requestFocus();
+            return;
+        }
+        if (desc.isEmpty()) {
+            description.setError("Please enter dish description");
+            description.requestFocus();
+            return;
+        }
+        if (rev.isEmpty()) {
+            review.setError("Please enter your review");
+            review.requestFocus();
+            return;
+        }
 
         postBtn.setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
@@ -228,21 +207,17 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         Model.instance.getNextPostId(currUserEmail, nextId -> {
 
             Post newPost = new Post(nextId, name, res, addr, categor, desc, rev, img, rateing, currUserEmail, true);
-
             if (imageBitmap != null) {
 
                 Model.instance.setImage(imageBitmap, nextId + ".jpg", "/posts_images/", url -> {
                     newPost.setImage(url);
-                    myNavigaation(newPost);
+                    myNavigation(newPost);
                 });
-            }
-            else {
-                myNavigaation(newPost);
+            } else {
+                myNavigation(newPost);
             }
         });
     }
-
-
 
     /* ************* Spinner Functions ************* */
 
@@ -254,36 +229,5 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
-
-    /* ************* Menu Functions ************* */
-
-//    @Override
-//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-//        menu.findItem(R.id.NewPostFragment).setVisible(false);
-//        menu.findItem(R.id.HomePageFragment).setVisible(false);
-//        menu.findItem(R.id.ProfileFragment).setVisible(false);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-////        else if(item.getItemId() == R.id.NewPostFragment) {
-////            NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalNewPostFragment());
-////            return true;
-////        }
-//        if(item.getItemId() == R.id.ProfileFragment) {
-//            NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalProfileFragment());
-//            return true;
-//        }
-//        else if(item.getItemId() == R.id.HomePageFragment){
-//            NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalHomePage());
-//            return true;
-//        }
-//        else{
-//            return super.onOptionsItemSelected(item);
-//        }
-//    }
-
 }

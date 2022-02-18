@@ -37,7 +37,6 @@ public class ProfileFragment extends Fragment {
 
     User currUserFromModel;
 
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -58,9 +57,7 @@ public class ProfileFragment extends Fragment {
         cityTv = view.findViewById(R.id.profile_city_tv);
         image = view.findViewById(R.id.profile_img);
 
-//        ....
-        //TODO: change the "if" below (remove "" and "myImg")
-        if (currUserFromModel.getImage() != null && (!currUserFromModel.getImage().equals("myImg")) && (!currUserFromModel.getImage().equals(""))) {
+        if (!currUserFromModel.getImage().equals("myImg")){
             Picasso.get()
                     .load(currUserFromModel.getImage())
                     .into(image);
@@ -74,15 +71,11 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-
-        System.out.println("users posts list data =========== ");
-
         if (viewModel.getData().getValue() != null) {
             for (int i = 0; i < viewModel.getData().getValue().size(); i++) {
                 System.out.println(viewModel.getData().getValue().get(i).getDishName());
             }
         }
-
 
         fullNameTv.setText(Model.instance.getCurrentUserModel().getFullName());
         cityTv.setText(Model.instance.getCurrentUserModel().getCity());
@@ -99,7 +92,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onItemClick(View v, int position) {
                 String postId = viewModel.getData().getValue().get(position).getId();
-//                String postId = viewModel.getData().get(position).getId();
                 Navigation.findNavController(v)
                         .navigate(ProfileFragmentDirections
                                 .actionProfileFragmentToEditPostFragment(postId, SOURCE_PAGE));
@@ -107,6 +99,7 @@ public class ProfileFragment extends Fragment {
         });
 
 
+        setHasOptionsMenu(true);
         viewModel.getData().observe(getViewLifecycleOwner(), posts -> refresh());
 
         return view;
@@ -153,13 +146,8 @@ public class ProfileFragment extends Fragment {
         }
 
         public void myBind(Post post) {
-            //            Post post = viewModel.getData().get(position);
 
-            //TODO: find user name & img
-//            holder.userImage.setImageDrawable(post.getUserId().getImage);
-//            holder.userName.setText(post.getUserId());
-
-            if (Model.instance.getCurrentUserModel().getImage() != null) {
+            if (Model.instance.getCurrentUserModel().getImage() != "myImg") {
                 Picasso.get()
                         .load(Model.instance.getCurrentUserModel().getImage())
                         .into(userImage);
@@ -168,12 +156,7 @@ public class ProfileFragment extends Fragment {
             dishName.setText(post.getDishName());
             description.setText(post.getDescription());
 
-            //TODO: set at "Post" img to ImageView - now its String
-//            holder.dishImage.setImageDrawable(post.getImage());
-
-            //            dishImage.setImageResource(R.drawable.ratatoi);
-            //TODO: need to delete + delete all posts in firebase without image
-            if (post.getImage().equals("myImg") || post.getImage() == null) {
+            if (post.getImage().equals("myImg")){
                 Picasso.get()
                         .load("https://t3.ftcdn.net/jpg/04/34/72/82/240_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg")
                         .into(dishImage);
@@ -185,13 +168,10 @@ public class ProfileFragment extends Fragment {
 
             rateNum.setText(post.getRate());
             rateStar.setRating(Integer.parseInt(post.getRate()));
-
         }
-
     }
 
     /* ********************************* Adapter ********************************* */
-
 
     interface OnItemClickListener {
         void onItemClick(View v, int position);
@@ -231,17 +211,13 @@ public class ProfileFragment extends Fragment {
         @Override
         public int getItemCount() {
             if (viewModel.getData().getValue() == null) {
-//            if (viewModel.getData() == null) {
                 return 0;
             }
             return viewModel.getData().getValue().size();
-//            return viewModel.getData().size();
         }
     }
 
-
     /* ********************************* Function/ Menu ********************************* */
-
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {

@@ -1,10 +1,5 @@
 package com.example.foodies.model;
 
-import android.widget.ImageView;
-
-import androidx.annotation.NonNull;
-import androidx.room.PrimaryKey;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,15 +13,13 @@ public class User {
     String email = "";
     String fullName = "";
     String city = "";
-    String image;
+    String image = "myImg";
     List<String> postList;
 
-    // TODO: img
-
     /* ****************************** Constructors ****************************** */
+
     public User() {
     }
-
 
     public User(String email, String fullName, String city, String image, List<String> postList) {
         this.email = email;
@@ -36,21 +29,13 @@ public class User {
         this.postList = postList;
     }
 
+    // for firebase
     public User(String email, String fullName, String city, String image) {
         this.email = email;
         this.fullName = fullName;
         this.city = city;
         this.image = image;
         this.postList = new ArrayList<>();
-
-    }
-
-    public User(User user) {
-        this.email = user.getEmail();
-        this.fullName = user.getFullName();
-        this.city = user.getCity();
-        this.image = user.getImage();
-        this.postList = user.getPostList();
     }
 
     /* ****************************** Getters & Setters ****************************** */

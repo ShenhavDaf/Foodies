@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.example.foodies.MainActivity;
 import com.example.foodies.R;
@@ -22,6 +23,7 @@ public class NewLoginFragment extends Fragment {
     Button loginBtn;
     TextView joinTv;
     EditText emailEt, passwordEt, emailInputEt, passwordInputEt;
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,11 +42,12 @@ public class NewLoginFragment extends Fragment {
         passwordEt = view.findViewById(R.id.newlogin_password_et);
         emailInputEt = view.findViewById(R.id.newlogin_input_email_et);
         passwordInputEt = view.findViewById(R.id.newlogin_input_password_et);
+        progressBar = view.findViewById(R.id.newlogin_progressBar);
 
+        progressBar.setVisibility(View.GONE);
 
         joinTv = view.findViewById(R.id.newlogin_joinbtn_tv);
         joinTv.setOnClickListener(v -> JoinUs(v));
-
 
         loginBtn = view.findViewById(R.id.newlogin_login_btn);
         loginBtn.setOnClickListener(v -> LogIn(v));
@@ -55,18 +58,15 @@ public class NewLoginFragment extends Fragment {
 
     private void JoinUs(View view) {
         Navigation.findNavController(view).navigate(R.id.action_newLoginFragment_to_signUpFragment);
-//        NavHostFragment.findNavController(this).navigate();
     }
 
     private void LogIn(View view) {
 
-//        String localMail = emailEt.getText().toString().trim();
-//        String localPass = passwordEt.getText().toString().trim();
+        progressBar.setVisibility(View.VISIBLE);
+        loginBtn.setEnabled(false);
+
         String localInputIEmail = emailInputEt.getText().toString().trim();
         String localInputPassword = passwordInputEt.getText().toString().trim();
-
-        System.out.println(" ----------------------- " + localInputIEmail);
-        System.out.println(" ----------------------- " + localInputPassword);
 
         /* *************************************** Validations *************************************** */
 
@@ -89,23 +89,16 @@ public class NewLoginFragment extends Fragment {
         }
 
         toHomeActivity(localInputIEmail, localInputPassword);
-
     }
 
     private void toHomeActivity(String localMail, String localPass) {
 
-
         Model.instance.UserLogin(localMail, localPass, userID -> {
 
-            System.out.println("the userId is ----------------------------- " + userID);
-//            if(userID == null){
-//                emailInputEt.setError("Please recheck your email and password");
-//                emailInputEt.requestFocus();
-//                passwordInputEt.setError("Please recheck your email and password");
-//                passwordInputEt.requestFocus();
-//
-//            }
             if(userID == null){
+                progressBar.setVisibility(View.GONE);
+                loginBtn.setEnabled(true);
+
                 String msg = "Username or password incorrect!!\nPlease try again 😊";
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
@@ -117,19 +110,15 @@ public class NewLoginFragment extends Fragment {
                 alert.show();
             }
             else{
+                loginBtn.setEnabled(false);
+                progressBar.setVisibility(View.VISIBLE);
+
                 Model.instance.getUserByEmail(localMail, user -> {
-//                System.out.println("the userId is ++++++++++++++++++++++++++ " + userID);
-
                     Model.instance.setCurrentUserModel(user);
-
                     startActivity(new Intent(getContext(), MainActivity.class));
                     getActivity().finish();
                 });
-
             }
-
-
-
         });
     }
 }

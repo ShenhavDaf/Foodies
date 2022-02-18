@@ -38,16 +38,13 @@ public class Model {
     }
 
 
-
     /* ****************************** Image Upload ****************************** */
 
     public interface SaveImageListener {
-
         void onComplete(String url);
     }
 
     public void setImage(Bitmap imageBitmap, String imageName, String storageName, SaveImageListener listener) {
-
         modelFirebase.saveImage(imageBitmap, imageName, storageName, listener);
     }
 
@@ -57,7 +54,6 @@ public class Model {
         loading, loaded
     }
 
-    // מאפשר לנו לעשות את ה observable
     MutableLiveData<LoadingState> postsListLoadingState = new MutableLiveData<LoadingState>();
 
     public MutableLiveData<LoadingState> getPostsListLoadingState() {
@@ -71,15 +67,12 @@ public class Model {
 
     /* ******************** Listeners & calling to ModelFirebase ******************** */
 
-    //singleton
     MutableLiveData<List<Post>> allPostsList = new MutableLiveData<List<Post>>();
 
-    // replace getAllPosts
     public LiveData<List<Post>> getAllPosts() {
         if (allPostsList.getValue() == null) {
             refreshPostsList();
         }
-
         return allPostsList;
     }
 
@@ -138,28 +131,28 @@ public class Model {
                 return p;
             }
         }
-        return null;
 
+        return null;
     }
 
     public interface GetPostByIdListener {
         void onComplete(Post post);
     }
 
-    public Post getPostById(String postId, GetPostByIdListener listener) {
-        modelFirebase.getPostById(postId, listener);
-        return null;
-    }
+//    public Post getPostById(String postId, GetPostByIdListener listener) {
+//        modelFirebase.getPostById(postId, listener);
+//        return null;
+//    }
 
     /* ----------------------------------------------------- */
 
-    public interface GetPostsListSizeListener {
-        void onComplete(int size);
-    }
+//    public interface GetPostsListSizeListener {
+//        void onComplete(int size);
+//    }
 
-    public void getPostsListSize(GetPostsListSizeListener listener) {
-        modelFirebase.getPostsListSize(listener);
-    }
+//    public void getPostsListSize(GetPostsListSizeListener listener) {
+//        modelFirebase.getPostsListSize(listener);
+//    }
 
     /* ----------------------------------------------------- */
     public interface GetNextPostIdListener {
@@ -173,7 +166,7 @@ public class Model {
     /* ----------------------------------------------------- */
 
     public interface GetAuthListener {
-        void onComplete();
+        void onComplete(Boolean isSuccess);
     }
 
     public void addNewUser(User user, String email, String password, GetAuthListener listener) {
@@ -198,7 +191,7 @@ public class Model {
     }
 
     public void addUserDetails(User user, AddUserDetailsListener listener) {
-        modelFirebase.addUserDetails(user, listener);// when done - add user to collection
+        modelFirebase.addUserDetails(user, listener);
     }
 
     /* ----------------------------------------------------- */
@@ -213,13 +206,13 @@ public class Model {
 
     /* ----------------------------------------------------- */
 
-    public interface GetUserPostsListener {
-        void onComplete(List<Post> list);
-    }
-
-    public void getUserPosts(User user, GetUserPostsListener listener) {
-        modelFirebase.getUserPosts(user, listener);
-    }
+//    public interface GetUserPostsListener {
+//        void onComplete(List<Post> list);
+//    }
+//
+//    public void getUserPosts(User user, GetUserPostsListener listener) {
+//        modelFirebase.getUserPosts(user, listener);
+//    }
 
     /* ----------------------------------------------------- */
 
@@ -269,6 +262,7 @@ public class Model {
                         allPostsList.postValue(poList);
                         postsListLoadingState.postValue(LoadingState.loaded);
 
+                        /*---------- update current user's posts ----------*/
 
                         List<Post> userPostList = new ArrayList<>();
 

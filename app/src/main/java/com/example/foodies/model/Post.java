@@ -1,16 +1,10 @@
 package com.example.foodies.model;
 
-import android.util.Log;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FieldValue;
-
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +26,7 @@ public class Post {
     String category = "";
     String description = "";
     String review = "";
-    String image = "";
+    String image = "myImg";
     String rate = "0";
     String userEmail = "";
     String userFullName = "";// TODO: for post author in home page
@@ -222,26 +216,8 @@ public class Post {
         json.put("userEmail", userEmail);
         json.put("display", display);
 
-
         json.put("updateDate", FieldValue.serverTimestamp());
-
 
         return json;
     }
-
-    /*------------------------------------------------------*/
-
-    public String getCurrentDate() {
-        Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DATE);
-        int month = calendar.get(Calendar.MONTH);
-        int year = calendar.get(Calendar.YEAR);
-        StringBuilder builder = new StringBuilder();
-        builder.append(day + "." + month + "." + year);
-        String date = builder.toString();
-
-        return date;
-    }
-
-
 }

@@ -5,7 +5,6 @@ import static android.app.Activity.RESULT_OK;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,11 +19,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.example.foodies.model.Model;
 import com.example.foodies.model.User;
 import com.squareup.picasso.Picasso;
-
 import java.io.InputStream;
 import java.util.List;
 
@@ -40,14 +37,13 @@ public class EditProfileFragment extends Fragment {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_IMAGE_PICK = 2;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         currUser = Model.instance.getCurrentUserModel();
 
-        /**************************************/
+        /* ********************************* View Items ********************************* */
 
         View view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
 
@@ -58,19 +54,14 @@ public class EditProfileFragment extends Fragment {
         galleryBtn = view.findViewById(R.id.editprofile_gallery_btn);
         cameraBtn = view.findViewById(R.id.editprofile_camera_btn);
 
-
         fullName.setText(currUser.getFullName());
         city.setText(currUser.getCity());
 
-        //TODO            dishImg.setText(currUser.getImg);
-
-        //TODO: change the if below (remove equals to "" and to "myImg")
-        if (currUser.getImage() != null && (!currUser.getImage().equals("")) && (!currUser.getImage().equals("myImg"))) {
+        if (!currUser.getImage().equals("myImg")) {
             Picasso.get()
                     .load(currUser.getImage())
                     .into(profileImage);
         }
-
 
         saveBtn.setOnClickListener(v -> save(view));
 
@@ -82,12 +73,10 @@ public class EditProfileFragment extends Fragment {
             OpenGallery();
         });
 
-
         return view;
     }
 
     private void OpenGallery() {
-
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, REQUEST_IMAGE_PICK);
@@ -97,8 +86,6 @@ public class EditProfileFragment extends Fragment {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
     }
-
-
 
     /* ***************************** Image Upload ***************************** */
 
@@ -111,7 +98,6 @@ public class EditProfileFragment extends Fragment {
             if (resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
                 imageBitmap = (Bitmap) extras.get("data");
-                //not in interface
                 profileImage.setImageBitmap(imageBitmap);
 
             }
@@ -121,9 +107,7 @@ public class EditProfileFragment extends Fragment {
                     final Uri imageUri = data.getData();
                     final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
                     imageBitmap = BitmapFactory.decodeStream(imageStream);
-                    //not in interface
                     profileImage.setImageBitmap(imageBitmap);
-
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(getContext(), "Failed", Toast.LENGTH_LONG).show();
@@ -139,9 +123,8 @@ public class EditProfileFragment extends Fragment {
 
         String name = fullName.getText().toString();
         String mycity = city.getText().toString();
-
-        //TODO:userID, img
         String img = currUser.getImage();
+
         List<String> list = currUser.getPostList();
         User newUser = new User(currUser.getEmail(), name, mycity, img, list);
 
@@ -153,39 +136,15 @@ public class EditProfileFragment extends Fragment {
         } else {
             changeUserAndNavigate(newUser, view);
         }
-
-        /* ------------------------------------ Navigation ------------------------------------ */
-
-
-//        Model.instance.addUserDetails(newUser, () -> {
-//
-//            Model.instance.getCurrentUserModel().setFullName(newUser.getFullName());
-//            Model.instance.getCurrentUserModel().setCity(newUser.getCity());
-//
-//            //TODO: set new img
-////            Model.instance.getCurrentUserModel().setImage(newUser.getImage());
-//
-//            Navigation.findNavController(view)
-//                    .navigate(EditProfileFragmentDirections.actionGlobalProfileFragment());
-//        });
     }
 
-
     public void changeUserAndNavigate(User newUser, View view) {
-
         Model.instance.addUserDetails(newUser, () -> {
-
             Model.instance.getCurrentUserModel().setFullName(newUser.getFullName());
             Model.instance.getCurrentUserModel().setCity(newUser.getCity());
             Model.instance.getCurrentUserModel().setImage(newUser.getImage());
-
-            //TODO: set new img
-//            Model.instance.getCurrentUserModel().setImage(newUser.getImage());
-
             Navigation.findNavController(view)
                     .navigate(EditProfileFragmentDirections.actionGlobalProfileFragment());
         });
-
-
     }
 }

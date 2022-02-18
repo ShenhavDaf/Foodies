@@ -5,7 +5,6 @@ import static android.app.Activity.RESULT_OK;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -23,11 +22,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Post;
 import com.squareup.picasso.Picasso;
-
 import java.io.InputStream;
 import java.util.List;
 
@@ -38,10 +35,9 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
     Spinner category, rate;
     Button saveBtn;
     ImageButton cameraBtn, galleryBtn, deleteBtn;
-
     String postId, sourcePage, currUserEmail;
-
     Post currPost;
+    Bitmap imageBitmap;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_IMAGE_PICK = 2;
@@ -53,6 +49,7 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
         currUserEmail = Model.instance.getCurrentUserModel().getEmail();
 
         postId = EditPostFragmentArgs.fromBundle(getArguments()).getPostId();
+        currPost = Model.instance.getPostByIdLocalDB(postId);
         sourcePage = PostPageFragmentArgs.fromBundle(getArguments()).getSourcePage();
 
         /* *************************************** View Items *************************************** */
@@ -68,9 +65,6 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
         rate = view.findViewById(R.id.editpost_rate_spinner);
 
         /* *************************************** Current Post *************************************** */
-
-        currPost = Model.instance.getPostByIdLocalDB(postId);
-
 
         dishName.setText(currPost.getDishName());
         restaurent.setText(currPost.getRestaurant());
@@ -88,7 +82,7 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
         description.setText(currPost.getDescription());
         review.setText(currPost.getReview());
 
-        if (currPost.getImage() != null) {
+        if (!(currPost.getImage().equals("myImg"))) {
             Picasso.get()
                     .load(currPost.getImage())
                     .into(dishImg);
@@ -102,7 +96,6 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
             int spinnerPosition = rateAdapter.getPosition(currPost.getRate());
             rate.setSelection(spinnerPosition);
         }
-
 
         /*---------------------------------- Button --------------------------------------*/
 
@@ -123,15 +116,12 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
             OpenGallery();
         });
 
-
         return view;
     }
-
 
     /* *************************************** Functions *************************************** */
 
     private void OpenGallery() {
-
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, REQUEST_IMAGE_PICK);
@@ -142,8 +132,6 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
         startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
     }
 
-    Bitmap imageBitmap;
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -151,7 +139,6 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
             if (resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
                 imageBitmap = (Bitmap) extras.get("data");
-                //not in interface
                 dishImg.setImageBitmap(imageBitmap);
 
             }
@@ -161,9 +148,7 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
                     final Uri imageUri = data.getData();
                     final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
                     imageBitmap = BitmapFactory.decodeStream(imageStream);
-                    //not in interface
                     dishImg.setImageBitmap(imageBitmap);
-
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(getContext(), "Failed", Toast.LENGTH_LONG).show();
@@ -197,28 +182,19 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
         } else {
             editNavigation(newPost, v);
         }
-
     }
 
     private void editNavigation(Post newPost, View v) {
 
         Model.instance.editPost(newPost, () -> {
             Model.instance.refreshPostsList();
-
-            if (sourcePage.equals("homepage")) {
-                Navigation.findNavController(v)
-                        .navigate(EditPostFragmentDirections.actionGlobalHomePage());
-            } else if (sourcePage.equals("profilepage")) {
-                Navigation.findNavController(v)
-                        .navigate(EditPostFragmentDirections.actionGlobalProfileFragment());
-            }
+            navigateTo(v);
         });
     }
 
     /*-------------------------------------------*/
 
     private void delete(String postID, View v) {
-        System.out.println("********** Delete btn was clicked in editPage");
 
         Post newPost = Model.instance.getPostByIdLocalDB(postID);
 
@@ -229,18 +205,18 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
             l.remove(postID);
             Model.instance.getCurrentUserModel().setPostList(l);
 
-            if (sourcePage.equals("homepage")) {
-
-                Navigation.findNavController(v)
-                        .navigate(EditPostFragmentDirections.actionGlobalHomePage());
-            } else if (sourcePage.equals("profilepage")) {
-
-                Navigation.findNavController(v)
-                        .navigate(EditPostFragmentDirections.actionGlobalProfileFragment());
-            }
-
+           navigateTo(v);
         });
+    }
 
+    public void navigateTo(View v){
+        if (sourcePage.equals("homepage")) {
+            Navigation.findNavController(v)
+                    .navigate(EditPostFragmentDirections.actionGlobalHomePage());
+        } else if (sourcePage.equals("profilepage")) {
+            Navigation.findNavController(v)
+                    .navigate(EditPostFragmentDirections.actionGlobalProfileFragment());
+        }
     }
 
 

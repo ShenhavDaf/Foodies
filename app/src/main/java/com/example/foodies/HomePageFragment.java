@@ -34,8 +34,6 @@ public class HomePageFragment extends Fragment {
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
     TextView userName;
-    ImageButton profile, homePage, addPost;
-
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -47,7 +45,6 @@ public class HomePageFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        /* *********************************** Current user *********************************** */
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
 
         userName = view.findViewById(R.id.home_user_name);
@@ -89,10 +86,8 @@ public class HomePageFragment extends Fragment {
                     }
                 });
 
-
         setHasOptionsMenu(true);
         return view;
-
     }
 
     private void refresh() {
@@ -118,7 +113,6 @@ public class HomePageFragment extends Fragment {
             rateStar = itemView.findViewById(R.id.listrow_ratingBar);
             rateStar.setClickable(false);
 
-
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 listener.onItemClick(v, pos);
@@ -129,8 +123,7 @@ public class HomePageFragment extends Fragment {
 
             Model.instance.getUserByEmail(post.getUserEmail(), user -> {
                 userName.setText(user.getFullName());
-                // TODO: change the "if" below (remove myImg or ""):
-                if (user.getImage() != null && (!user.getImage().equals("myImg")) && (!user.getImage().equals(""))) {
+                if (!user.getImage().equals("myImg")){
                     Picasso.get()
                             .load(user.getImage())
                             .into(userImage);
@@ -138,12 +131,10 @@ public class HomePageFragment extends Fragment {
             });
 
             description.setText(post.getDishName());
-
             rateNum.setText(post.getRate());
             rateStar.setRating(Integer.parseInt(post.getRate()));
 
-            //TODO: need to delete + delete all posts in firebase without image
-            if (post.getImage().equals("myImg") || post.getImage() == null) {
+            if (post.getImage().equals("myImg")) {
                 Picasso.get()
                         .load("https://t3.ftcdn.net/jpg/04/34/72/82/240_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg")
                         .into(dishImage);
@@ -164,7 +155,6 @@ public class HomePageFragment extends Fragment {
     class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         OnItemClickListener listener;
-
         public void setOnItemClickListener(OnItemClickListener listener) {
             this.listener = listener;
         }

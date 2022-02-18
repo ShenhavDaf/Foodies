@@ -25,7 +25,6 @@ public class PostPageFragment extends Fragment {
     RatingBar rate;
     ImageButton editPostBtn;
     ImageView dishImage;
-
     String postId, sourcePage, authorEmail;
 
     @Override
@@ -52,14 +51,12 @@ public class PostPageFragment extends Fragment {
         review.setEnabled(false);
         rate.setClickable(false);
 
-
         editPostBtn = view.findViewById(R.id.postpage_editpost_btn);
         editPostBtn.setVisibility(View.GONE);
 
-
         Post post = Model.instance.getPostByIdLocalDB(postId);
 
-        if (post.getImage().equals("myImg") || post.getImage() == null) {
+        if (post.getImage().equals("myImg")) {
             Picasso.get()
                     .load("https://t3.ftcdn.net/jpg/04/34/72/82/240_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg")
                     .into(dishImage);
@@ -68,7 +65,6 @@ public class PostPageFragment extends Fragment {
                     .load(post.getImage())
                     .into(dishImage);
         }
-
 
         dishName.setText(post.getDishName());
         restaurant.setText(post.getRestaurant());
