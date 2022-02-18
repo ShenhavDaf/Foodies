@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -49,14 +50,13 @@ public class PostPageFragment extends Fragment {
         rate = view.findViewById(R.id.postpage_rate_tv);
         dishImage = view.findViewById(R.id.postpage_dishimage_imv);
 
-
         dishName.setEnabled(false);
         restaurant.setEnabled(false);
         address.setEnabled(false);
         category.setEnabled(false);
         description.setEnabled(false);
         review.setEnabled(false);
-        rate.setClickable(false);
+        rate.setEnabled(false);
 
         editPostBtn = view.findViewById(R.id.postpage_editpost_btn);
         editPostBtn.setVisibility(View.GONE);
