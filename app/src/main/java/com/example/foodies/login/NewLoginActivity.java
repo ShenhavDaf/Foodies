@@ -25,14 +25,12 @@ public class NewLoginActivity extends AppCompatActivity {
         NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.login_navhost);
         navCtl = navHost.getNavController();
 
-        NavigationUI.setupActionBarWithNavController(this,navCtl);
-
+        NavigationUI.setupActionBarWithNavController(this, navCtl);
     }
-
 
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.login_navhost);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)|| super.onSupportNavigateUp();
+        return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
     }
 }

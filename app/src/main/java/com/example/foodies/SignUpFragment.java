@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_OK;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -21,8 +22,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import com.example.foodies.model.Model;
 import com.example.foodies.model.User;
+
 import java.io.InputStream;
 
 public class SignUpFragment extends Fragment {
@@ -112,7 +115,7 @@ public class SignUpFragment extends Fragment {
     private void myNavigation(User newUserDetails, String email, String password) {
         Model.instance.addNewUser(newUserDetails, email, password, (isSuccess) -> {
 
-            if(isSuccess == true){
+            if (isSuccess == true) {
                 String msg = "Welcome to Foodies ♥";
                 AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
 
@@ -122,8 +125,7 @@ public class SignUpFragment extends Fragment {
                 Model.instance.setCurrentUserModel(newUserDetails);
                 startActivity(new Intent(getContext(), MainActivity.class));
                 getActivity().finish();
-            }
-            else{
+            } else {
 
                 String msg = "Email is already exist in our system. \n Please enter another email";
                 AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
@@ -188,13 +190,6 @@ public class SignUpFragment extends Fragment {
 
         joinBtn.setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
-
-//        String msg = "Welcome to Foodies ♥";
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
-//
-//        AlertDialog alert = builder.create();
-//        alert.setTitle("\n" + msg + "\n");
-//        alert.show();
 
         /* ------------------------------------ Navigation ------------------------------------ */
 

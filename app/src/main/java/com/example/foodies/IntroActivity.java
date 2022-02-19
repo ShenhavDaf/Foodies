@@ -1,8 +1,10 @@
 package com.example.foodies;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
+
 import com.example.foodies.login.NewLoginActivity;
 import com.example.foodies.model.Model;
 

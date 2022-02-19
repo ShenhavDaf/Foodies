@@ -24,6 +24,7 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="10dp"
         android:text="Hello,"
+        android:textColor="@color/ActionBar9"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/home_user_name"
         app:layout_constraintHorizontal_bias="0.8"
@@ -67,19 +68,5 @@
         </androidx.recyclerview.widget.RecyclerView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <!--    <include-->
-<!--        android:id="@+id/home_footer"-->
-<!--        layout="@layout/footer"-->
-<!--        android:layout_width="411dp"-->
-<!--        android:layout_height="69dp"-->
-<!--        android:orientation="vertical"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-
-
-<!--        />-->
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

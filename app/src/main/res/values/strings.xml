@@ -11,6 +11,7 @@
 
     <!--spinner/dropdown of rating-->
     <string-array name="postRating">
+        <item>Select:</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -20,6 +21,7 @@
 
     <!--spinner/dropdown of categories-->
     <string-array name="postCategories">
+        <item>Select:</item>
         <item>Asian</item>
         <item>Breakfast</item>
         <item>Brunch</item>

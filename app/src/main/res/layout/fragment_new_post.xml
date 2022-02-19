@@ -12,11 +12,13 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/dishname_Layout"
+            style="@style/myInputTextAble"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="2dp"
+            app:boxStrokeColor="@color/ActionBar9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -31,11 +33,13 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/resaurant_Layout"
+            style="@style/myInputTextAble"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="2dp"
+            app:boxStrokeColor="@color/ActionBar9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dishname_Layout">
@@ -50,11 +54,13 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/address_Layout"
+            style="@style/myInputTextAble"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="2dp"
+            app:boxStrokeColor="@color/ActionBar9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/resaurant_Layout">
@@ -69,11 +75,13 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/description_Layout"
+            style="@style/myInputTextAble"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="2dp"
+            app:boxStrokeColor="@color/ActionBar9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/address_Layout">
@@ -88,11 +96,13 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/review_Layout"
+            style="@style/myInputTextAble"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="2dp"
+            app:boxStrokeColor="@color/ActionBar9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/description_Layout">
@@ -110,7 +120,7 @@
             android:layout_width="403dp"
             android:layout_height="56dp"
             android:layout_marginTop="20dp"
-            android:background="@color/myGray"
+            android:background="@color/inputBoxAble"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -122,6 +132,7 @@
                 android:layout_height="36dp"
                 android:layout_marginStart="8dp"
                 android:text="Category:"
+                android:textColor="@color/ActionBar9"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -223,7 +234,7 @@
             android:layout_width="403dp"
             android:layout_height="56dp"
             android:layout_marginTop="20dp"
-            android:background="@color/myGray"
+            android:background="@color/inputBoxAble"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -235,6 +246,7 @@
                 android:layout_height="34dp"
                 android:layout_marginStart="8dp"
                 android:text="Rate:"
+                android:textColor="@color/ActionBar9"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -273,7 +285,7 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="104dp"
             android:layout_height="97dp"
-            android:indeterminateTint="#AC7D7D"
+            android:indeterminateTint="@color/myProgressBar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"

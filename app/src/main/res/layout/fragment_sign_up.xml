@@ -10,14 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <!-- ***************************** name layout *********************************** -->
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/name_layout"
+            style="@style/myInputTextAble"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
+            app:boxStrokeColor="@color/ActionBar9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,13 +33,13 @@
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- ***************************** city layout *********************************** -->
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/city_layout"
+            style="@style/myInputTextAble"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            app:boxStrokeColor="@color/ActionBar9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,13 +55,13 @@
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- ***************************** email layout *********************************** -->
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/email_layout"
+            style="@style/myInputTextAble"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            app:boxStrokeColor="@color/ActionBar9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,13 +77,13 @@
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- ***************************** paswword layout *********************************** -->
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/password_layout"
+            style="@style/myInputTextAble"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            app:boxStrokeColor="@color/ActionBar9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -100,13 +99,13 @@
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- ***************************** verify layout *********************************** -->
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/verify_layout"
+            style="@style/myInputTextAble"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            app:boxStrokeColor="@color/ActionBar9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -121,8 +120,6 @@
                 android:inputType="textPassword"
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- ***************************** image layout *********************************** -->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/image_layout"
@@ -141,7 +138,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="16dp"
                 android:text="Image:"
-                android:textColor="@color/ActionBar8"
+                android:textColor="@color/ActionBar9"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/signin_image_img"
@@ -195,6 +192,7 @@
             android:layout_width="196dp"
             android:layout_height="251dp"
             android:backgroundTint="@color/ActionBar9"
+            android:indeterminateTint="@color/myProgressBar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -205,7 +203,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:backgroundTint="@color/ActionBar9"
+            android:backgroundTint="@color/ActionBar8"
             android:text="Join"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"

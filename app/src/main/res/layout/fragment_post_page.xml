@@ -62,10 +62,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/postpage_dishimage_imv" />
 
-        <!--*********************************** Restaurant ***********************************-->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/post_restaurant_layout"
-            style="@style/myInputText"
+            style="@style/myInputTextDisabled"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -90,11 +89,9 @@
                 app:layout_constraintEnd_toEndOf="parent" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--*********************************** Address ***********************************-->
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/post_address_layout"
-            style="@style/myInputText"
+            style="@style/myInputTextDisabled"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -117,11 +114,9 @@
                 android:textColor="@color/inputBlackTextAtDisabled" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--*********************************** Description ***********************************-->
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/post_description_layout"
-            style="@style/myInputText"
+            style="@style/myInputTextDisabled"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -143,11 +138,9 @@
                 android:textColor="@color/inputBlackTextAtDisabled" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--*********************************** Review ***********************************-->
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/post_review_layout"
-            style="@style/myInputText"
+            style="@style/myInputTextDisabled"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -169,11 +162,9 @@
                 android:textColor="@color/inputBlackTextAtDisabled" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--*********************************** Category ***********************************-->
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/post_categoy_layout"
-            style="@style/myInputText"
+            style="@style/myInputTextDisabled"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -194,7 +185,6 @@
                 android:hint="@string/category_input"
                 android:textColor="@color/inputBlackTextAtDisabled" />
         </com.google.android.material.textfield.TextInputLayout>
-        <!--*********************************** Rate ***********************************-->
 
         <TextView
             android:id="@+id/post_rate_tv"
@@ -217,7 +207,7 @@
             android:layout_marginStart="108dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="10dp"
-            android:progressBackgroundTint="@color/ActionBar8"
+            android:progressBackgroundTint="#AF0202"
             android:progressTint="@color/ratingBarPrimary"
             android:secondaryProgressTint="@color/ratingBarSecondary"
             app:layout_constraintBottom_toBottomOf="parent"

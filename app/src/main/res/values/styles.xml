@@ -11,7 +11,11 @@
     <style name="ShapeAppearanceOverlay.App.CornerSize8Percent" parent="">
         <item name="cornerSize">8%</item>
     </style>
-    <style name="myInputText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-        <item name="boxBackgroundColor">@color/inputBox</item>
+    <style name="myInputTextDisabled" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxBackgroundColor">@color/inputBoxDisabeld</item>
+    </style>
+
+    <style name="myInputTextAble" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxBackgroundColor">@color/inputBoxAble</item>
     </style>
 </resources>

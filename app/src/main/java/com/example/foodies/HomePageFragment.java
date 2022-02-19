@@ -9,6 +9,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -18,10 +19,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Post;
 import com.squareup.picasso.Picasso;
@@ -123,7 +124,7 @@ public class HomePageFragment extends Fragment {
 
             Model.instance.getUserByEmail(post.getUserEmail(), user -> {
                 userName.setText(user.getFullName());
-                if (!user.getImage().equals("myImg")){
+                if (!user.getImage().equals("myImg")) {
                     Picasso.get()
                             .load(user.getImage())
                             .into(userImage);
@@ -154,6 +155,7 @@ public class HomePageFragment extends Fragment {
     class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         OnItemClickListener listener;
+
         public void setOnItemClickListener(OnItemClickListener listener) {
             this.listener = listener;
         }
@@ -161,14 +163,6 @@ public class HomePageFragment extends Fragment {
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-            int layoutName;
-            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-                layoutName = R.layout.post_list_row;
-            }
-            else{
-                layoutName = R.layout.horizontal_post_list_row;
-            }
 
             View view = getLayoutInflater().inflate(R.layout.post_list_row, parent, false);
             MyViewHolder holder = new MyViewHolder(view, listener);
@@ -195,28 +189,25 @@ public class HomePageFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.allmenu,menu);
+        inflater.inflate(R.menu.allmenu, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.Exit){
+        if (item.getItemId() == R.id.Exit) {
             Model.instance.UserLogout();
             getActivity().finish();
             return true;
-        }else if(item.getItemId() == R.id.NewPostFragment) {
+        } else if (item.getItemId() == R.id.NewPostFragment) {
             NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalNewPostFragment());
             return true;
-        }
-        else if(item.getItemId() == R.id.ProfileFragment) {
+        } else if (item.getItemId() == R.id.ProfileFragment) {
             NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalProfileFragment());
             return true;
-        }
-        else if(item.getItemId() == R.id.HomePageFragment){
+        } else if (item.getItemId() == R.id.HomePageFragment) {
             NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalHomePage());
             return true;
-        }
-        else{
+        } else {
             return super.onOptionsItemSelected(item);
         }
     }

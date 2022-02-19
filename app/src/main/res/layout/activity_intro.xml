@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".IntroActivity">
 
-
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/imageView"
         android:layout_width="317dp"

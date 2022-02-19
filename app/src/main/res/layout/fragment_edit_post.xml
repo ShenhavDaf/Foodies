@@ -10,31 +10,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--*********************************** Title ***********************************-->
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Edit Post"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!--*********************************** Dish Name ***********************************-->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/dishname_layout"
+            style="@style/myInputTextAble"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="60dp"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editpost_dishname_et"
@@ -48,9 +35,9 @@
                 app:layout_constraintEnd_toEndOf="parent" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--*********************************** Restaurant ***********************************-->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/restaurant_name_layout"
+            style="@style/myInputTextAble"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -73,10 +60,9 @@
                 app:layout_constraintEnd_toEndOf="parent" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--*********************************** Address ***********************************-->
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/restaurant_address_layout"
+            style="@style/myInputTextAble"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -95,10 +81,9 @@
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--*********************************** Description ***********************************-->
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/description_layout"
+            style="@style/myInputTextAble"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -115,10 +100,9 @@
                 android:maxLines="10" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--*********************************** Review ***********************************-->
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/review_layout"
+            style="@style/myInputTextAble"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -135,26 +119,27 @@
                 android:hint="@string/your_review" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--*********************************** Category ***********************************-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/category_layout"
             android:layout_width="394dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:background="@color/inputBoxAble"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            android:background="@color/myGray"
             app:layout_constraintTop_toBottomOf="@+id/review_layout">
 
             <TextView
                 android:id="@+id/category_lable"
-                android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_width="105dp"
+                android:layout_height="45dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
                 android:text="Category:"
+                android:textColor="@color/ActionBar9"
                 android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -168,8 +153,6 @@
                 app:layout_constraintStart_toEndOf="@+id/category_lable"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!--*********************************** image , gallery , camera , rate ***********************************-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/img_rate_layout"
@@ -186,7 +169,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Image:"
+                android:textColor="@color/ActionBar9"
                 android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -236,7 +221,7 @@
                 android:layout_height="42dp"
                 android:layout_marginStart="44dp"
                 android:layout_marginTop="16dp"
-                android:background="#2FA1A1A1"
+                android:background="@color/inputBoxAble"
                 app:layout_constraintStart_toEndOf="@+id/textView25"
                 app:layout_constraintTop_toBottomOf="@+id/editpost_dishimg_img" />
 
@@ -247,41 +232,26 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="Rate:"
+                android:textColor="@color/ActionBar9"
                 android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editpost_dishimg_img" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-        <!--*********************************** buttons ***********************************-->
-
-        <ImageButton
-            android:id="@+id/editpost_delete_btn"
-            android:layout_width="54dp"
-            android:layout_height="61dp"
-            android:layout_marginStart="92dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:padding="8dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/delete_icon"
-            android:tooltipText="Delete Post"
-            app:layout_constraintBottom_toTopOf="@+id/dishname_layout"
-            app:layout_constraintStart_toEndOf="@+id/title"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
 
         <Button
             android:id="@+id/editpost_save_btn"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginTop="15dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="15dp"
             android:text="@string/save_changes"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.969"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_rate_layout"
             app:layout_constraintVertical_bias="0.0" />
@@ -291,6 +261,7 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="94dp"
             android:layout_height="98dp"
+            android:indeterminateTint="@color/myProgressBar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.501"
@@ -298,6 +269,21 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.326" />
 
+        <ImageButton
+            android:id="@+id/editpost_delete_btn"
+            android:layout_width="54dp"
+            android:layout_height="61dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="10dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:padding="15dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/delete_icon"
+            android:tooltipText="Delete Post"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_rate_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,7 +35,7 @@ import java.util.List;
 
 public class EditPostFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    TextView dishName, restaurent, address, description, review;
+    TextView dishName, restaurant, address, description, review;
     ImageView dishImg;
     Spinner category, rate;
     Button saveBtn;
@@ -62,7 +63,7 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
         View view = inflater.inflate(R.layout.fragment_edit_post, container, false);
 
         dishName = view.findViewById(R.id.editpost_dishname_et);
-        restaurent = view.findViewById(R.id.editpost_restaurant_et);
+        restaurant = view.findViewById(R.id.editpost_restaurant_et);
         address = view.findViewById(R.id.editpost_address_et);
         category = view.findViewById(R.id.editpost_category_spinner);
         description = view.findViewById(R.id.editpost_description_et);
@@ -75,7 +76,7 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
         /* *************************************** Current Post *************************************** */
 
         dishName.setText(currPost.getDishName());
-        restaurent.setText(currPost.getRestaurant());
+        restaurant.setText(currPost.getRestaurant());
         address.setText(currPost.getAddress());
 
         ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter
@@ -173,14 +174,49 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
         deleteBtn.setEnabled(false);
 
         String name = dishName.getText().toString();
-        String res = restaurent.getText().toString();
+        String res = restaurant.getText().toString();
         String addr = address.getText().toString();
         String categor = category.getSelectedItem().toString();
         String desc = description.getText().toString();
         String rev = review.getText().toString();
         String rateing = rate.getSelectedItem().toString();
-
         String img = currPost.getImage();
+
+        if (name.isEmpty()) {
+            dishName.setError("Please enter the name of the dish");
+            dishName.requestFocus();
+            return;
+        }
+        if (res.isEmpty()) {
+            restaurant.setError("Please enter the name of the restaurant");
+            restaurant.requestFocus();
+            return;
+        }
+        if (addr.isEmpty()) {
+            address.setError("Please enter restaurant address");
+            address.requestFocus();
+            return;
+        }
+        if (desc.isEmpty()) {
+            description.setError("Please enter dish description");
+            description.requestFocus();
+            return;
+        }
+        if (rev.isEmpty()) {
+            review.setError("Please enter your review");
+            review.requestFocus();
+            return;
+        }
+        if (categor.equals("Select:")) {
+            String msg = "No category selected\nPlease select";
+            AlertFunc(msg);
+            return;
+        }
+        if (rateing.equals("Select:")) {
+            String msg = "No rating selected\nPlease select";
+            AlertFunc(msg);
+            return;
+        }
 
         Post newPost = new Post(postID, name, res, addr, categor, desc, rev, img, rateing, currUserEmail, true);
 
@@ -192,6 +228,16 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
         } else {
             editNavigation(newPost, v);
         }
+    }
+
+    private void AlertFunc(String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+        builder.setNegativeButton("OK", (dialog, which) -> dialog.cancel());
+
+        AlertDialog alert = builder.create();
+        alert.setTitle("Error");
+        alert.setMessage("\n" + msg + "\n");
+        alert.show();
     }
 
     private void editNavigation(Post newPost, View v) {
@@ -230,8 +276,7 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
                 Model.instance.getCurrentUserModel().setPostList(l);
 
                 navigateTo(v);
-            }
-            else{
+            } else {
                 progressBar.setVisibility(View.GONE);
                 saveBtn.setEnabled(true);
                 deleteBtn.setEnabled(true);

@@ -2,9 +2,7 @@ package com.example.foodies.model;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.util.Log;
 import android.widget.Toast;
-
 import com.example.foodies.MyApplication;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -216,8 +214,7 @@ public class ModelFirebase {
                     } else {
                         listener.onComplete(null);
                     }
-                })
-        .addOnFailureListener(command -> Toast.makeText(MyApplication.getContext(), "Internet connection problem, please try again later", Toast.LENGTH_SHORT).show());
+                });
     }
 
     /* -------------------------------------------------------------------------- */

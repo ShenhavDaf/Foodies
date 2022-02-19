@@ -3,9 +3,10 @@ package com.example.foodies.model;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FieldValue;
-import java.util.Calendar;
+
 import java.util.HashMap;
 import java.util.Map;
 

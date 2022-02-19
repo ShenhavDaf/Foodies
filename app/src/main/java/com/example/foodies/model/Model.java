@@ -4,14 +4,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
-
 import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-
 import com.example.foodies.MyApplication;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -135,25 +131,6 @@ public class Model {
         return null;
     }
 
-    public interface GetPostByIdListener {
-        void onComplete(Post post);
-    }
-
-//    public Post getPostById(String postId, GetPostByIdListener listener) {
-//        modelFirebase.getPostById(postId, listener);
-//        return null;
-//    }
-
-    /* ----------------------------------------------------- */
-
-//    public interface GetPostsListSizeListener {
-//        void onComplete(int size);
-//    }
-
-//    public void getPostsListSize(GetPostsListSizeListener listener) {
-//        modelFirebase.getPostsListSize(listener);
-//    }
-
     /* ----------------------------------------------------- */
     public interface GetNextPostIdListener {
         void onComplete(String lastId);
@@ -203,16 +180,6 @@ public class Model {
     public void getUserByEmail(String email, GetUserByEmailListener listener) {
         modelFirebase.getUserByEmail(email, listener);
     }
-
-    /* ----------------------------------------------------- */
-
-//    public interface GetUserPostsListener {
-//        void onComplete(List<Post> list);
-//    }
-//
-//    public void getUserPosts(User user, GetUserPostsListener listener) {
-//        modelFirebase.getUserPosts(user, listener);
-//    }
 
     /* ----------------------------------------------------- */
 

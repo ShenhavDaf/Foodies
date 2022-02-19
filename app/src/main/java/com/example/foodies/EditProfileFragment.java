@@ -133,6 +133,17 @@ public class EditProfileFragment extends Fragment {
         String mycity = city.getText().toString();
         String img = currUser.getImage();
 
+        if (name.isEmpty()) {
+            fullName.setError("Please enter the name of the dish");
+            fullName.requestFocus();
+            return;
+        }
+        if (mycity.isEmpty()) {
+            city.setError("Please enter the name of the restaurant");
+            city.requestFocus();
+            return;
+        }
+
         List<String> list = currUser.getPostList();
         User newUser = new User(currUser.getEmail(), name, mycity, img, list);
 

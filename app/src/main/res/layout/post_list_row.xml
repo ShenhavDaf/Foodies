@@ -16,7 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/listrow_avatar_imv"
             android:layout_width="70dp"

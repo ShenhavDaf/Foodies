@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -156,13 +157,12 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
     private void myNavigation(Post newPost) {
         Model.instance.addPost(newPost, currUserEmail, (isSuccess) -> {
 
-            if(isSuccess) {
+            if (isSuccess) {
                 List<String> l = Model.instance.getCurrentUserModel().getPostList();
                 l.add(newPost.getId());
                 Model.instance.getCurrentUserModel().setPostList(l);
                 Navigation.findNavController(dishName).navigateUp();
-            }
-            else{
+            } else {
                 progressBar.setVisibility(View.GONE);
                 postBtn.setEnabled(true);
                 Toast.makeText(MyApplication.getContext(), "Internet connection problem, please try again later", Toast.LENGTH_SHORT).show();
@@ -207,6 +207,16 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
             review.requestFocus();
             return;
         }
+        if (categor.equals("Select:")) {
+            String msg = "No category selected\nPlease select";
+            AlertFunc(msg);
+            return;
+        }
+        if (rateing.equals("Select:")) {
+            String msg = "No rating selected\nPlease select";
+            AlertFunc(msg);
+            return;
+        }
 
         postBtn.setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
@@ -226,6 +236,16 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
                 myNavigation(newPost);
             }
         });
+    }
+
+    private void AlertFunc(String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+        builder.setNegativeButton("OK", (dialog, which) -> dialog.cancel());
+
+        AlertDialog alert = builder.create();
+        alert.setTitle("Error");
+        alert.setMessage("\n" + msg + "\n");
+        alert.show();
     }
 
     /* ************* Spinner Functions ************* */
