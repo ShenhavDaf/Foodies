@@ -11,11 +11,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -24,11 +26,17 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.foodies.MainActivity;
+import com.example.foodies.MyApplication;
 import com.example.foodies.R;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.User;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 public class SignUpFragment extends Fragment {
 
@@ -110,6 +118,40 @@ public class SignUpFragment extends Fragment {
                 }
             }
         }
+    }
+
+
+    private void saveImageToFile(Bitmap imageBitmap, String imageFileName){
+        try {
+            File dir = Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_PICTURES);
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+            File imageFile = new File(dir,imageFileName);
+            imageFile.createNewFile();
+            OutputStream out = new FileOutputStream(imageFile);
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.close();
+            addPicureToGallery(imageFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addPicureToGallery(File imageFile){
+        //add the picture to the gallery so we dont need to manage the cache size
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri contentUri = Uri.fromFile(imageFile);
+        mediaScanIntent.setData(contentUri);
+        MyApplication.getContext().sendBroadcast(mediaScanIntent);
+    }
+
+    private String getLocalImageFileName(String url) {
+        String name = URLUtil.guessFileName(url, null, null);
+        return name;
     }
 
     /* ************************************** Function ************************************** */
@@ -200,6 +242,7 @@ public class SignUpFragment extends Fragment {
         if (imageBitmap != null) {
             Model.instance.setImage(imageBitmap, email + ".jpg", "/users_avatars/", url -> {
                 newUserDetails.setImage(url);
+                saveImageToFile(imageBitmap, getLocalImageFileName(url));
                 myNavigation(newUserDetails, email, password);
             });
         } else {

@@ -15,6 +15,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,6 +23,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.URLUtil;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -37,8 +39,12 @@ import com.example.foodies.R;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Post;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 public class NewPostFragment extends Fragment implements AdapterView.OnItemSelectedListener {
@@ -153,6 +159,39 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
         }
     }
 
+    private void saveImageToFile(Bitmap imageBitmap, String imageFileName){
+        try {
+            File dir = Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_PICTURES);
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+            File imageFile = new File(dir,imageFileName);
+            imageFile.createNewFile();
+            OutputStream out = new FileOutputStream(imageFile);
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.close();
+            addPicureToGallery(imageFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addPicureToGallery(File imageFile){
+        //add the picture to the gallery so we dont need to manage the cache size
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri contentUri = Uri.fromFile(imageFile);
+        mediaScanIntent.setData(contentUri);
+        MyApplication.getContext().sendBroadcast(mediaScanIntent);
+    }
+
+    private String getLocalImageFileName(String url) {
+        String name = URLUtil.guessFileName(url, null, null);
+        return name;
+    }
+
     /* ********************************* Functions ********************************* */
 
     private void myNavigation(Post newPost) {
@@ -231,6 +270,7 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
 
                 Model.instance.setImage(imageBitmap, nextId + ".jpg", "/posts_images/", url -> {
                     newPost.setImage(url);
+                    saveImageToFile(imageBitmap, getLocalImageFileName(url));
                     myNavigation(newPost);
                 });
             } else {
