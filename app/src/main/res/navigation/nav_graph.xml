@@ -65,8 +65,7 @@
     <action
         android:id="@+id/action_global_homePage"
         app:destination="@id/homePage"
-        app:popUpTo="@id/homePage"
-        app:popUpToInclusive="true" />
+        app:popUpTo="@id/homePage" />
     <action android:id="@+id/action_global_newPostFragment" app:destination="@id/newPostFragment" />
     <action
         android:id="@+id/action_global_profileFragment"

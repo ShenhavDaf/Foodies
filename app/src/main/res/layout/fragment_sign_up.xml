@@ -145,7 +145,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/signin_image_img"
                 android:layout_width="174dp"
                 android:layout_height="114dp"
@@ -154,6 +154,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/signin_camera_btn"
                 app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize8Percent"
                 app:layout_constraintVertical_bias="1.0" />
 
             <ImageButton
