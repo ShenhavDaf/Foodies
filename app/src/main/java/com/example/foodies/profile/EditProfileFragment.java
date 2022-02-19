@@ -118,8 +118,7 @@ public class EditProfileFragment extends Fragment {
                     profileImage.setImageBitmap(imageBitmap);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(getContext(), "Failed", Toast.LENGTH_LONG).show();
-                    System.out.println("failed to get to the photo");
+                    Toast.makeText(getContext(), "Error uploading image", Toast.LENGTH_LONG).show();
                 }
             }
         }

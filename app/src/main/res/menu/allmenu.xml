@@ -5,26 +5,26 @@
     <item
         android:id="@+id/NewPostFragment"
         android:checkable="false"
-        android:icon="@drawable/add_icon"
+        android:icon="@drawable/add_icon_white"
         android:title="New Post"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/HomePageFragment"
-        android:icon="@drawable/home_icon"
+        android:icon="@drawable/home_icon_white"
         android:title="Home"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/ProfileFragment"
-        android:icon="@drawable/user_icon"
+        android:icon="@drawable/user_icon_white"
         android:title="My Profile"
         app:showAsAction="always"/>
 
 
     <item
         android:id="@+id/Exit"
-        android:icon="@drawable/logout_icon"
+        android:icon="@drawable/logout_icon_white"
         android:title="Exit"
         app:showAsAction="always" />
 </menu>

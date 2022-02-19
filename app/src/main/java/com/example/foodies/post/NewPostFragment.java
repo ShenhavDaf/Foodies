@@ -147,8 +147,7 @@ public class NewPostFragment extends Fragment implements AdapterView.OnItemSelec
                     image.setImageBitmap(imageBitmap);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(getContext(), "Failed", Toast.LENGTH_LONG).show();
-                    System.out.println("failed to get to the photo");
+                    Toast.makeText(getContext(), "Error uploading image", Toast.LENGTH_LONG).show();
                 }
             }
         }

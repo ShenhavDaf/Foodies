@@ -106,7 +106,7 @@ public class SignUpFragment extends Fragment {
                     image.setImageBitmap(imageBitmap);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(getContext(), "Failed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Error uploading image", Toast.LENGTH_LONG).show();
                 }
             }
         }

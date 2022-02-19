@@ -75,12 +75,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        if (viewModel.getData().getValue() != null) {
-            for (int i = 0; i < viewModel.getData().getValue().size(); i++) {
-                System.out.println(viewModel.getData().getValue().get(i).getDishName());
-            }
-        }
-
         fullNameTv.setText(Model.instance.getCurrentUserModel().getFullName());
         cityTv.setText(Model.instance.getCurrentUserModel().getCity());
 
