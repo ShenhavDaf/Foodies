@@ -1,4 +1,4 @@
-package com.example.foodies;
+package com.example.foodies.post;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -32,6 +32,8 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.foodies.MyApplication;
+import com.example.foodies.R;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Post;
 

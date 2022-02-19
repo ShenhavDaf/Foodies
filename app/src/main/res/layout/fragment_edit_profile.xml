@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditProfileFragment">
+    tools:context=".profile.EditProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -28,6 +28,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Full Name"
+                android:inputType="textPersonName"
+                android:maxLines="1"
                 android:textColorHint="#0C0202"
                 android:textColorLink="@color/ActionBar9"
                 android:textStyle="normal" />
@@ -50,6 +52,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="City"
+                android:inputType="textPersonName"
+                android:maxLines="1"
                 android:textColorLink="@color/ActionBar9"
                 android:textStyle="normal" />
         </com.google.android.material.textfield.TextInputLayout>

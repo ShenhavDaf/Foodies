@@ -1,17 +1,14 @@
-package com.example.foodies;
+package com.example.foodies.profile;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,44 +16,76 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.foodies.R;
+import com.example.foodies.home.HomePageFragmentDirections;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Post;
+import com.example.foodies.model.User;
 import com.squareup.picasso.Picasso;
 
-public class HomePageFragment extends Fragment {
+public class ProfileFragment extends Fragment {
 
-    private final static String SOURCE_PAGE = "homepage";
-    HomePageViewModel viewModel;
-
+    private final static String SOURCE_PAGE = "profilepage";
+    ProfileViewModel viewModel;
     MyAdapter adapter;
-    SwipeRefreshLayout swipeRefresh;
-    TextView userName;
+
+    Button editProfileBtn;
+    TextView fullNameTv, cityTv;
+    ImageView image;
+
+    User currUserFromModel;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        viewModel = new ViewModelProvider(this).get(HomePageViewModel.class);
+        viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_home_page, container, false);
+        currUserFromModel = Model.instance.getCurrentUserModel();
 
-        userName = view.findViewById(R.id.home_user_name);
-        userName.setText(Model.instance.getCurrentUserModel().getFullName());
+        /* ********************************** View Items ********************************** */
+
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        fullNameTv = view.findViewById(R.id.profile_fullname_tv);
+        cityTv = view.findViewById(R.id.profile_city_tv);
+        image = view.findViewById(R.id.profile_img);
+
+        if (!currUserFromModel.getImage().equals("myImg")) {
+            Picasso.get()
+                    .load(currUserFromModel.getImage())
+                    .into(image);
+        }
+
+        editProfileBtn = view.findViewById(R.id.profile_editprofile_btn);
+        editProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editProfile(v);
+            }
+        });
+
+        if (viewModel.getData().getValue() != null) {
+            for (int i = 0; i < viewModel.getData().getValue().size(); i++) {
+                System.out.println(viewModel.getData().getValue().get(i).getDishName());
+            }
+        }
+
+        fullNameTv.setText(Model.instance.getCurrentUserModel().getFullName());
+        cityTv.setText(Model.instance.getCurrentUserModel().getCity());
 
         /* ***************************** Post List - Recycler View ***************************** */
 
-        swipeRefresh = view.findViewById(R.id.postlist_swiperefresh);
-        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshPostsList());
-
-        RecyclerView list = view.findViewById(R.id.postlist_rv);
+        RecyclerView list = view.findViewById(R.id.profile_postslist_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new MyAdapter();
@@ -66,40 +95,34 @@ public class HomePageFragment extends Fragment {
             @Override
             public void onItemClick(View v, int position) {
                 String postId = viewModel.getData().getValue().get(position).getId();
-                Navigation.findNavController(v).navigate(
-                        HomePageFragmentDirections
-                                .actionHomePageToPostPageFragment(postId, SOURCE_PAGE));
+                Navigation.findNavController(v)
+                        .navigate(ProfileFragmentDirections
+                                .actionProfileFragmentToEditPostFragment(postId, SOURCE_PAGE));
             }
         });
 
+        setHasOptionsMenu(true);
         viewModel.getData().observe(getViewLifecycleOwner(), posts -> refresh());
 
-        swipeRefresh.setRefreshing(
-                Model.instance.getPostsListLoadingState().getValue() == Model.LoadingState.loading);
-
-        Model.instance.getPostsListLoadingState()
-                .observe(getViewLifecycleOwner(), loadingState -> {
-
-                    if (loadingState == Model.LoadingState.loading) {
-                        swipeRefresh.setRefreshing(true);
-                    } else {
-                        swipeRefresh.setRefreshing(false);
-                    }
-                });
-
-        setHasOptionsMenu(true);
         return view;
+    }
+
+    /* ********************************* Function/ Navigation ********************************* */
+
+    private void editProfile(View view) {
+        Navigation.findNavController(view)
+                .navigate(ProfileFragmentDirections
+                        .actionProfileFragmentToEditProfileFragment());
     }
 
     private void refresh() {
         adapter.notifyDataSetChanged();
-        swipeRefresh.setRefreshing(false);
     }
 
-    /* *************************************** Holder *************************************** */
+    /* ********************************* My View Holder ********************************* */
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView userName, description;
+        TextView dishName, description;
         RatingBar rateStar;
         ImageView userImage, dishImage;
 
@@ -107,32 +130,32 @@ public class HomePageFragment extends Fragment {
             super(itemView);
 
             userImage = itemView.findViewById(R.id.listrow_avatar_imv);
-            userName = itemView.findViewById(R.id.listrow_username_tv);
+            dishName = itemView.findViewById(R.id.listrow_username_tv);
             description = itemView.findViewById(R.id.listrow_description_tv);
             dishImage = itemView.findViewById(R.id.listrow_post_img);
             rateStar = itemView.findViewById(R.id.listrow_ratingBar);
             rateStar.setClickable(false);
             rateStar.setEnabled(false);
 
-            itemView.setOnClickListener(v -> {
-                int pos = getAdapterPosition();
-                listener.onItemClick(v, pos);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    listener.onItemClick(v, pos);
+                }
             });
         }
 
-        public void bind(Post post) {
+        public void myBind(Post post) {
 
-            Model.instance.getUserByEmail(post.getUserEmail(), user -> {
-                userName.setText(user.getFullName());
-                if (!user.getImage().equals("myImg")) {
-                    Picasso.get()
-                            .load(user.getImage())
-                            .into(userImage);
-                }
-            });
+            if (Model.instance.getCurrentUserModel().getImage() != "myImg") {
+                Picasso.get()
+                        .load(Model.instance.getCurrentUserModel().getImage())
+                        .into(userImage);
+            }
 
-            description.setText(post.getDishName());
-            rateStar.setRating(Integer.parseInt(post.getRate()));
+            dishName.setText(post.getDishName());
+            description.setText(post.getDescription());
 
             if (post.getImage().equals("myImg")) {
                 Picasso.get()
@@ -143,10 +166,12 @@ public class HomePageFragment extends Fragment {
                         .load(post.getImage())
                         .into(dishImage);
             }
+
+            rateStar.setRating(Integer.parseInt(post.getRate()));
         }
     }
 
-    /* *************************************** Adapter *************************************** */
+    /* ********************************* Adapter ********************************* */
 
     interface OnItemClickListener {
         void onItemClick(View v, int position);
@@ -163,7 +188,7 @@ public class HomePageFragment extends Fragment {
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
+            
             View view = getLayoutInflater().inflate(R.layout.post_list_row, parent, false);
             MyViewHolder holder = new MyViewHolder(view, listener);
             return holder;
@@ -172,7 +197,7 @@ public class HomePageFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             Post post = viewModel.getData().getValue().get(position);
-            holder.bind(post);
+            holder.myBind(post);
         }
 
         @Override
@@ -184,24 +209,21 @@ public class HomePageFragment extends Fragment {
         }
     }
 
-    /* *************************************** Menu Functions *************************************** */
+    /* ********************************* Function/ Menu ********************************* */
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.allmenu, menu);
+        inflater.inflate(R.menu.bottom_nav_menu, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.Exit) {
-            Model.instance.UserLogout();
-            getActivity().finish();
-            return true;
-        } else if (item.getItemId() == R.id.NewPostFragment) {
+        if (item.getItemId() == R.id.NewPostFragment) {
             NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalNewPostFragment());
             return true;
-        } else if (item.getItemId() == R.id.ProfileFragment) {
+        }
+        if (item.getItemId() == R.id.ProfileFragment) {
             NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalProfileFragment());
             return true;
         } else if (item.getItemId() == R.id.HomePageFragment) {
@@ -211,5 +233,5 @@ public class HomePageFragment extends Fragment {
             return super.onOptionsItemSelected(item);
         }
     }
-}
 
+}

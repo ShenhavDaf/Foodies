@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewPostFragment">
+    tools:context=".post.NewPostFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -27,6 +27,8 @@
                 android:id="@+id/newpost_dishname_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1"
                 android:hint="@string/dish_name_input"
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -48,6 +50,8 @@
                 android:id="@+id/newpost_restaurant_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1"
                 android:hint="@string/restaurant_name_input"
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -69,6 +73,8 @@
                 android:id="@+id/newpost_address_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1"
                 android:hint="@string/restaurant_address_input"
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>

@@ -1,4 +1,4 @@
-package com.example.foodies;
+package com.example.foodies.home;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;

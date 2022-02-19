@@ -1,4 +1,4 @@
-package com.example.foodies;
+package com.example.foodies.post;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.foodies.R;
+import com.example.foodies.home.HomePageFragmentDirections;
 import com.example.foodies.model.Model;
 import com.example.foodies.model.Post;
 import com.squareup.picasso.Picasso;
