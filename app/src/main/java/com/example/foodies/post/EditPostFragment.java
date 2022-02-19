@@ -171,10 +171,6 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
 
     private void save(String postID, View v) {
 
-        progressBar.setVisibility(View.VISIBLE);
-        saveBtn.setEnabled(false);
-        deleteBtn.setEnabled(false);
-
         String name = dishName.getText().toString();
         String res = restaurant.getText().toString();
         String addr = address.getText().toString();
@@ -219,6 +215,10 @@ public class EditPostFragment extends Fragment implements AdapterView.OnItemSele
             AlertFunc(msg);
             return;
         }
+
+        progressBar.setVisibility(View.VISIBLE);
+        saveBtn.setEnabled(false);
+        deleteBtn.setEnabled(false);
 
         Post newPost = new Post(postID, name, res, addr, categor, desc, rev, img, rateing, currUserEmail, true);
 

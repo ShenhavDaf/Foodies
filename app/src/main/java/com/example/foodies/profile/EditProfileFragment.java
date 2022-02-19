@@ -128,24 +128,25 @@ public class EditProfileFragment extends Fragment {
     /* ******************************************************************** */
 
     public void save(View view) {
-        progressBar.setVisibility(View.VISIBLE);
-        saveBtn.setEnabled(false);
+
 
         String name = fullName.getText().toString();
         String mycity = city.getText().toString();
         String img = currUser.getImage();
 
         if (name.isEmpty()) {
-            fullName.setError("Please enter the name of the dish");
+            fullName.setError("Please enter your full name");
             fullName.requestFocus();
             return;
         }
         if (mycity.isEmpty()) {
-            city.setError("Please enter the name of the restaurant");
+            city.setError("Please enter the name of your city");
             city.requestFocus();
             return;
         }
 
+        progressBar.setVisibility(View.VISIBLE);
+        saveBtn.setEnabled(false);
         List<String> list = currUser.getPostList();
         User newUser = new User(currUser.getEmail(), name, mycity, img, list);
 
